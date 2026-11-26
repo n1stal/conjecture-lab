@@ -7,9 +7,9 @@ public import Std
 set_option autoImplicit false
 
 namespace CoinOrder
-def greedyCoins : List Nat → Nat → List Nat
-  | [], _ => []
-  | d :: ds, v => List.replicate (v / d) d ++ greedyCoins ds (v % d)
+noncomputable def greedyCoins : List Nat → Nat → List Nat :=
+  List.rec (fun _ => [])
+    (fun d _ rec v => List.replicate (v / d) d ++ rec (v % d))
 
 def Represents (C : List Nat) (v : Nat) (R : List Nat) : Prop :=
   (∀ x ∈ R, x ∈ C) ∧ R.sum = v
@@ -26,21 +26,18 @@ end CoinOrder
 namespace CoinOrder.Family
 
 /-- The denominations of D, Theorem 4.3. The index starts at 1. -/
-def dValue (r a : Nat) : Nat → Nat
-  | 0 => 0
-  | 1 => 1
-  | 2 => 2
-  | k+3 => dValue r a (k+2) +
-      if 2*r+2 < k+3 then a+1 else if (k+3)%2=0 then 1 else a
+def dValue (r a : Nat) : Nat → Nat :=
+  Nat.rec 0 (fun k prev =>
+    if k = 0 then 1 else if k = 1 then 2 else
+      prev + if 2*r+2 < k+1 then a+1 else if (k+1)%2=0 then 1 else a)
 
 /-- The denominations of G, Definition 5.1. The index starts at 1. -/
-def gValue (r : Nat) : Nat → Nat
-  | 0 => 0
-  | 1 => 1
-  | k+2 => gValue r (k+1) +
-      if 2*r+4 ≤ k+2 then 5 else
-      if k+2 ≤ 5 then (if (k+2)%2=0 then 1 else 2)
-      else (if (k+2)%2=0 then 2 else 3)
+def gValue (r : Nat) : Nat → Nat :=
+  Nat.rec 0 (fun k prev =>
+    if k = 0 then 1 else
+      prev + if 2*r+4 ≤ k+1 then 5 else
+        if k+1 ≤ 5 then (if (k+1)%2=0 then 1 else 2)
+        else (if (k+1)%2=0 then 2 else 3))
 
 def IsD (r : Nat) (C : List Nat) : Prop :=
   C.length=3*r+2 ∧ ∃ a, 2 ≤ a ∧

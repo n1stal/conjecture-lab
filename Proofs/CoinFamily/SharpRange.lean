@@ -18,13 +18,16 @@ private theorem C14_not_D : ¬ IsD 4 C14 := by
   rintro ⟨_,a,_,ha⟩
   have h3 := ha 2 (by decide)
   have h8 := ha 7 (by decide)
-  simp [C14,dValue] at h3 h8
+  rw [d_third 4 a (by decide)] at h3
+  rw [d_eighth 4 a (by decide)] at h8
+  simp [C14] at h3 h8
   omega
 
 private theorem C14_not_G : ¬ IsG 4 C14 := by
   rintro ⟨_,_,ha⟩
   have h6 := ha 5 (by decide)
-  simp [C14,gValue] at h6
+  rw [g_sixth 4 (by decide)] at h6
+  simp [C14] at h6
 
 theorem part3_exclusivity_refuted_ge4 (r : Nat) (hr : 4 ≤ r) :
     ∃ C : List Nat, C.length = 3*r+2 ∧ C.head? = some 1 ∧ C.Pairwise (· < ·) ∧

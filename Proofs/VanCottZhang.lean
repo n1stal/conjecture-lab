@@ -13,9 +13,14 @@ def greedyCount : List Nat → Nat → Nat
   | [], _ => 0
   | d :: ds, v => v / d + greedyCount ds (v % d)
 
-def greedyCoins : List Nat → Nat → List Nat
-  | [], _ => []
-  | d :: ds, v => List.replicate (v / d) d ++ greedyCoins ds (v % d)
+noncomputable def greedyCoins : List Nat → Nat → List Nat :=
+  List.rec (fun _ => [])
+    (fun d _ rec v => List.replicate (v / d) d ++ rec (v % d))
+
+@[simp] private theorem greedyCoins_nil (v : Nat) : greedyCoins [] v = [] := rfl
+
+@[simp] private theorem greedyCoins_cons (d : Nat) (ds : List Nat) (v : Nat) :
+    greedyCoins (d::ds) v = List.replicate (v / d) d ++ greedyCoins ds (v % d) := rfl
 
 def Represents (C : List Nat) (v : Nat) (R : List Nat) : Prop :=
   (∀ x ∈ R, x ∈ C) ∧ R.sum = v
@@ -31,12 +36,12 @@ theorem greedy_length (C : List Nat) (v : Nat) :
   induction C generalizing v with
   | nil => rfl
   | cons d ds ih =>
-    simp [greedyCoins, greedyCount, ih]
+    simp [greedyCount, ih]
 
 private theorem greedy_zero (C : List Nat) : greedyCoins C 0 = [] := by
   induction C with
   | nil => rfl
-  | cons d ds ih => simp [greedyCoins,ih]
+  | cons d ds ih => simp [ih]
 
 private theorem sum_replicate_nat (n x : Nat) :
     (List.replicate n x).sum = n*x := by
@@ -47,10 +52,10 @@ private theorem sum_replicate_nat (n x : Nat) :
 private theorem greedy_members (C : List Nat) (v : Nat) :
     ∀ x ∈ greedyCoins C v, x ∈ C := by
   induction C generalizing v with
-  | nil => simp [greedyCoins]
+  | nil => simp
   | cons d ds ih =>
     intro x hx
-    rw [greedyCoins, List.mem_append] at hx
+    rw [greedyCoins_cons, List.mem_append] at hx
     rcases hx with h | h
     · have hxD : x=d := (List.mem_replicate.mp h).2
       subst x
@@ -62,7 +67,7 @@ private theorem greedy_sum (C : List Nat) (one : 1 ∈ C) (v : Nat) :
   induction C generalizing v with
   | nil => simp at one
   | cons d ds ih =>
-    simp only [greedyCoins,List.sum_append,sum_replicate_nat]
+    simp only [greedyCoins_cons,List.sum_append,sum_replicate_nat]
     have resid : (greedyCoins ds (v % d)).sum = v % d := by
       rcases List.mem_cons.mp one with hd | hs
       · rw [← hd,Nat.mod_one,greedy_zero]; rfl
