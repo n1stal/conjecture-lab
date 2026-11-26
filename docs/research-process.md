@@ -1,11 +1,7 @@
-# Research process
+# Research and publication policy
 
-Inspired by [the Davis–Astra conjecture catalog](https://github.com/1337isnot1337/solved-conjectures), this project keeps active searches separate from the public results table. Running more attempts is useful only if the results can be checked without trusting the solver.
-
-1. **Intake.** Save the exact statement, a pinned primary source or version, the known cases, and a prior-resolution search. A catalog marked “open” can lag a proof or counterexample.
-2. **Search in parallel, verify separately.** Give each attempt a fixed target and budget. Favor families that stress the assumptions. Use exact arithmetic for discrete witnesses. Save seeds, commands, finite coverage, failures and timeouts; separate them from theorem statements.
-3. **Check the claim.** For a counterexample, independently check every hypothesis and the violated conclusion. For a proof, recompute the key identities and try to break the small cases and edge cases. Record which parts Lean, a certificate, or a separate reader actually checked.
-4. **Publish only the reviewed scope.** Keep work-in-progress in scratch or a research branch. Promote a specific result note with source, proof or witness, replay and known limits, and update the README, catalogue and verification guide together. Never describe an exhausted search as a proof or a special case as the full problem.
-5. **Close the loop.** Verify that the published result and checks match the intended commit. Share the link only once it is live.
-
-See the [intake template](../templates/conjecture.md), [run log](../templates/run.md), and [verification guide](verification.md).
+1. Pin the primary statement and version, including every hypothesis. Record exact computations and incomplete arguments privately, not as public results.
+2. Search for prior resolutions before working and again before publishing. Check primary literature, updated preprints, reference chains, problem databases, Lean repositories, and issue threads. Search alternate names and mathematically equivalent statements. Record the date and what sources were checked.
+3. Cite and credit prior results, including independently rediscovered ones. A new proof of a known theorem must say what is new about the proof, not claim the theorem was open. If priority remains unclear, say so; a search cannot prove that no proof exists.
+4. Machine-check the **exact public statement** in Lean, without `sorry`, custom axioms, or trust shortcuts. A finite witness or a conditional lemma does not justify publishing a general claim. A separate reviewer must compare the theorem declaration to the prose and source hypotheses.
+5. Register each approved result with its Lean declarations and source audit, then run the publication gate. Publish only the reviewed scope. Keep draft branches local or private. The [Davis–Astra catalogue](https://github.com/1337isnot1337/solved-conjectures) inspired the research/publication separation.

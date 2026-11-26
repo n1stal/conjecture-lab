@@ -1,0 +1,11 @@
+[
+  {
+    "id": "property-p-baseline",
+    "title": "Property P: the finite witness {1, 2}",
+    "scope": "The set {1, 2} has Property P and its reciprocal sum is 3/2. This is not a search certificate or an upper bound.",
+    "declarations": ["ConjectureLab.baseline_valid", "ConjectureLab.baseline_weight"],
+    "priority_audit": "results/property-p-baseline/audit.md",
+    "disposition": "known-baseline",
+    "sources": ["https://www.erdosproblems.com/12", "https://hexagonmath.org/2611.00765v1"]
+  }
+]
