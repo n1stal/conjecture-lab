@@ -2,6 +2,10 @@
 
 Evidence levels refer to a stated result, not the name of the broader conjecture. See the [verification guide](docs/verification.md) for commands and definitions.
 
+## Matroid inverse Z-polynomials
+
+- **Written partial proof, separately AI-reviewed:** [Gao–Ruan–Xie log-concavity through rank four](problems/inverse-z-rank-four.md). The argument applies beyond binary and sparse paving matroids. [Exact experimental cross-checks](problems/inverse-z-rank-four.md#computational-checks).
+
 ## Digraph Laplacian spectra
 
 - **Exact computation:** [All order-six unweighted standardized Laplacians have spectrum in the proposed polygon](problems/chebotarev-q2.md#exact-containment-in-the-entire-order-six-polygon). The [height/strip certificate](problems/chebotarev-q2.md#exact-unweighted-certificate-at-order-six) is a separate verifier.

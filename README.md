@@ -8,11 +8,12 @@ Reproducible experiments and partial proofs in discrete mathematics. Each result
 
 | Result | Evidence | What remains |
 | --- | --- | --- |
+| [Inverse Z-polynomials of matroids are log-concave through rank four](problems/inverse-z-rank-four.md) | **Written partial proof, separately AI-reviewed.** A deletion argument applies to arbitrary matroids; exact binary computations are separate checks. | Higher ranks remain outside the proof. Not Lean-formalized; no priority claim. |
 | [Six-vertex unweighted digraph Laplacians stay inside the spectral polygon](problems/chebotarev-q2.md#exact-containment-in-the-entire-order-six-polygon) | **Exact computation.** 4,241,864 representatives and 44,729 distinct quotient characteristic polynomials; integer checks on every supporting line. [Reproduce](docs/verification.md#six-vertex-spectral-polygon) | Fractional arc weights are not covered. The general weighted horizontal-edge question remains open in the sources checked. |
 | [A centrally symmetric strictly convex octagon has a vertex that sees at least four distances](problems/erdos-982.md#extension-central-symmetry-alone) | **Written partial proof, separately AI-reviewed.** Also tested finite square and triangular lattice patches exactly. [Reproduce](docs/verification.md#erdős-982-convex-octagons) | Arbitrary strictly convex octagons are not covered. No Lean check or external referee report. |
 | [The maximum Property P reciprocal sum is 3/2 through 300](conjectures/property-p-sharp.md) | **Exact finite search.** 951,769 nodes. Stored reports, witness checker, exact replay, and independent small-instance oracle. [Reproduce](docs/verification.md#property-p-reciprocal-sums) | The sharp bound for all positive integers remains unproved here. The run through 500 was capped. |
 
-[Full catalogue](CONTENTS.md) · [Verification guide](docs/verification.md) · [Sources and citation](docs/provenance.md)
+[Full catalogue](CONTENTS.md) · [Verification guide](docs/verification.md) · [Sources and citation](docs/provenance.md) · [Research process](docs/research-process.md)
 
 ## Run another search
 

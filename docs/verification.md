@@ -44,3 +44,7 @@ Lean source: [PropertyP.lean](../Proofs/PropertyP.lean). With [elan](https://lea
 - **Written proof:** an argument for the exact stated scope. **AI-reviewed** means a separate AI pass reviewed it, not expert refereeing or formal verification.
 - **Exploratory:** sampling, floating-point scouting or interrupted enumeration. Failure to find a witness is not a bound.
 - **Lean source / verified:** source code is not a verification receipt. A result should be described as Lean-verified only after building the exact theorem and auditing its assumptions.
+
+## Inverse Z-polynomials
+
+Replay the binary census with `python experiments/inverse_z_binary.py --rank4-all`. This checks the coefficient formula in a finite family; the [written proof](../problems/inverse-z-rank-four.md) is what covers all matroids through rank four.

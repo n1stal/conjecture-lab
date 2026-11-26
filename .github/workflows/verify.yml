@@ -31,6 +31,8 @@ jobs:
           "$workdir/exact6" > "$workdir/polys.txt"
           python experiments/chebotarev_verify6.py < "$workdir/polys.txt"
           python experiments/chebotarev_verify6_polygon.py < "$workdir/polys.txt"
+      - name: Replay inverse Z-polynomial binary checks
+        run: python experiments/inverse_z_binary.py --rank4-all
   lean:
     runs-on: ubuntu-latest
     timeout-minutes: 10
