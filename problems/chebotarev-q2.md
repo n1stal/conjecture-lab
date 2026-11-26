@@ -1,6 +1,6 @@
 # Chebotarev's even-order Laplacian height question
 
-**Status:** General weighted question remains open in the sources checked on 2026-11-26. The family result below is a written proof, not Lean-verified; independent review and novelty are not established. The census is floating point, not an exact exclusion certificate.
+**Status:** General weighted question remains open in the sources checked on 2026-11-26. The family result below is a written proof, not Lean-verified; independent review and novelty are not established. The order-six unweighted height bound is checked by exhaustive integer arithmetic; the weighted and full-polygon searches remain exploratory.
 
 [Chebotarev, arXiv:2610.14100v4, §7.3, Question 2](https://arxiv.org/html/2610.14100v4#S7.SS3) asks whether the maximum imaginary part of an eigenvalue of a standardized $n\times n$ digraph Laplacian at even $n$ is $n^{-1}\cot(\pi/n)$. Such an $L$ has $L_{ij}=-a_{ij}$ for $i\ne j$, $a_{ij}\in[0,1/n]$, and each row sums to zero. Order four is already settled in v4; earlier versions reporting it open are stale. The companion [arXiv:2611.02249, §7](https://arxiv.org/html/2611.02249#S7) reports local optimization at orders 6 and 8, and the original paper reports a second-order perturbative obstruction in the horizontal direction. Neither observation rules out a nonlocal counterexample.
 
@@ -55,4 +55,28 @@ A separate seeded multistart experiment uses SciPy:
 OPENBLAS_NUM_THREADS=1 python experiments/chebotarev_weighted.py
 ~~~
 
-No height violation was found in 100 starts at each of $n=6,8,10,12,16$, including random matrices and perturbations of the half-circulant. This is exploratory evidence, not exhaustive coverage of weights. A next test is to certify the unweighted census with exact characteristic-polynomial strip tests; the full question still allows fractional weights.
+No height violation was found in 100 starts at each of $n=6,8,10,12,16$, including random matrices and perturbations of the half-circulant. This is exploratory evidence, not exhaustive coverage of weights. The full question still allows fractional weights.
+
+## Exact unweighted certificate at order six
+
+The floating-point height screen above was independently replaced by integer arithmetic. The result is exact: every unweighted six-vertex digraph has standardized Laplacian eigenvalues satisfying $|\operatorname{Im}\lambda|\le\sqrt3/6$. The bound is attained by the half-circulant in the theorem above. Exact certification of *all the other sides of the polygon* is not claimed.
+
+~~~sh
+g++ -O3 -std=c++17 -Wall -Wextra experiments/chebotarev_exact6.cpp -o /tmp/chebotarev-exact6
+set -o pipefail
+/tmp/chebotarev-exact6 | python experiments/chebotarev_verify6.py
+~~~
+
+Expected output: 4,241,864 representatives with repetitions, 44,729 distinct quotient characteristic polynomials, and nonnegative strip-test coefficients for all 44,729. Compilation excluded, the pipeline ran in about 3.3 seconds locally.
+
+Here the quotient Laplacian is **unscaled**, with matrix $Q_{ij}=L_{ij}-L_{5j}$ for $0\le i,j<5$ in the quotient basis of the first five coordinate vectors. The missing constant eigenvector contributes only a zero. The generator independently re-enumerates the undirected skeletons, their orientations with at most 15 arcs, and computes each quotient characteristic polynomial from matrix-power traces via the Newton identities. For overflow bounds: the infinity norm of $Q$ is at most 15, so entries of the computed powers (up to fifth) and traces are small. The original unscaled Laplacian has Gershgorin eigenvalue magnitude at most 10, so $|c_k|\le \binom5k10^k$ for the characteristic coefficients and $|\operatorname{tr}(Q^k)|\le5\cdot10^k$. The largest possible running absolute sum in the trace-to-coefficient conversion is therefore at most $5\cdot10^5(1+5+10+10+5)=15{,}500{,}000$. No solver, floating-point calculation, or external enumeration data is used.
+
+For a quotient characteristic polynomial with roots $\lambda_1,\ldots,\lambda_5$, counted with multiplicity, the verifier computes the exact coefficients of
+
+$$
+ G(t)=\prod_{i<j}\bigl(t+12+(\lambda_i-\lambda_j)^2\bigr).
+$$
+
+If $|\operatorname{Im}\lambda_i|\le\sqrt3$ for all $i$, every constant term $12+(\lambda_i-\lambda_j)^2$ has nonnegative real part, since $|\operatorname{Im}(\lambda_i-\lambda_j)|\le2\sqrt3$. Pair the nonreal constant terms with their conjugates: each resulting quadratic, and each remaining real linear factor, has nonnegative coefficients. Conversely, if the height bound fails, an eigenvalue $a+ib$ and its conjugate produce a factor $t+12-4b^2$ with a positive zero. A monic polynomial with all coefficients nonnegative cannot have a positive real zero. The two conditions are therefore equivalent.
+
+The verifier computes power sums $p_\ell=\sum_i\lambda_i^\ell$ by Newton identities. For $k>0$, the power sum of the squared differences is $\frac12\sum_{\ell=0}^{2k}(-1)^\ell\binom{2k}{\ell}p_{\ell}p_{2k-\ell}$, by binomial expansion (the diagonal contributes zero). A second binomial expansion shifts the squared differences by 12 and negates them; a second Newton pass computes the coefficients of $G$. Python integers are unbounded. The finite result still does not control fractional arc weights or higher orders.

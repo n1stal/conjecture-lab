@@ -22,6 +22,11 @@ jobs:
       - run: python verify.py results/*.json
       - run: python verify.py --replay results/exact-n200.json results/exact-n300.json results/exact-n150-without-one.json
       - run: python experiments/erdos_982_grid.py --side 6 --lattice square
+      - name: Replay exact six-vertex digraph certificate
+        run: |
+          set -o pipefail
+          g++ -std=c++17 -O3 -Wall -Wextra experiments/chebotarev_exact6.cpp -o /tmp/chebotarev-exact6
+          /tmp/chebotarev-exact6 | python experiments/chebotarev_verify6.py
   lean:
     runs-on: ubuntu-latest
     timeout-minutes: 10
