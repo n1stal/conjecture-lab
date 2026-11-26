@@ -1,6 +1,10 @@
-# Chebotarev's even-order Laplacian height question
+# The six-vertex unweighted spectral polygon
 
-**Status:** General weighted question remains open in the sources checked on 2026-11-26. The family result below is a written proof, not Lean-verified; independent review and novelty are not established. The order-six unweighted height bound is checked by exhaustive integer arithmetic; the weighted search remains exploratory, and the full unweighted polygon is also checked with exact arithmetic.
+**Result:** Every six-vertex unweighted standardized digraph Laplacian has its entire spectrum in the proposed polygon $S_6$. Here unweighted means each arc weight is 0 or 1/6. This is an exact finite computation, not a Lean proof or a claim of novelty.
+
+[Full polygon certificate](#exact-containment-in-the-entire-order-six-polygon) · [Reproduce](../docs/verification.md#six-vertex-spectral-polygon) · [Related partial proof for weighted circulants](#partial-theorem-all-antipodal-weights-can-vary)
+
+The general weighted horizontal-edge question remains open in the sources checked on 2026-11-26. The written family proof below has not been independently reviewed or Lean-verified. The fractional-weight search remains exploratory.
 
 [Chebotarev, arXiv:2610.14100v4, §7.3, Question 2](https://arxiv.org/html/2610.14100v4#S7.SS3) asks whether the maximum imaginary part of an eigenvalue of a standardized $n\times n$ digraph Laplacian at even $n$ is $n^{-1}\cot(\pi/n)$. Such an $L$ has $L_{ij}=-a_{ij}$ for $i\ne j$, $a_{ij}\in[0,1/n]$, and each row sums to zero. Order four is already settled in v4; earlier versions reporting it open are stale. The companion [arXiv:2611.02249, §7](https://arxiv.org/html/2611.02249#S7) reports local optimization at orders 6 and 8, and the original paper reports a second-order perturbative obstruction in the horizontal direction. Neither observation rules out a nonlocal counterexample.
 
@@ -47,7 +51,7 @@ Run from repository root with NumPy installed:
 OPENBLAS_NUM_THREADS=1 python experiments/chebotarev_unweighted6.py
 ~~~
 
-This enumerates 4,241,864 six-vertex unweighted digraph representatives (repetitions allowed). It first verifies that the 156 undirected skeleton representatives cover all $2^{15}$ unordered-edge masks under vertex permutations. For each skeleton it iterates every assignment of one direction or both directions per edge, with at most 15 directed arcs. Every excluded digraph has a complement with at most 15 arcs. On the quotient by constant vectors, the complementary Laplacian is $I-L$, so the quotient spectrum is reflected across real part $1/2$ (using conjugation symmetry); both the height test and the polygon are invariant under this operation. Thus a violation by *any* unweighted six-vertex digraph would occur in the screen, subject to numerical error. The maximum observed imaginary part was 0.28867513459481337, matching $\sqrt3/6$ to rounding. The maximal observed signed distance outside the polygon was only $2.4\cdot10^{-15}$, consistent with numerical roundoff. Chebotarev's v4 §6 reports the unweighted $n=6$ sweep only for maximum out-degree at most 2, so this coverage goes beyond the stated sample while still lacking exact spectral certification.
+This enumerates 4,241,864 six-vertex unweighted digraph representatives (repetitions allowed). It first verifies that the 156 undirected skeleton representatives cover all $2^{15}$ unordered-edge masks under vertex permutations. For each skeleton it iterates every assignment of one direction or both directions per edge, with at most 15 directed arcs. Every excluded digraph has a complement with at most 15 arcs. On the quotient by constant vectors, the complementary Laplacian is $I-L$, so the quotient spectrum is reflected across real part $1/2$ (using conjugation symmetry); both the height test and the polygon are invariant under this operation. Thus a violation by *any* unweighted six-vertex digraph would occur in the screen, subject to numerical error. The maximum observed imaginary part was 0.28867513459481337, matching $\sqrt3/6$ to rounding. The maximal observed signed distance outside the polygon was only $2.4\cdot10^{-15}$, consistent with numerical roundoff. Chebotarev's v4 §6 reports the unweighted $n=6$ sweep only for maximum out-degree at most 2, so this coverage goes beyond the stated sample while not constituting exact spectral certification. The later sections give the exact checks.
 
 A separate seeded multistart experiment uses SciPy:
 
@@ -59,7 +63,7 @@ No height violation was found in 100 starts at each of $n=6,8,10,12,16$, includi
 
 ## Exact unweighted certificate at order six
 
-The floating-point height screen above was independently replaced by integer arithmetic. The result is exact: every unweighted six-vertex digraph has standardized Laplacian eigenvalues satisfying $|\operatorname{Im}\lambda|\le\sqrt3/6$. The bound is attained by the half-circulant in the theorem above. The subsequent section separately certifies the slanted sides of the polygon.
+The floating-point height screen above was replaced by a separate integer-arithmetic checker. The result is exact: every unweighted six-vertex digraph has standardized Laplacian eigenvalues satisfying $|\operatorname{Im}\lambda|\le\sqrt3/6$. The bound is attained by the half-circulant in the theorem above. The subsequent section separately certifies the slanted sides of the polygon.
 
 ~~~sh
 g++ -O3 -std=c++17 -Wall -Wextra experiments/chebotarev_exact6.cpp -o /tmp/chebotarev-exact6

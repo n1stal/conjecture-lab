@@ -1,5 +1,10 @@
 # Erdős #982: the convex octagon case
 
+**Partial result:** For a centrally symmetric strictly convex octagon, at least
+one vertex sees at least four distinct distances to the other vertices.
+
+[Written proof](#extension-central-symmetry-alone) · [Finite grid checks](../docs/verification.md#erdős-982-convex-octagons)
+
 **Status:** General octagon case open in the sources checked 2026-11-26.
 Finite grid experiments below. The partial proof for centrally symmetric
 octagons has had a separate AI review; it is not Lean-verified or claimed novel.

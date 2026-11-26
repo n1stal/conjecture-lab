@@ -1,6 +1,10 @@
 # Property P: sharp reciprocal bound
 
-**Status:** finite exact evidence and exploratory results; no global proof or novelty claim.
+**Result:** The maximum reciprocal sum for Property P subsets of $\{1,\ldots,300\}$ is $3/2$, attained by $\{1,2\}$. This is an exact finite optimum, not a proof for arbitrary positive integers.
+
+[Exact search and proof of coverage](#why-the-exact-search-covers-every-subset-in-the-interval) · [Raw reports](../results/README.md) · [Reproduce](../docs/verification.md#property-p-reciprocal-sums)
+
+**Status:** Finite exact evidence and exploratory results; no global proof or novelty claim.
 
 **Statement under test:** For every finite subset (A) of the positive integers with no distinct (a<b<c) in (A) such that (amid b+c), is (sum_{ain A}1/a le 3/2)? If true, ({1,2}) is sharp. A finite counterexample refutes the bound. Conversely, an all-finite bound also bounds infinite sets by monotone convergence.
 

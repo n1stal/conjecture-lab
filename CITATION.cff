@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this work, cite the specific result note and repository commit."
+title: "Conjecture Lab"
+type: software
+authors:
+  - name: "Conjecture Lab contributors"
+keywords:
+  - experimental mathematics
+  - combinatorics
+  - discrete geometry
+  - spectral graph theory

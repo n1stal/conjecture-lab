@@ -1,34 +1,27 @@
 # Conjecture Lab
 
-A private experimental-math workbench. A run should produce a reproducible witness, a bounded exact result, a proof draft, or a useful failed lead. They are different outcomes.
+Reproducible experiments and partial proofs in discrete mathematics. Each result is paired with its exact scope, the source problem, and instructions to check it. None of the entries below claims to settle the corresponding general problem, and we have not established novelty.
 
-## Run it
+## Results
 
-Requires Python 3.10+ (CI uses 3.12), with no external Python packages or API keys.
+| Result | Evidence | What remains |
+| --- | --- | --- |
+| [Six-vertex unweighted digraph Laplacians stay inside the spectral polygon](problems/chebotarev-q2.md#exact-containment-in-the-entire-order-six-polygon) | **Exact computation.** 4,241,864 representatives and 44,729 distinct quotient characteristic polynomials; integer checks on every supporting line. [Reproduce](docs/verification.md#six-vertex-spectral-polygon) | Fractional arc weights are not covered. The general weighted horizontal-edge question remains open in the sources checked. |
+| [A centrally symmetric strictly convex octagon has a vertex that sees at least four distances](problems/erdos-982.md#extension-central-symmetry-alone) | **Written partial proof, separately AI-reviewed.** Also tested finite square and triangular lattice patches exactly. [Reproduce](docs/verification.md#erdős-982-convex-octagons) | Arbitrary strictly convex octagons are not covered. No Lean check or external referee report. |
+| [The maximum Property P reciprocal sum is 3/2 through 300](conjectures/property-p-sharp.md) | **Exact finite search.** 951,769 nodes. Stored reports, witness checker, exact replay, and independent small-instance oracle. [Reproduce](docs/verification.md#property-p-reciprocal-sums) | The sharp bound for all positive integers remains unproved here. The run through 500 was capped. |
+
+[Full catalogue](CONTENTS.md) · [Verification guide](docs/verification.md) · [Sources and citation](docs/provenance.md)
+
+## Run another search
+
+Python 3.10+ is enough for the default Property P experiments, with no packages or API keys needed.
 
 ```sh
 python -m unittest discover -s tests -v
 python lab.py --mode exact --n 300 --budget 3000000 --output runs/exact.json
-python lab.py --mode explore --n 5000 --min-element 2 --budget 2000 --seed 20261126 --output runs/explore.json
-python verify.py runs/exact.json runs/explore.json
 python verify.py --replay runs/exact.json
 ```
 
-On GitHub: **Actions → Bounded research → Run workflow**. Choose the search mode, limit, minimum element, seed, and node/trial cap. The run stops at its cap; the workflow also has an eight-minute timeout. Download the JSON artifact or view the Actions summary. This dispatch is opt-in, does not call a model API or push commits, and uses standard GitHub Actions runner minutes. There is no scheduled job or automatic publication.
+On GitHub, use **Actions → Bounded research → Run workflow** to choose the search mode, interval, seed, and budget. It produces a JSON artifact and does not call a model API or commit results. The workflow uses standard GitHub Actions runner minutes and has an eight-minute timeout. It is manual, not scheduled.
 
-**Verify** runs Python tests, checks the stored witnesses, replays exact results, rebuilds the six-vertex polygon certificate with a C++17 compiler and Python, and builds the Lean proof package. If using Lean locally, install [elan](https://lean-lang.org/install/) and run `lake build --wfail`; the toolchain is pinned. The concrete Lean theorems verify *witnesses* and exact arithmetic, not the search completeness or the all-integers claim.
-
-## Active targets
-
-[Property P sharp reciprocal bound](conjectures/property-p-sharp.md). Exact computation: **3/2 through 300** (951,769 nodes). An attempt through 500 stopped at three million nodes without finding a larger witness; it is not exhaustive. A 2,000-trial search through 5,000 without 1 found no improvement over the existing witness for that restricted search; this heuristic result is not a bound. Raw reports are in [results/](results/).
-
-[Erdős #982: distances in convex octagons](problems/erdos-982.md). Includes exact finite lattice searches and a separately reviewed partial proof for centrally symmetric octagons; the general question remains open.
-
-[Chebotarev's even-order digraph Laplacian question](problems/chebotarev-q2.md). An exact integer census certifies that **every unweighted six-vertex digraph Laplacian lies inside the proposed spectral polygon**. The note also gives a written proof for independently varying antipodal weights on a circulant base. The general weighted horizontal-edge question remains open.
-
-## Research loop
-
-1. **Intake:** Write the exact statement and quantifiers, source paper/page, known bounds, and what is actually unresolved. Check recent papers and formalization repos before treating a target or variant as open. [Template](templates/conjecture.md)
-2. **Attack:** Start with the cheapest falsification or special case. Keep deterministic seeds, caps, and exact arithmetic. For model-assisted reasoning, use the [research prompt](templates/agent-run.md); record model and budget only if known. A promising answer is a candidate, not a proof.
-3. **Verify independently:** Test the witness against the original definition using a different method. For exact optimization, record evidence of completeness, independently brute-force tractable sizes, and keep a replay. For an all-size proof, audit the quantifiers, assumptions, imported results, and every reduction; formalize the exact statement in Lean. No placeholders or unacknowledged axioms.
-4. **Promote only the proved scope:** Label results `exploratory`, `witness-verified`, `finite-exact`, `proof-draft`, or `formalized`; include the verified statement and audit limits. [Experiment log template](templates/run.md) Keep failed approaches with evidence. Publishing and spending on APIs are separate decisions, not workflow defaults.
+For a new problem, use the [intake template](templates/conjecture.md), [bounded research prompt](templates/agent-run.md), and [run log](templates/run.md). Save counterexamples and negative results as well as successful proofs. Use exact arithmetic for checkable claims and state what each test or formalization does not cover.
