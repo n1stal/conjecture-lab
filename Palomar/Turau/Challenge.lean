@@ -44,9 +44,8 @@ def first {n : Nat} (E : Edges n) (S : List (Fin n)) : Edges n :=
 def next {n : Nat} (E M : Edges n) : Edges n :=
   E.filter fun e => (M.any fun j => decide (j.2 = e.1)) && !(M.contains (e.2,e.1))
 
-def messages {n : Nat} (E : Edges n) (S : List (Fin n)) : Nat → Edges n
-  | 0 => first E S
-  | r+1 => next E (messages E S r)
+def messages {n : Nat} (E : Edges n) (S : List (Fin n)) : Nat → Edges n :=
+  Nat.rec (first E S) (fun _ M => next E M)
 
 def quietAfter {n : Nat} (E : Edges n) (S : List (Fin n)) (r : Nat) : Prop :=
   messages E S r = []
@@ -111,9 +110,8 @@ inductive Walk {k : Nat} : Vertex k → Vertex k → Nat → Prop
 def radiusAtMost {k : Nat} (r : Nat) : Prop :=
   ∃ u : Vertex k, ∀ v, ∃ l ≤ r, Walk u v l
 
-def roundsFrom {k : Nat} (S : Vertex k → Prop) : Nat → Msg k
-  | 0 => fun u v => S u ∧ adj u v
-  | t+1 => next (roundsFrom S t)
+def roundsFrom {k : Nat} (S : Vertex k → Prop) : Nat → Msg k :=
+  Nat.rec (fun u v => S u ∧ adj u v) (fun _ M => next M)
 
 def hasKSeeds {k : Nat} (S : Vertex k → Prop) : Prop :=
   ∃ f : Fin k → Vertex k, (∀ i j, f i = f j → i = j) ∧ ∀ v, S v ↔ ∃ i, f i = v

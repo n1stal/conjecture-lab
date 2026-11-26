@@ -67,9 +67,8 @@ theorem next_iff {n : Nat} {E M : Edges n} {u v : Fin n} :
     exact ⟨he,⟨⟨(w,u),hw,rfl⟩,hn⟩⟩
 
 /-- Zero-indexed: messages E S 0 is the first physical round. -/
-def messages {n : Nat} (E : Edges n) (S : List (Fin n)) : Nat → Edges n
-  | 0 => first E S
-  | r+1 => next E (messages E S r)
+def messages {n : Nat} (E : Edges n) (S : List (Fin n)) : Nat → Edges n :=
+  Nat.rec (first E S) (fun _ M => next E M)
 
 def quietAfter {n : Nat} (E : Edges n) (S : List (Fin n)) (r : Nat) : Prop :=
   messages E S r = []
@@ -81,7 +80,10 @@ theorem stays_quiet {n : Nat} {E : Edges n} {S : List (Fin n)} {r : Nat}
     (h : quietAfter E S r) (k : Nat) : messages E S (r+k) = [] := by
   induction k with
   | zero => exact h
-  | succ k ih => rw [Nat.add_succ,messages,ih,empty_absorbing]
+  | succ k ih =>
+    rw [Nat.add_succ]
+    change next E (messages E S (r+k)) = []
+    rw [ih, empty_absorbing]
 
 /-- If this is the least flood time across k-element seed sets, every empty
 round after r physical rounds must have r at least t. Conversely it attains t. -/
