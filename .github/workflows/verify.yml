@@ -1,0 +1,37 @@
+name: Verify
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -v
+      - run: python verify.py results/*.json
+      - run: python verify.py --replay results/exact-n200.json results/exact-n300.json results/exact-n150-without-one.json
+      - run: python experiments/erdos_982_grid.py --side 6 --lattice square
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@v1
+        with:
+          build: true
+          use-github-cache: false
+          use-mathlib-cache: false
+          build-args: "--wfail"

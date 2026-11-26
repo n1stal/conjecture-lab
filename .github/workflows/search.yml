@@ -1,0 +1,62 @@
+name: Bounded research
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [exact, explore]
+        default: explore
+      n:
+        description: "Maximum element (exact ≤ 500, explore ≤ 5000)"
+        type: number
+        default: 300
+      min_element:
+        description: "Minimum allowed element"
+        type: number
+        default: 2
+      budget:
+        description: "Node or trial budget (exact ≤ 3,000,000, explore ≤ 10,000)"
+        type: number
+        default: 2000
+      seed:
+        type: number
+        default: 20261126
+
+permissions:
+  contents: read
+
+concurrency:
+  group: conjecture-research
+  cancel-in-progress: false
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Search and independently verify witness
+        env:
+          MODE: ${{ inputs.mode }}
+          LIMIT: ${{ inputs.n }}
+          LOW: ${{ inputs.min_element }}
+          BUDGET: ${{ inputs.budget }}
+          SEED: ${{ inputs.seed }}
+        run: |
+          python lab.py --mode "$MODE" --n "$LIMIT" --min-element "$LOW" --budget "$BUDGET" --seed "$SEED" --output runs/result.json
+          python verify.py runs/result.json
+          printf '### Search report (commit %s)\n\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+          printf '\x60\x60\x60json\n' >> "$GITHUB_STEP_SUMMARY"
+          cat runs/result.json >> "$GITHUB_STEP_SUMMARY"
+          printf '\x60\x60\x60\n' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: property-p-${{ github.run_id }}
+          path: runs/result.json
+          retention-days: 14
+          if-no-files-found: error
