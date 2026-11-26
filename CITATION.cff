@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this work, cite the specific result note and repository commit."
 title: "Conjecture Lab"
 type: software
+license: "Apache-2.0"
 authors:
   - given-names: "Jaime"
     family-names: "Nistal"
