@@ -1,5 +1,22 @@
 [
   {
+    "id": "amnesiac-flooding",
+    "title": "A counterexample to Turau’s amnesiac flooding conjecture",
+    "scope": "A 24-vertex connected non-bipartite graph of radius ten floods in at most three rounds from four sources, contradicting the conjectured lower bound.",
+    "declarations": [
+      "Flooding.turau_false",
+      "Flooding.round_counts"
+    ],
+    "priority_audit": "results/amnesiac-flooding/audit.md",
+    "disposition": "no-prior-found",
+    "sources": [
+      "https://arxiv.org/html/2002.10752v4#S8",
+      "https://doi.org/10.1007/978-3-030-67731-2_5",
+      "https://doi.org/10.1007/s00446-023-00448-y",
+      "https://doi.org/10.4230/LIPIcs.DISC.2025.10"
+    ]
+  },
+  {
     "id": "inverse-z-rank-four",
     "title": "Inverse Z-polynomials through rank four",
     "scope": "Positive coefficients through the rank and log-concavity for matroids on finite ambient types of rank at most four. The unrestricted conjecture remains open here.",
