@@ -1,0 +1,10 @@
+{
+  "challenge_module": "Palomar.Turau.Challenge",
+  "solution_module": "Palomar.Turau.Solution",
+  "theorem_names": [
+    "ConjectureLab.TurauSubmission.conjecture_false",
+    "ConjectureLab.TurauSubmission.concrete_counterexample",
+    "ConjectureLab.TurauSubmission.infinite_family"
+  ],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}

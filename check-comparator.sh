@@ -9,11 +9,11 @@ done
 command -v bwrap >/dev/null
 config="$(mktemp)"
 trap 'rm -f "$config"' EXIT
-python3 - "$config" "$prefix" <<'PY'
+python3 - "$config" "$prefix" "${1:-comparator.json}" <<'PY'
 import json, sys
 from pathlib import Path
-local, prefix = sys.argv[1:]
-data = json.loads(Path("comparator.json").read_text())
+local, prefix, source = sys.argv[1:]
+data = json.loads(Path(source).read_text())
 assert "external_kernels" not in data
 data.pop("enable_nanoda", None)
 data["external_kernels"] = {

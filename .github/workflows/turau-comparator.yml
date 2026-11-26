@@ -1,0 +1,29 @@
+name: Turau Palomar preflight
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  comparator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          use-github-cache: false
+          use-mathlib-cache: false
+      - name: Check matching statement surfaces and proof axioms
+        run: ./scripts/check-turau-palomar.sh
+      - name: Install the Comparator sandbox on the disposable runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Compare with Lean, NanoDa and con-ron
+        run: ./check-comparator.sh Palomar/Turau/comparator.json

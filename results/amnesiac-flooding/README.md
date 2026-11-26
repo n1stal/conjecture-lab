@@ -18,3 +18,5 @@ The result refutes the stated conjecture for the original synchronous protocol. 
 - [Passing hosted CI receipt](https://github.com/n1stal/conjecture-lab/actions/runs/45875325915): Publication gate #9, 26 November 2026, for the [proof commit a282890](https://github.com/n1stal/conjecture-lab/commit/a282890470a9900a0eb3822227b7c49d31a42d45). This is a historical receipt for the Turau proof, not a CI claim about later repository changes. [Reproduce the Lean check locally](../../docs/verification.md).
 
 Lean verification is not external mathematical or journal review. The prior-work search is bounded; no priority claim or endorsement by the original author is made.
+
+[Standalone Palomar statement package](../../Palomar/Turau/README.md) and local verification instructions.

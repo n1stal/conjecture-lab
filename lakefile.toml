@@ -26,3 +26,11 @@ name = "InverseZProjective"
 
 [[lean_lib]]
 name = "SpectralRank"
+
+[[lean_lib]]
+name = "TurauChallenge"
+roots = ["Palomar.Turau.Challenge"]
+
+[[lean_lib]]
+name = "TurauSolution"
+roots = ["Palomar.Turau.Solution"]

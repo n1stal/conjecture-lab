@@ -1,0 +1,90 @@
+version: "v0.4"
+project:
+  name: "A counterexample and infinite family for Turau's amnesiac flooding conjecture"
+  description: >-
+    A connected non-bipartite graph on 24 vertices has radius 10 and floods
+    in three synchronous rounds from four sources, so its optimal four-source
+    flooding time t satisfies 4t ≤ 12 < 13. Repeating the gadget gives a
+    counterexample to Turau's Section 8 inequality for every source count k ≥ 4,
+    with exact radius floor(5k/2) and optimal k-source flooding time at most 3.
+  authors:
+    - "Jaime Nistal"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Jaime Nistal"
+classification:
+  arxiv: ["cs.DC", "math.CO"]
+  msc2020: ["05C85", "68W15", "03B35"]
+sources:
+  - title: "Amnesiac flooding counterexample and infinite family"
+    type: "formalization"
+    authors: ["Jaime Nistal"]
+    id: "https://github.com/n1stal/conjecture-lab/tree/a282890470a9900a0eb3822227b7c49d31a42d45/results/amnesiac-flooding"
+    location: "Proofs/Amnesiac.lean and Proofs/AmnesiacFamily.lean in the same pinned tree"
+    relationship: "formalizes"
+    note: "An auditable statement wrapper over the earlier checked proofs in this repository; Codex contributed as AI co-author. No priority claim."
+  - title: "Analysis of Amnesiac Flooding"
+    type: "article"
+    authors: ["Volker Turau"]
+    id: "https://arxiv.org/abs/2002.10752v4"
+    location: "Definition 1 and Section 8"
+    relationship: "background"
+    note: "Source of the synchronous protocol, the optimal k-source flooding time, and the conjectured inequality refuted here."
+    author_endorsement: "not-contacted"
+status:
+  scope: >-
+    Negates only the lower-bound conjecture in Section 8, models a finite
+    undirected simple connected non-bipartite graph with the original synchronous
+    protocol, and checks the explicit witness and infinite family. It does not
+    refute the weaker proved bound in Theorem 4 or determine the optimal
+    flooding time exactly for each graph.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+      tool_setup: "Lean kernel checks, exact finite computation with kernel decide, and separate AI-assisted proof and fidelity audits; model versions not verified."
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based"
+        hardware: "cloud workspace and GitHub Actions"
+      prompting_notes: "Compare the literal lower bound with the cited Section 8; construct a composable gadget and verify exact radius and simultaneous-source behavior."
+  spend_usd: "subscription-based"
+  notes: >-
+    Jaime Nistal directed the result and maintains its formalization. Codex (OpenAI)
+    developed and checked the Lean proof as AI co-author; AI credit is disclosed here
+    rather than on the human author list.
+fidelity:
+  divergences: >-
+    Round indices are zero-based in Lean: index 0 is the first physical round;
+    index t is empty after t elapsed rounds. The finite model uses symmetric
+    lists of oriented edges as a graph and the family an adjacency relation
+    on Fin k × Fin 6. The finite witness has no duplicate arcs; the modeled
+    state-transition and quietness tests depend on arc membership. Seed-count
+    minima and graph radius are stated by an attained value and its lower bound.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Kernel-checked source and an AI-assisted source audit; no independent human review, original-author endorsement, or priority claim."
+alignment:
+  namespace: "ConjectureLab.TurauSubmission"
+  statements:
+    - source: "Turau, arXiv:2002.10752v4, Section 8 conjectured inequality"
+      lean: "ConjectureLab.TurauSubmission.conjecture_false"
+      module: "Palomar.Turau.Solution"
+      status: "proved"
+      note: "Negation of the stated inequality for the original protocol; not Theorem 4."
+    - source: "Conjecture Lab's earlier finite witness"
+      lean: "ConjectureLab.TurauSubmission.concrete_counterexample"
+      module: "Palomar.Turau.Solution"
+      status: "proved"
+      note: "24 vertices, radius 10, four distinct seeds, message counts 12/24/26/0, and 4t ≤ 12 < 13 for optimal t."
+    - source: "Conjecture Lab's earlier family proof"
+      lean: "ConjectureLab.TurauSubmission.infinite_family"
+      module: "Palomar.Turau.Solution"
+      status: "proved"
+      note: "One counterexample per k ≥ 4, with exact radius floor(5k/2); family optimal times are bounded above, not determined exactly."
+acknowledgements: "Volker Turau for the problem and synchronous model; Lean for verification; OpenAI Codex for AI-assisted proof development."
