@@ -455,9 +455,8 @@ theorem radius_exact {k : Nat} (hk : 0 < k) :
   ⟨radius_upper hk,fun _ => radius_lower_bound hk⟩
 
 /-- The same paper protocol, initialized by any proposed seed set. -/
-def roundsFrom {k : Nat} (S : Vertex k → Prop) : Nat → Msg k
-  | 0 => fun u v => S u ∧ adj u v
-  | t+1 => next (roundsFrom S t)
+def roundsFrom {k : Nat} (S : Vertex k → Prop) : Nat → Msg k :=
+  Nat.rec (fun u v => S u ∧ adj u v) (fun _ M => next M)
 
 theorem same_run {k : Nat} (t : Nat) (u v : Vertex k) :
     roundsFrom seed t u v ↔ rounds t u v := by
