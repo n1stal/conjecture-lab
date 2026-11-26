@@ -30,3 +30,14 @@ On GitHub: **Actions → Bounded research → Run workflow**. Choose the search 
 2. **Attack:** Start with the cheapest falsification or special case. Keep deterministic seeds, caps, and exact arithmetic. For model-assisted reasoning, use the [research prompt](templates/agent-run.md); record model and budget only if known. A promising answer is a candidate, not a proof.
 3. **Verify independently:** Test the witness against the original definition using a different method. For exact optimization, record evidence of completeness, independently brute-force tractable sizes, and keep a replay. For an all-size proof, audit the quantifiers, assumptions, imported results, and every reduction; formalize the exact statement in Lean. No placeholders or unacknowledged axioms.
 4. **Promote only the proved scope:** Label results `exploratory`, `witness-verified`, `finite-exact`, `proof-draft`, or `formalized`; include the verified statement and audit limits. [Experiment log template](templates/run.md) Keep failed approaches with evidence. Publishing and spending on APIs are separate decisions, not workflow defaults.
+
+### Additional active target
+
+- [Chebotarev's even-order digraph Laplacian question](problems/chebotarev-q2.md):
+  candidate proof for circulant bases with independently weighted antipodal
+  arcs; an unweighted six-vertex census is numerical, not an exact proof.
+- The octagon note now also covers the candidate proof for central symmetry
+  alone (no reflection symmetry assumption). The general problem remains open.
+- `results/attempt-n500.json` records a three-million-node search stopped by
+  its budget. No larger witness was found; this does **not** certify optimality
+  through 500.

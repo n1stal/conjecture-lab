@@ -76,3 +76,36 @@ The case split is exhaustive under the stated symmetries. Earlier
 include numerical tests of these orbit types; we have not ruled out prior
 analytic treatments. Next: independent line-by-line proof review, followed
 by the larger class with 180° rotational symmetry only.
+
+## Extension: central symmetry alone
+
+**Claim.** Every centrally symmetric strictly convex octagon has a vertex
+seeing at least four distances.
+
+Suppose otherwise, center at the origin, and write the four antipodal
+pairs as ±v and ±w₁, ±w₂, ±w₃, choosing v of largest norm r.
+The distance from v to −v is 2r, strictly greater than that to any other
+vertex by the triangle inequality and its equality case. The six remaining
+distances from v therefore have at most two different squared values.
+
+The lines spanned by the four antipodal pairs are distinct: otherwise
+one pair on the same line is between the vertices of another pair and
+cannot be extreme. At most one wᵢ is perpendicular to v. For every pair
+not perpendicular to v, the two squared distances from v are distinct
+and hence must be exactly the same two values as for every other such
+pair. Their average is r²+‖wᵢ‖², and their absolute difference is
+4|v·wᵢ|. Consequently all nonperpendicular pairs have the same radius
+and the same nonzero absolute projection onto the line of v. These
+conditions allow at most two lines through the origin, and if two
+occur they are interchanged by reflection across the line of v.
+There are at least two such pairs, so there are exactly two, and the
+third pair is perpendicular to v.
+
+Thus reflection across the line of v fixes its own pair, preserves
+the perpendicular pair, and interchanges the remaining two pairs.
+Central symmetry then gives reflection across the perpendicular axis
+as well. This reduces to the previous claim, a contradiction.
+
+This extends the argument beyond the previous numerical search for
+centrally symmetric octagons. It does not handle a single reflection
+axis without central symmetry, or a fully asymmetric octagon.

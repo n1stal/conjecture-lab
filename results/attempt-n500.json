@@ -1,0 +1,18 @@
+{
+  "budget": 3000000,
+  "complete": false,
+  "conjecture": "property-p-sharp",
+  "exceeds_target": false,
+  "min_element": 1,
+  "mode": "exact",
+  "n": 500,
+  "schema": 1,
+  "score": "3/2",
+  "seed": 20261126,
+  "status": "witness_only",
+  "witness": [
+    1,
+    2
+  ],
+  "work": 3000000
+}
