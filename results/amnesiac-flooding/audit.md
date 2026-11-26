@@ -29,6 +29,23 @@ non-bipartiteness, radius, exact transition rule and the counterexample. It
 checks the original rule directly, not via a proxy or an assumed parity lemma.
 The proven weaker lower bound in Turau’s Theorem 4 is not refuted.
 
+## Uniform family
+
+The same construction with `k` blocks gives a counterexample for every
+`k ≥ 4`. The graph has `6k` vertices and radius `⌊5k/2⌋`. The block centers
+send in the first round. Exactly the same within-block messages then
+occur in rounds two and three, with round three also carrying both
+directions of each inter-block edge. Round four is empty, and the protocol
+stays silent. The minimum possible flooding time is therefore at most
+three. The difference between the proposed lower bound and the achieved
+quantity is at least `⌊k/2⌋−1`.
+
+[The family proof](../../Proofs/AmnesiacFamily.lean) checks simple connected
+non-bipartite graphs, the seed cardinality, the true synchronous protocol,
+the exact radius, the minimum over all possible seed sets and the strict
+inequality, not just the observed run on a sample. The final declaration
+is `FloodFamily.refutes_turau_for_each`.
+
 ## Prior-work audit (2026-11-26)
 
 - [Turau, SOFSEM 2021](https://doi.org/10.1007/978-3-030-67731-2_5) studies

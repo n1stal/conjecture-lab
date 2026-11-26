@@ -2,10 +2,11 @@
   {
     "id": "amnesiac-flooding",
     "title": "A counterexample to Turau’s amnesiac flooding conjecture",
-    "scope": "A 24-vertex connected non-bipartite graph of radius ten floods in at most three rounds from four sources, contradicting the conjectured lower bound.",
+    "scope": "For each k ≥ 4, a connected non-bipartite graph on 6k vertices with radius floor(5k/2) floods in at most three rounds from k sources, violating Turau’s conjectured lower bound.",
     "declarations": [
       "Flooding.turau_false",
-      "Flooding.round_counts"
+      "Flooding.round_counts",
+      "FloodFamily.refutes_turau_for_each"
     ],
     "priority_audit": "results/amnesiac-flooding/audit.md",
     "disposition": "no-prior-found",
