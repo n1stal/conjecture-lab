@@ -1,0 +1,6 @@
+{
+  "challenge_module": "Palomar.SpectralProblem21.Challenge",
+  "solution_module": "Palomar.SpectralProblem21.Solution",
+  "theorem_names": ["ConjectureLab.SpectralProblem21Submission.problem_21"],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}

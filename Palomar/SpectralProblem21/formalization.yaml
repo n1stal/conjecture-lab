@@ -1,0 +1,90 @@
+version: "v0.4"
+
+project:
+  name: "Ordered spectral proximity forces adjacency rank at most five"
+  description: >-
+    For n at least three, a finite simple undirected graph on 3n vertices
+    has real adjacency rank at most five if the sum of squared differences
+    between its decreasing ordered adjacency eigenvalues and
+    (2n, 0, ..., 0, -n, -n) is strictly less than 2/3. This answers
+    Jovanović, Sedlar and Škrekovski's Problem 21 without a connectedness
+    requirement. The proof reduces to nonsingular principal submatrices of
+    orders six or seven and uses exact Lean-checked finite certificates.
+  authors:
+    - "Jaime Nistal"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Jaime Nistal"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C50", "03B35"]
+
+sources:
+  - title: "Ordered spectral proximity forces adjacency rank at most five"
+    type: "web post"
+    id: "https://github.com/n1stal/conjecture-lab/blob/daeb9b8c8e5ad0941c6efe32267b2d752a7ec5d2/results/spectral-rank-problem-21/proof.md"
+    relationship: "formalizes"
+    note: "The pinned written proof describes the same formal result and the exact finite checks. No research-priority claim."
+  - title: "Disproving two conjectures on the cospectrality of complete tripartite graphs"
+    type: "preprint"
+    authors: ["Irena M. Jovanović", "Jelena Sedlar", "Riste Škrekovski"]
+    id: "https://arxiv.org/abs/2610.18636v2"
+    location: "Section 5, Problem 21 and the displayed squared-distance formula immediately before it"
+    relationship: "background"
+    note: "Source of the question and the displayed target spectrum, not a source of its solution."
+    author_endorsement: "not-contacted"
+
+status:
+  scope: >-
+    All simple undirected graphs on 3n vertices, n at least three,
+    including disconnected graphs. The spectral discrepancy is a sum of
+    squares, not its square root, and uses decreasing order with
+    multiplicity. No claim about minimizers, uniqueness, Conjecture 20,
+    or Manhattan spectral distance.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex workers"
+      tool_setup: "Lean, Mathlib, exact Python generation and cross-checks, and separate AI statement review. Model revisions were not pinned or verified."
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based"
+        hardware: "cloud workspace"
+      prompting_notes: "Workers handled the principal-minor reduction, the rank-three comparison, exact finite certificates and statement review."
+  spend_usd: "subscription-based"
+  notes: >-
+    Jaime directed and maintains the project. Codex is credited as the AI
+    co-author in the repository history. AI workers developed, checked,
+    and reviewed the proof and produced exact certificate data. The
+    Lean kernel checks the certificate coverage and their consequences.
+    AI attribution is recorded here separately from the human author list.
+
+fidelity:
+  divergences: >-
+    The paper restricts Problem 21 to connected graphs; Lean requires
+    no connectedness. The displayed spectrum of the reference graph
+    is supplied explicitly as a profile rather than recomputed using a
+    separate construction of the reference graph. The comparison graph
+    is represented by a symmetric zero-diagonal Boolean adjacency matrix.
+
+review:
+  status: "agent-reviewed"
+  reviewers: []
+  notes: "The formal and source statements were compared independently by an AI worker. No independent human refereeing or source-author endorsement is claimed."
+
+alignment:
+  namespace: "ConjectureLab.SpectralProblem21Submission"
+  statements:
+    - source: "Jovanović–Sedlar–Škrekovski, arXiv:2610.18636v2, Section 5, Problem 21"
+      lean: "ConjectureLab.SpectralProblem21Submission.problem_21"
+      module: "Palomar.SpectralProblem21.Solution"
+      status: "proved"
+      note: "Affirmative answer, also for disconnected graphs. This does not prove Conjecture 20."
+
+acknowledgements: "Jovanović, Sedlar and Škrekovski for Problem 21; Lean and the Mathlib community."
