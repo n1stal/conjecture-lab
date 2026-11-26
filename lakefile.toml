@@ -34,3 +34,11 @@ roots = ["Palomar.Turau.Challenge"]
 [[lean_lib]]
 name = "TurauSolution"
 roots = ["Palomar.Turau.Solution"]
+
+[[lean_lib]]
+name = "CoinFamilyChallenge"
+roots = ["Palomar.CoinFamily.Challenge"]
+
+[[lean_lib]]
+name = "CoinFamilySolution"
+roots = ["Palomar.CoinFamily.Solution"]

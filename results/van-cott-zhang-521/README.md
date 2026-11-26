@@ -12,3 +12,9 @@ Greedy change is optimal for every amount using the first one, two, three, or al
 - [Lean source](../../Proofs/VanCottZhang.lean)
 - [Original conjecture](https://arxiv.org/html/2303.00078v2#S5)
 - [Scope and prior-work audit](audit.md)
+
+## Stronger follow-up
+
+[Full family proof](FAMILY-PROOF.md): the pattern exists at every length at least 11. The general ban in part (1) fails at every length 13, 16, 19, …; the two-family classification in part (3) fails at every length 14, 17, 20, … . The 7- and 10-denomination cases and the length-9 classification in part (2) are not settled here.
+
+[Lean statement](../../Palomar/CoinFamily/Challenge.lean) · [Lean solution](../../Palomar/CoinFamily/Solution.lean) · [Length-14 audit](LENGTH14-AUDIT.md)

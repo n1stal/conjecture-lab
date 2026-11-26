@@ -1,0 +1,97 @@
+version: "v0.4"
+project:
+  name: "Van Cott–Zhang prefix patterns for every length at least eleven"
+  description: >-
+    For every n at least eleven there is an n-denomination coin system in
+    which greedy change is optimal for every amount in the first three
+    prefixes and the full system, but not in any intervening prefix.
+    This refutes the general prohibition in Conjecture 5.2(1) at each
+    length 3r+1 for r at least four. At every length 3r+2 for r at least
+    four there is a counterexample to the exhaustiveness claim in 5.2(3),
+    outside both families D and G.
+  authors: ["Jaime Nistal"]
+  license: "Apache-2.0"
+  responsible_maintainers: ["Jaime Nistal"]
+classification:
+  arxiv: ["math.CO", "cs.DM"]
+  msc2020: ["05A17", "68W25", "03B35"]
+sources:
+  - title: "A construction for Van Cott–Zhang prefix patterns at all lengths at least 11"
+    type: "original-proof"
+    relationship: "other"
+    authors: ["Jaime Nistal"]
+    location: "results/van-cott-zhang-521/FAMILY-PROOF.md in the submitted snapshot"
+    note: "Lengths 11 and 12 had known examples; the uniform construction and the quantified exclusions are the extensions presented here. No claim of priority."
+  - title: "The Change-Making Problem for Six Coin Values and Beyond"
+    type: "article"
+    relationship: "background"
+    authors: ["Cornelia A. Van Cott", "Qiyu Zhang"]
+    id: "https://doi.org/10.1016/j.disc.2025.114669"
+    location: "Theorem 4.3, Definition 5.1, Conjecture 5.2; https://arxiv.org/html/2303.00078v2#S5"
+    note: "States both claims, gives families D and G, and gives examples at lengths 11 and 12. This development adapts no proof of the claims it refutes."
+    author_endorsement: "not-contacted"
+  - title: "Conjecture Lab's initial 13-denomination counterexample"
+    type: "formalization"
+    relationship: "background"
+    authors: ["Jaime Nistal"]
+    id: "https://github.com/n1stal/conjecture-lab/blob/4bf25fe2b3d1ae65cbc6edaec3a541009e5bf7f8/results/van-cott-zhang-521/PROOF.md"
+    note: "The earlier proof's all-amount residue criterion is reused. A separately reported 17-denomination example against 5.2(3) is credited in the written proof and not used."
+status:
+  scope: >-
+    Proves unconditional existence at every length n≥11, including every
+    3r+1 for r≥4, and a system outside both D and G at every 3r+2 for
+    r≥4. Does not settle length 7, length 10, part (2) at length 9, or
+    exclusions at lengths 8 and 11 under part (3).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+      tool_setup: "Independent AI-assisted source and proof audits, exact finite tests with kernel decide, and Lean 4.35.0-rc2 kernel replay."
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based"
+        hardware: "cloud workspace"
+      prompting_notes: "Prove orderliness for every amount, not only for tested values. Compare the indexed D and G formulas directly to the paper."
+  spend_usd: "subscription-based"
+  notes: "Jaime Nistal directed the project and maintains it. OpenAI Codex assisted as AI co-author and developed and checked the formal proofs."
+fidelity:
+  divergences: >-
+    Coin lists are in ascending order, and reversed for the descending
+    greedy computation. Lean includes amount zero (trivially optimal);
+    competing representations are lists of coins whose sum is the
+    amount, which represents the original unlimited multiset model.
+    Conjecture523 uses r≥1 so it starts with five denominations, and
+    family G is defined only for r≥2 as in the paper. The compared
+    proofs refute the forward implication of the biconditional.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Model definitions and elaborated theorem types compared locally; no human peer review, original-author endorsement, or priority claim."
+alignment:
+  namespace: "CoinOrder.Family"
+  statements:
+    - source: "Prefix pattern in Section 5"
+      lean: "CoinOrder.Family.every_length_ge_eleven"
+      module: "Palomar.CoinFamily.Solution"
+      status: "proved"
+      note: "Existence for all lengths at least eleven."
+    - source: "Conjecture 5.2(1)"
+      lean: "CoinOrder.Family.general_prohibition_fails"
+      module: "Palomar.CoinFamily.Solution"
+      status: "proved"
+      note: "Counterexamples for every r≥4; no claim for r=2 or r=3."
+    - source: "Conjecture 5.2(3)"
+      lean: "CoinOrder.Family.classification_fails"
+      module: "Palomar.CoinFamily.Solution"
+      status: "proved"
+      note: "Outside both D and G at every r≥4."
+    - source: "Conjecture 5.2(3)"
+      lean: "CoinOrder.Family.conjecture523_false"
+      module: "Palomar.CoinFamily.Solution"
+      status: "proved"
+      note: "Negates the original biconditional using a 14-denomination counterexample."
+acknowledgements: "Van Cott and Zhang for the statements and known examples, Lean for verification, and OpenAI Codex for proof development."

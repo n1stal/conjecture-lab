@@ -93,10 +93,14 @@
   },
   {
     "id": "van-cott-zhang-521",
-    "title": "A counterexample to Van Cott–Zhang Conjecture 5.2(1)",
-    "scope": "A 13-denomination system has the greedy-optimal prefix pattern prohibited for length 3r+1. Only the general prohibition in part (1) is refuted.",
+    "title": "Counterexamples to Van Cott–Zhang Conjecture 5.2(1) and (3)",
+    "scope": "The prefix pattern exists at every length at least 11. Counterexamples to the general prohibition occur at every length 13, 16, 19, …, and to the D/G classification at every length 14, 17, 20, …. Lengths 7 and 10 and part (2) remain unsettled.",
     "declarations": [
-      "CoinOrder.vanCottZhangConjecture521_false"
+      "CoinOrder.vanCottZhangConjecture521_false",
+      "CoinOrder.Family.every_length_ge_eleven",
+      "CoinOrder.Family.general_prohibition_fails",
+      "CoinOrder.Family.classification_fails",
+      "CoinOrder.Family.conjecture523_false"
     ],
     "priority_audit": "results/van-cott-zhang-521/audit.md",
     "disposition": "no-prior-found",
@@ -106,6 +110,6 @@
     ],
     "landing": "results/van-cott-zhang-521/README.md",
     "featured": 5,
-    "summary": "A 13-denomination counterexample refutes the general prohibition on the +++−⋯−+ prefix pattern."
+    "summary": "The pattern exists at every length at least 11, and the proposed two-family classification is not exhaustive."
   }
 ]

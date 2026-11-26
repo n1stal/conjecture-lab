@@ -1,0 +1,15 @@
+{
+  "challenge_module": "Palomar.CoinFamily.Challenge",
+  "solution_module": "Palomar.CoinFamily.Solution",
+  "theorem_names": [
+    "CoinOrder.Family.every_length_ge_eleven",
+    "CoinOrder.Family.general_prohibition_fails",
+    "CoinOrder.Family.classification_fails",
+    "CoinOrder.Family.conjecture523_false"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}
