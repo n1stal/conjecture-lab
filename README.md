@@ -16,13 +16,15 @@ python verify.py --replay runs/exact.json
 
 On GitHub: **Actions → Bounded research → Run workflow**. Choose the search mode, limit, minimum element, seed, and node/trial cap. The run stops at its cap; the workflow also has an eight-minute timeout. Download the JSON artifact or view the Actions summary. This dispatch is opt-in, does not call a model API or push commits, and uses standard GitHub Actions runner minutes. There is no scheduled job or automatic publication.
 
-**Verify** runs Python tests, checks the stored witnesses, replays exact results, and builds the Lean proof package. If using Lean locally, install [elan](https://lean-lang.org/install/) and run `lake build --wfail`; the toolchain is pinned. The concrete Lean theorems verify *witnesses* and exact arithmetic, not the search completeness or the all-integers claim.
+**Verify** runs Python tests, checks the stored witnesses, replays exact results, rebuilds the six-vertex polygon certificate with a C++17 compiler and Python, and builds the Lean proof package. If using Lean locally, install [elan](https://lean-lang.org/install/) and run `lake build --wfail`; the toolchain is pinned. The concrete Lean theorems verify *witnesses* and exact arithmetic, not the search completeness or the all-integers claim.
 
 ## Active targets
 
-[Property P sharp reciprocal bound](conjectures/property-p-sharp.md). New exact computation: **3/2 through 300** (951,769 nodes). A 2,000-trial search through 5,000 without 1 found no improvement over the known witness for that restricted search. This heuristic result is not a bound. Raw reports are in [results/](results/).
+[Property P sharp reciprocal bound](conjectures/property-p-sharp.md). Exact computation: **3/2 through 300** (951,769 nodes). An attempt through 500 stopped at three million nodes without finding a larger witness; it is not exhaustive. A 2,000-trial search through 5,000 without 1 found no improvement over the existing witness for that restricted search; this heuristic result is not a bound. Raw reports are in [results/](results/).
 
-[Erdős #982: distances in convex octagons](problems/erdos-982.md). Includes an exact lattice search and a proof draft for the case with two perpendicular reflection axes.
+[Erdős #982: distances in convex octagons](problems/erdos-982.md). Includes exact finite lattice searches and a separately reviewed partial proof for centrally symmetric octagons; the general question remains open.
+
+[Chebotarev's even-order digraph Laplacian question](problems/chebotarev-q2.md). An exact integer census certifies that **every unweighted six-vertex digraph Laplacian lies inside the proposed spectral polygon**. The note also gives a written proof for independently varying antipodal weights on a circulant base. The general weighted horizontal-edge question remains open.
 
 ## Research loop
 
@@ -30,15 +32,3 @@ On GitHub: **Actions → Bounded research → Run workflow**. Choose the search 
 2. **Attack:** Start with the cheapest falsification or special case. Keep deterministic seeds, caps, and exact arithmetic. For model-assisted reasoning, use the [research prompt](templates/agent-run.md); record model and budget only if known. A promising answer is a candidate, not a proof.
 3. **Verify independently:** Test the witness against the original definition using a different method. For exact optimization, record evidence of completeness, independently brute-force tractable sizes, and keep a replay. For an all-size proof, audit the quantifiers, assumptions, imported results, and every reduction; formalize the exact statement in Lean. No placeholders or unacknowledged axioms.
 4. **Promote only the proved scope:** Label results `exploratory`, `witness-verified`, `finite-exact`, `proof-draft`, or `formalized`; include the verified statement and audit limits. [Experiment log template](templates/run.md) Keep failed approaches with evidence. Publishing and spending on APIs are separate decisions, not workflow defaults.
-
-### Additional active target
-
-- [Chebotarev's even-order digraph Laplacian question](problems/chebotarev-q2.md):
-  candidate proof for circulant bases with independently weighted antipodal
-  arcs; an exact integer census certifies the imaginary-height bound for
-  every unweighted six-vertex digraph. Fractional weights remain open.
-- The octagon note now also covers the reviewed partial proof for central symmetry
-  alone (no reflection symmetry assumption). The general problem remains open.
-- `results/attempt-n500.json` records a three-million-node search stopped by
-  its budget. No larger witness was found; this does **not** certify optimality
-  through 500.

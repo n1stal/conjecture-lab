@@ -1,6 +1,6 @@
 # Chebotarev's even-order Laplacian height question
 
-**Status:** General weighted question remains open in the sources checked on 2026-11-26. The family result below is a written proof, not Lean-verified; independent review and novelty are not established. The order-six unweighted height bound is checked by exhaustive integer arithmetic; the weighted and full-polygon searches remain exploratory.
+**Status:** General weighted question remains open in the sources checked on 2026-11-26. The family result below is a written proof, not Lean-verified; independent review and novelty are not established. The order-six unweighted height bound is checked by exhaustive integer arithmetic; the weighted search remains exploratory, and the full unweighted polygon is also checked with exact arithmetic.
 
 [Chebotarev, arXiv:2610.14100v4, §7.3, Question 2](https://arxiv.org/html/2610.14100v4#S7.SS3) asks whether the maximum imaginary part of an eigenvalue of a standardized $n\times n$ digraph Laplacian at even $n$ is $n^{-1}\cot(\pi/n)$. Such an $L$ has $L_{ij}=-a_{ij}$ for $i\ne j$, $a_{ij}\in[0,1/n]$, and each row sums to zero. Order four is already settled in v4; earlier versions reporting it open are stale. The companion [arXiv:2611.02249, §7](https://arxiv.org/html/2611.02249#S7) reports local optimization at orders 6 and 8, and the original paper reports a second-order perturbative obstruction in the horizontal direction. Neither observation rules out a nonlocal counterexample.
 
@@ -59,7 +59,7 @@ No height violation was found in 100 starts at each of $n=6,8,10,12,16$, includi
 
 ## Exact unweighted certificate at order six
 
-The floating-point height screen above was independently replaced by integer arithmetic. The result is exact: every unweighted six-vertex digraph has standardized Laplacian eigenvalues satisfying $|\operatorname{Im}\lambda|\le\sqrt3/6$. The bound is attained by the half-circulant in the theorem above. Exact certification of *all the other sides of the polygon* is not claimed.
+The floating-point height screen above was independently replaced by integer arithmetic. The result is exact: every unweighted six-vertex digraph has standardized Laplacian eigenvalues satisfying $|\operatorname{Im}\lambda|\le\sqrt3/6$. The bound is attained by the half-circulant in the theorem above. The subsequent section separately certifies the slanted sides of the polygon.
 
 ~~~sh
 g++ -O3 -std=c++17 -Wall -Wextra experiments/chebotarev_exact6.cpp -o /tmp/chebotarev-exact6
@@ -80,3 +80,38 @@ $$
 If $|\operatorname{Im}\lambda_i|\le\sqrt3$ for all $i$, every constant term $12+(\lambda_i-\lambda_j)^2$ has nonnegative real part, since $|\operatorname{Im}(\lambda_i-\lambda_j)|\le2\sqrt3$. Pair the nonreal constant terms with their conjugates: each resulting quadratic, and each remaining real linear factor, has nonnegative coefficients. Conversely, if the height bound fails, an eigenvalue $a+ib$ and its conjugate produce a factor $t+12-4b^2$ with a positive zero. A monic polynomial with all coefficients nonnegative cannot have a positive real zero. The two conditions are therefore equivalent.
 
 The verifier computes power sums $p_\ell=\sum_i\lambda_i^\ell$ by Newton identities. For $k>0$, the power sum of the squared differences is $\frac12\sum_{\ell=0}^{2k}(-1)^\ell\binom{2k}{\ell}p_{\ell}p_{2k-\ell}$, by binomial expansion (the diagonal contributes zero). A second binomial expansion shifts the squared differences by 12 and negates them; a second Newton pass computes the coefficients of $G$. Python integers are unbounded. The finite result still does not control fractional arc weights or higher orders.
+
+## Exact containment in the entire order-six polygon
+
+A second exact verifier checks all four pairs of slanted supporting lines, beyond the horizontal question above. Therefore every six-vertex **unweighted** standardized Laplacian has its entire spectrum in $S_6$. The [known fractional-weight examples at order six](https://arxiv.org/html/2610.14100v4#S6) lie outside $S_6$, so fractional weights really are necessary at this order. This does not settle the weighted horizontal edge.
+
+~~~sh
+g++ -O3 -std=c++17 -Wall -Wextra experiments/chebotarev_exact6.cpp -o /tmp/chebotarev-exact6
+set -o pipefail
+/tmp/chebotarev-exact6 > /tmp/chebotarev-polys6.txt
+python experiments/chebotarev_verify6.py < /tmp/chebotarev-polys6.txt
+python experiments/chebotarev_verify6_polygon.py < /tmp/chebotarev-polys6.txt
+~~~
+
+The slant check took 17.5 seconds locally, excluding the preceding census and strip check. It checks the same 44,729 polynomials.
+
+In unscaled coordinates $X+iY$ the upper edge vertices are
+$0$, $(1+i\sqrt3)/2$, $2+i\sqrt3$, $4+i\sqrt3$, $(11+i\sqrt3)/2$, and $6$.
+The four slanted supporting inequalities are
+$\sqrt3Y-3X\le0$, $\sqrt3Y-X\le1$, $\sqrt3Y+X\le7$, and $\sqrt3Y+3X\le18$.
+The horizontal bound is $Y\le\sqrt3$; lower edges follow by conjugation.
+
+For any normal $w\in\mathbb C$ and real constant $c$, let
+
+$$
+H(t)=\prod_{i,j}\left(t+2c-w\lambda_i-\overline w\lambda_j\right).
+$$
+
+A real-coefficient characteristic polynomial has conjugation-invariant roots. Therefore $H$ is real and is coefficientwise nonnegative if and only if $\operatorname{Re}(w\lambda_i)\le c$ for all $i$: the forward-to-nonnegative argument uses the real parts of constants and conjugate-pair quadratics as in the strip test, and a violation produces a positive real root of $H$ by choosing $\lambda_j=\overline{\lambda_i}$. For each slant, take $w=a-i\sqrt3$ with $a=-3,-1,1,3$ respectively and $c=0,1,7,18$ respectively. Compute the power sums of the roots of $H$ from the characteristic power sums $p_j$, via the binomial expansion
+
+$$
+ \sum_{i,j}(w\lambda_i+\overline w\lambda_j)^k
+ =\sum_{\ell=0}^{k}\binom{k}{\ell}w^\ell\overline w^{k-\ell}p_\ell p_{k-\ell}.
+$$
+
+The sum is real because interchanging $\ell$ and $k-\ell$ conjugates the terms. Exact arithmetic in $\mathbb Z[i\sqrt3]$, followed by the shift by $-2c$ and Newton identities, checks coefficient nonnegativity.
