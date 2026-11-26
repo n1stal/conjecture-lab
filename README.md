@@ -36,7 +36,7 @@ On GitHub: **Actions → Bounded research → Run workflow**. Choose the search 
 - [Chebotarev's even-order digraph Laplacian question](problems/chebotarev-q2.md):
   candidate proof for circulant bases with independently weighted antipodal
   arcs; an unweighted six-vertex census is numerical, not an exact proof.
-- The octagon note now also covers the candidate proof for central symmetry
+- The octagon note now also covers the reviewed partial proof for central symmetry
   alone (no reflection symmetry assumption). The general problem remains open.
 - `results/attempt-n500.json` records a three-million-node search stopped by
   its budget. No larger witness was found; this does **not** certify optimality

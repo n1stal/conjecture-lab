@@ -1,8 +1,8 @@
 # Erdős #982: the convex octagon case
 
 **Status:** General octagon case open in the sources checked 2026-11-26.
-Finite grid experiments below. Candidate partial proof for two perpendicular
-reflection axes; not independently reviewed, formally verified, or claimed novel.
+Finite grid experiments below. The partial proof for centrally symmetric
+octagons has had a separate AI review; it is not Lean-verified or claimed novel.
 
 A strictly convex octagon is sought in which each vertex sees at most three
 distinct distances to the other seven vertices. One verified example would
@@ -64,7 +64,8 @@ If a=b, scale to a=b=1. The within-orbit set is {4,8}; there must be
 one further value t, since X₊−X₋>4. If 4<t<8 the three-value set has
 diameter 4, impossible. If t>8, both X₋ and Y₋ must be at least 4
 (as all three allowable values are at least 4). Thus c,d≥1+√3>2.
-Then (1,1) is inside the triangle with vertices (0,0),(c,0),(0,d),
+The origin is in the convex hull by central symmetry. Then (1,1) is inside
+the triangle with vertices (0,0),(c,0),(0,d),
 contrary to extremality. Finally if t<4, both near distances must equal t,
 and both far distances 8: a near distance ≥4 cannot have a far distance
 more than 4 larger, and a near distance t>0 cannot have far distance 4.
@@ -74,8 +75,8 @@ t<4, 2c²∈(4,8), 8, and 4c²>8. Contradiction.
 The case split is exhaustive under the stated symmetries. Earlier
 [search notes](https://lemmapark.com/programs/erdos-open/challenges/Lemma.erdos_982)
 include numerical tests of these orbit types; we have not ruled out prior
-analytic treatments. Next: independent line-by-line proof review, followed
-by the larger class with 180° rotational symmetry only.
+analytic treatments. The next section reduces 180° rotational symmetry to
+this case.
 
 ## Extension: central symmetry alone
 
