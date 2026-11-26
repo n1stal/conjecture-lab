@@ -1,0 +1,71 @@
+version: "v0.4"
+project:
+  name: "Inverse Z-polynomial log-concavity through rank four"
+  description: >-
+    For any matroid on a finite ambient type of rank at most four, the inverse
+    Z-polynomial has positive coefficients through rank and is log-concave.
+    The proof uses a rank-four deletion inequality on flat incidences.
+  authors:
+    - "Jaime Nistal"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Jaime Nistal"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05B35", "03B35"]
+sources:
+  - title: "Log-concavity of inverse Z-polynomials through rank four"
+    type: "other"
+    id: "https://github.com/RokaSwK/conjecture-lab/blob/2d4a42f91c4a0419edf49c1264d979cd65806189/problems/inverse-z-rank-four.md"
+    relationship: "formalizes"
+    note: "Formalizes our earlier written proof at its pinned commit. No claim of priority."
+  - title: "The inverse Z-polynomial of a matroid"
+    authors: ["Alice L. L. Gao", "Xuan Ruan", "Matthew H. Y. Xie"]
+    id: "https://arxiv.org/abs/2507.01332v1"
+    location: "Conjecture 1.5 and Theorem 1.6"
+    relationship: "background"
+    note: "Original general conjecture; the paper proves sparse paving."
+    author_endorsement: "not-contacted"
+  - title: "Inverse Kazhdan–Lusztig polynomials of matroids under deletion"
+    authors: ["Tom Braden", "Luis Ferroni", "Jacob P. Matherne", "Nutan Nepal"]
+    id: "https://arxiv.org/abs/2510.01086v2"
+    location: "Theorem 2.2"
+    relationship: "background"
+    note: "Source characterization of the inverse Z-polynomial."
+    author_endorsement: "not-contacted"
+status:
+  scope: >-
+    All matroids on a finite ambient type of rank zero through four, including
+    loops and parallel elements. Higher ranks and the unrestricted conjecture are
+    not claimed. No research-priority claim.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex workers"
+      tool_setup: "Lean kernel checking, Mathlib, independent AI review, and exact finite Python checks. Model versions were not pinned or verified."
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based"
+        hardware: "cloud workspace and GitHub Actions"
+      prompting_notes: "Separate workers handled deletion geometry, coefficient identities, and review."
+  spend_usd: "subscription-based"
+  notes: "Jaime directed the project. Codex acted as the AI co-author on GitHub; AI workers developed and checked the formal proof. AI attribution is in this disclosure rather than the human author list."
+fidelity:
+  divergences: "Adds rank at most four; uses Mathlib's finite ambient type representation of finite matroids."
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Written proof separately checked by AI workers. No independent human refereeing or author endorsement."
+alignment:
+  namespace: "ConjectureLab.Submission"
+  statements:
+    - source: "Gao–Ruan–Xie, arXiv:2507.01332v1, Conjecture 1.5"
+      lean: "ConjectureLab.Submission.inverse_z_rank_at_most_four"
+      module: "Solution"
+      status: "partial"
+      note: "Complete for rank at most four, not the unrestricted conjecture."
+acknowledgements: "Lean and the Mathlib community; Gao, Ruan, and Xie for the conjecture; Braden, Ferroni, Matherne, and Nepal for the source characterization."

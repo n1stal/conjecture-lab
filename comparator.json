@@ -1,0 +1,6 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": ["ConjectureLab.Submission.inverse_z_rank_at_most_four"],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}

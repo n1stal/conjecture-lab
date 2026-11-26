@@ -1,11 +1,34 @@
 [
   {
+    "id": "inverse-z-rank-four",
+    "title": "Inverse Z-polynomials through rank four",
+    "scope": "Positive coefficients through the rank and log-concavity for matroids on finite ambient types of rank at most four. The unrestricted conjecture remains open here.",
+    "declarations": [
+      "ConjectureLab.Submission.inverse_z_rank_at_most_four",
+      "InverseZ.matroidInverseZ_rank_at_most_four"
+    ],
+    "priority_audit": "results/inverse-z-rank-four/audit.md",
+    "disposition": "no-prior-found",
+    "sources": [
+      "https://arxiv.org/html/2507.01332v1",
+      "https://arxiv.org/html/2510.01086v2",
+      "https://arxiv.org/abs/2601.17314",
+      "https://github.com/PerAlexandersson/RealRooted/issues/1405"
+    ]
+  },
+  {
     "id": "property-p-baseline",
     "title": "Property P: the finite witness {1, 2}",
     "scope": "The set {1, 2} has Property P and its reciprocal sum is 3/2. This is not a search certificate or an upper bound.",
-    "declarations": ["ConjectureLab.baseline_valid", "ConjectureLab.baseline_weight"],
+    "declarations": [
+      "ConjectureLab.baseline_valid",
+      "ConjectureLab.baseline_weight"
+    ],
     "priority_audit": "results/property-p-baseline/audit.md",
     "disposition": "known-baseline",
-    "sources": ["https://www.erdosproblems.com/12", "https://hexagonmath.org/2611.00765v1"]
+    "sources": [
+      "https://www.erdosproblems.com/12",
+      "https://hexagonmath.org/2611.00765v1"
+    ]
   }
 ]
