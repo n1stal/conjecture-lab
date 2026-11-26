@@ -6,3 +6,4 @@ public import Proofs.Amnesiac
 public import Proofs.AmnesiacFamily
 public import InverseZProjective
 public import SpectralRank
+public import Proofs.VanCottZhang

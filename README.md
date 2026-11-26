@@ -12,6 +12,7 @@ A catalogue of [Lean-checked mathematics](results/README.md). Lean checks the fo
 - [Ordered spectral proximity forces adjacency rank at most five](results/spectral-rank-problem-21/audit.md): Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five.
 - [Inverse Z-polynomials through rank four](results/inverse-z-rank-four/audit.md): Positivity and log-concavity for every finite matroid of rank at most four.
 - [Strict inverse Z log-concavity for line-preserving projective restrictions](results/inverse-z-projective/audit.md): Strict log-concavity in every rank when at least two projective points remain on every line.
+- [A counterexample to Van Cott–Zhang Conjecture 5.2(1)](results/van-cott-zhang-521/README.md): A 13-denomination counterexample refutes the general prohibition on the +++−⋯−+ prefix pattern.
 
 ## Checked baselines
 

@@ -90,5 +90,22 @@
     ],
     "featured": 2,
     "summary": "Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five."
+  },
+  {
+    "id": "van-cott-zhang-521",
+    "title": "A counterexample to Van Cott–Zhang Conjecture 5.2(1)",
+    "scope": "A 13-denomination system has the greedy-optimal prefix pattern prohibited for length 3r+1. Only the general prohibition in part (1) is refuted.",
+    "declarations": [
+      "CoinOrder.vanCottZhangConjecture521_false"
+    ],
+    "priority_audit": "results/van-cott-zhang-521/audit.md",
+    "disposition": "no-prior-found",
+    "sources": [
+      "https://arxiv.org/html/2303.00078v2#S5",
+      "https://doi.org/10.1016/j.disc.2025.114669"
+    ],
+    "landing": "results/van-cott-zhang-521/README.md",
+    "featured": 5,
+    "summary": "A 13-denomination counterexample refutes the general prohibition on the +++−⋯−+ prefix pattern."
   }
 ]
