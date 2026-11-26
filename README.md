@@ -1,5 +1,7 @@
 # Conjecture Lab
 
+**Jaime Nistal**, author · **Codex (OpenAI)**, AI co-author
+
 Reproducible experiments and partial proofs in discrete mathematics. Each result is paired with its exact scope, the source problem, and instructions to check it. None of the entries below claims to settle the corresponding general problem, and we have not established novelty.
 
 ## Results

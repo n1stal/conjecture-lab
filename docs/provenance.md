@@ -1,6 +1,6 @@
 # Provenance and citation
 
-The project combines human direction with AI-assisted research, implementations, and review. Its experiments were inspired by the [Cinna Davis and GPT-6.2 Astra conjecture catalogue](https://github.com/1337isnot1337/solved-conjectures). This repository is a separate project, not a fork or an extension of that catalogue's mathematical results. It has not been peer reviewed.
+Jaime Nistal leads Conjecture Lab and is listed as the author. Codex (OpenAI) is credited as an AI co-author for assistance with exploration, proofs, code, documentation, and verification. AI-assisted review is not independent human peer review. Its experiments were inspired by the [Cinna Davis and GPT-6.2 Astra conjecture catalogue](https://github.com/1337isnot1337/solved-conjectures). This repository is a separate project, not a fork or an extension of that catalogue's mathematical results. It has not been peer reviewed.
 
 ## Problem sources
 
@@ -10,4 +10,8 @@ The project combines human direction with AI-assisted research, implementations,
 
 ## How to cite an entry
 
-Cite the *specific result note*, the repository commit, and the scope, not just the parent conjecture. For example: *Conjecture Lab contributors, “Exact containment in the entire order-six polygon” (unweighted six-vertex case), Conjecture Lab, commit `<SHA>`.* The [citation file](../CITATION.cff) provides repository-level metadata. If citing the original question or another author's theorem, cite that source directly.
+Cite the *specific result note*, the repository commit, and the scope, not just the parent conjecture. For example: *Jaime Nistal and Codex (OpenAI), “Exact containment in the entire order-six polygon” (unweighted six-vertex case), Conjecture Lab, commit `<SHA>`.* The [citation file](../CITATION.cff) provides repository-level metadata. If citing the original question or another author's theorem, cite that source directly.
+
+## Commit attribution
+
+For future contributions by Codex under Jaime’s direction, use Jaime Nistal as the Git author and include `Co-authored-by: Codex <codex@openai.com>` in the commit message. Do not rewrite existing history.

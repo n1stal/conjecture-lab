@@ -3,7 +3,9 @@ message: "If you use this work, cite the specific result note and repository com
 title: "Conjecture Lab"
 type: software
 authors:
-  - name: "Conjecture Lab contributors"
+  - given-names: "Jaime"
+    family-names: "Nistal"
+  - name: "Codex (OpenAI)"
 keywords:
   - experimental mathematics
   - combinatorics
