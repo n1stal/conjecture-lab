@@ -20,3 +20,9 @@ roots = ["Challenge"]
 [[lean_lib]]
 name = "Solution"
 roots = ["Solution"]
+
+[[lean_lib]]
+name = "InverseZProjective"
+
+[[lean_lib]]
+name = "SpectralRank"

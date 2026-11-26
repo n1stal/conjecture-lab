@@ -35,6 +35,23 @@
     ]
   },
   {
+    "id": "inverse-z-projective",
+    "title": "Strict inverse Z log-concavity for line-preserving projective restrictions",
+    "scope": "In every rank, the inverse Z-polynomial of a finite projective geometry restricted to points retaining at least two on every line has positive coefficients through rank and strict log-concavity at every interior degree. The unrestricted conjecture is not settled.",
+    "declarations": [
+      "InverseZProjective.GaussianIncidence.represented_inverseZ_strict_logConcave"
+    ],
+    "priority_audit": "results/inverse-z-projective/audit.md",
+    "disposition": "credited-prior-work",
+    "sources": [
+      "https://arxiv.org/html/2507.01332v1",
+      "https://arxiv.org/html/2510.01086v2",
+      "https://arxiv.org/abs/2601.17314",
+      "https://arxiv.org/html/2607.24186v2",
+      "https://arxiv.org/abs/2609.13417v1"
+    ]
+  },
+  {
     "id": "property-p-baseline",
     "title": "Property P: the finite witness {1, 2}",
     "scope": "The set {1, 2} has Property P and its reciprocal sum is 3/2. This is not a search certificate or an upper bound.",
@@ -47,6 +64,21 @@
     "sources": [
       "https://www.erdosproblems.com/12",
       "https://hexagonmath.org/2611.00765v1"
+    ]
+  },
+  {
+    "id": "spectral-rank-problem-21",
+    "title": "Ordered spectral proximity forces adjacency rank at most five",
+    "scope": "For any simple graph on 3n vertices, n ≥ 3, squared distance of its ordered adjacency spectrum to (2n, 0, …, 0, −n, −n) strictly below 2/3 forces real adjacency rank at most five. This answers Problem 21, not Conjecture 20.",
+    "declarations": [
+      "SpectralRank.problem_21"
+    ],
+    "priority_audit": "results/spectral-rank-problem-21/audit.md",
+    "disposition": "no-prior-found",
+    "sources": [
+      "https://arxiv.org/html/2610.18636v2#S5",
+      "https://arxiv.org/abs/2611.26650v1",
+      "https://www.sciencedirect.com/science/article/pii/S0024379511007567"
     ]
   }
 ]
