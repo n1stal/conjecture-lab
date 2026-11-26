@@ -15,7 +15,10 @@
       "https://doi.org/10.1007/978-3-030-67731-2_5",
       "https://doi.org/10.1007/s00446-023-00448-y",
       "https://doi.org/10.4230/LIPIcs.DISC.2025.10"
-    ]
+    ],
+    "landing": "results/amnesiac-flooding/README.md",
+    "featured": 1,
+    "summary": "A 24-vertex counterexample gives 12 < 13. The same construction works for every number of sources k ≥ 4."
   },
   {
     "id": "inverse-z-rank-four",
@@ -32,7 +35,9 @@
       "https://arxiv.org/html/2510.01086v2",
       "https://arxiv.org/abs/2601.17314",
       "https://github.com/PerAlexandersson/RealRooted/issues/1405"
-    ]
+    ],
+    "featured": 3,
+    "summary": "Positivity and log-concavity for every finite matroid of rank at most four."
   },
   {
     "id": "inverse-z-projective",
@@ -49,7 +54,9 @@
       "https://arxiv.org/abs/2601.17314",
       "https://arxiv.org/html/2607.24186v2",
       "https://arxiv.org/abs/2609.13417v1"
-    ]
+    ],
+    "featured": 4,
+    "summary": "Strict log-concavity in every rank when at least two projective points remain on every line."
   },
   {
     "id": "property-p-baseline",
@@ -64,7 +71,8 @@
     "sources": [
       "https://www.erdosproblems.com/12",
       "https://hexagonmath.org/2611.00765v1"
-    ]
+    ],
+    "summary": "The set {1, 2} has reciprocal sum 3/2. This is a known witness, not an upper bound."
   },
   {
     "id": "spectral-rank-problem-21",
@@ -79,6 +87,8 @@
       "https://arxiv.org/html/2610.18636v2#S5",
       "https://arxiv.org/abs/2611.26650v1",
       "https://www.sciencedirect.com/science/article/pii/S0024379511007567"
-    ]
+    ],
+    "featured": 2,
+    "summary": "Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five."
   }
 ]

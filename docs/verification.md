@@ -9,7 +9,7 @@ python3 scripts/check_publication.py
 
 CI runs the same checks on pushes and pull requests. The script requires a
 catalogue entry to have named Lean declarations, an audit file citing its
-sources, matching generated index, and a kernel-checked axiom receipt.
+sources, existing result-page links, matching generated catalogue and root README sections, and a kernel-checked axiom receipt. Regenerate the two views after registry edits with `python3 scripts/check_publication.py --write-catalogue --metadata-only`.
 Only the standard foundational axioms `propext`, `Classical.choice`, and
 `Quot.sound` are allowed. The gate is not a novelty detector or a substitute
 for checking that the written claim means exactly what the Lean theorem says.

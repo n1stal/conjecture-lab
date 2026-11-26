@@ -5,16 +5,20 @@ import re
 import subprocess
 import tempfile
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 APPROVED = {"propext", "Classical.choice", "Quot.sound"}
 NAME = re.compile(r"[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)+", re.ASCII)
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
+BEGIN = "<!-- BEGIN GENERATED RESULTS -->"
+END = "<!-- END GENERATED RESULTS -->"
+LINK = re.compile(r"(?<!!)\[[^\]\n]+\]\(([^)\s]+)\)")
 
 
 def registry():
     rows = json.loads((ROOT / "results/registry.json").read_text())
-    ids, names = set(), set()
+    ids, names, featured = set(), set(), set()
     for row in rows:
         ident = row["id"]
         assert SLUG.fullmatch(ident) and ident not in ids, ident
@@ -30,6 +34,16 @@ def registry():
         assert row["disposition"] in {
             "known-baseline", "credited-prior-work", "no-prior-found"
         }, ident
+        landing = landing_path(row)
+        assert landing in {audit, f"results/{ident}/README.md"}, landing
+        assert (ROOT / landing).is_file(), landing
+        summary = row.get("summary", "")
+        assert isinstance(summary, str) and summary.strip() and "\n" not in summary, ident
+        order = row.get("featured")
+        if order is not None:
+            assert row["disposition"] != "known-baseline", ident
+            assert type(order) is int and order > 0 and order not in featured, ident
+            featured.add(order)
         assert row["sources"] and all(url.startswith("https://") for url in row["sources"]), ident
         audit_text = (ROOT / audit).read_text()
         assert all(url in audit_text for url in row["sources"]), audit
@@ -38,12 +52,63 @@ def registry():
     return rows, sorted(names)
 
 
+def landing_path(row):
+    return row.get("landing", row["priority_audit"])
+
+
+def research_order(rows):
+    order = len(rows) + max((r.get("featured", 0) for r in rows), default=0)
+    return sorted(
+        (r for r in rows if r["disposition"] != "known-baseline"),
+        key=lambda r: r.get("featured", order),
+    )
+
+
+def result_line(row, from_root, field):
+    path = landing_path(row)
+    if not from_root:
+        path = path.removeprefix("results/")
+    return f"- [{row['title']}]({path}): {row[field]}"
+
+
+def result_block(rows):
+    research = [r for r in research_order(rows) if "featured" in r]
+    baselines = [r for r in rows if r["disposition"] == "known-baseline"]
+    return "\n".join((
+        BEGIN, "", "## Featured results", "",
+        *(result_line(r, True, "summary") for r in research),
+        "", "## Checked baselines", "",
+        *(result_line(r, True, "summary") for r in baselines),
+        "", END,
+    ))
+
+
+def render_front_page(text, rows):
+    assert text.count(BEGIN) == text.count(END) == 1, "Missing or duplicate README result marker"
+    before, rest = text.split(BEGIN)
+    assert END in rest, "README result markers out of order"
+    _, after = rest.split(END)
+    return before + result_block(rows) + after
+
+
 def catalogue(rows):
     lines = ["# Lean-checked results", "",
-             "Generated from the publication registry. Each entry links its exact scope and prior-work audit.", ""]
-    for r in rows:
-        lines.extend((f"- [{r['title']}]({r['id']}/audit.md): {r['scope']}",))
+             "Generated from the publication registry. Each entry links its result page and audit.",
+             "", "## Research results", ""]
+    lines.extend(result_line(r, False, "scope") for r in research_order(rows))
+    lines.extend(("", "## Checked baselines", ""))
+    lines.extend(result_line(r, False, "scope") for r in rows if r["disposition"] == "known-baseline")
     return "\n".join(lines) + "\n"
+
+
+def check_local_markdown_links(paths):
+    for document in paths:
+        for href in LINK.findall(document.read_text()):
+            url = urlsplit(href)
+            if not url.path or url.scheme or url.netloc:
+                continue
+            target = (document.parent / unquote(url.path)).resolve()
+            assert target.is_relative_to(ROOT) and target.exists(), f"{document.relative_to(ROOT)}: {href}"
 
 
 def check_axioms(output, names):
@@ -68,6 +133,16 @@ def main():
     if args.write_catalogue:
         index.write_text(rendered)
     assert index.read_text() == rendered, "Regenerate results/README.md from the registry"
+    front_page = ROOT / "README.md"
+    front_text = front_page.read_text()
+    updated_front = render_front_page(front_text, rows)
+    if args.write_catalogue:
+        front_page.write_text(updated_front)
+    assert front_page.read_text() == updated_front, "Regenerate README.md from the registry"
+    documents = {front_page, index}
+    documents.update(ROOT / landing_path(r) for r in rows)
+    documents.update(ROOT / r["priority_audit"] for r in rows)
+    check_local_markdown_links(documents)
     if not args.metadata_only:
         with tempfile.TemporaryDirectory() as tmp:
             check = Path(tmp) / "PublicationAudit.lean"
