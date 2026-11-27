@@ -7,9 +7,9 @@ lake build --wfail
 python3 scripts/check_publication.py
 ```
 
-CI regenerates both catalogue views before running the same proof and metadata checks on pushes and pull requests. The script requires a
+CI regenerates the catalogue views (`README.md`, `CONTENTS.md`, `docs/lean-status.md`, and `results/README.md`) before running the same proof and metadata checks on pushes and pull requests. The script requires a
 catalogue entry to have named Lean declarations, an audit file citing its
-sources, existing result-page links, matching generated catalogue and root README sections, and a kernel-checked axiom receipt. Regenerate the two views after registry edits with `python3 scripts/check_publication.py --write-catalogue --metadata-only`.
+sources, existing result-page links, matching generated catalogue and status views, and a kernel-checked axiom receipt for every `main`-scoped declaration (see [Lean status](lean-status.md) for pinned standalone Palomar packages). Regenerate the views after registry edits with `python3 scripts/check_publication.py --write-catalogue --metadata-only`.
 Only the standard foundational axioms `propext`, `Classical.choice`, and
 `Quot.sound` are allowed. The gate is not a novelty detector or a substitute
 for checking that the written claim means exactly what the Lean theorem says.

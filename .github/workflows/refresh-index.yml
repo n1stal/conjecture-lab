@@ -5,6 +5,8 @@ on:
     paths:
       - 'results/**'
       - README.md
+      - CONTENTS.md
+      - docs/lean-status.md
       - docs/palomar-registrations.md
       - scripts/check_publication.py
       - scripts/sync_index_sources.py
@@ -37,7 +39,7 @@ jobs:
             base=$(git rev-parse HEAD)
             python3 scripts/sync_index_sources.py
             python3 scripts/check_publication.py --write-catalogue --metadata-only
-            git add -- README.md results/README.md docs/palomar-registrations.md docs/research-branches.md
+            git add -- README.md CONTENTS.md results/README.md docs/lean-status.md docs/palomar-registrations.md docs/research-branches.md
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'Refresh the public result index'
             if git push origin HEAD:main; then exit 0; fi
