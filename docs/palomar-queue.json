@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "repository": "n1stal/conjecture-lab",
+  "candidates": [
+    {
+      "id": "beka-c511",
+      "title": "BEKA Conjecture 5.11",
+      "commit": "61547c5decdee20dd8b049fbc28c45b75caaacd6",
+      "project_path": "PalomarPackages/BerendBinomial",
+      "preflight_run": 45991319706,
+      "status": "awaiting_intake"
+    },
+    {
+      "id": "cazenave-c2",
+      "title": "Cazenave Conjecture 2 (#20829)",
+      "commit": "2a5b608164c4579d7816f2fc9e15332b0321527f",
+      "project_path": "PalomarPackages/CazenaveC2",
+      "preflight_run": 45991715671,
+      "status": "awaiting_intake"
+    },
+    {
+      "id": "strong-arboricity-c3",
+      "title": "Strong Arboricity Conjecture 3",
+      "commit": "d60d653b0066d5bce4c1556abce7b14bc705f1e7",
+      "project_path": "PalomarPackages/StrongArboricityC3",
+      "preflight_run": 45990004344,
+      "status": "needs_resubmission"
+    }
+  ]
+}
