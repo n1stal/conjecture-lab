@@ -18,9 +18,10 @@
     ],
     "landing": "results/amnesiac-flooding/README.md",
     "featured": 1,
-    "summary": "A 24-vertex counterexample gives 12 < 13. The same construction works for every number of sources k ≥ 4.",
+    "summary": "The construction gives a counterexample for every number of sources k ≥ 4.",
     "kind": "Counterexample",
-    "proof": "PROOF.md"
+    "proof": "PROOF.md",
+    "problem": "Turau’s amnesiac flooding conjecture"
   },
   {
     "id": "inverse-z-rank-four",
@@ -42,7 +43,8 @@
     "summary": "Positivity and log-concavity for every finite matroid of rank at most four.",
     "kind": "Partial theorem",
     "landing": "results/inverse-z-rank-four/README.md",
-    "proof": "PROOF.md"
+    "proof": "PROOF.md",
+    "problem": "Inverse Z-polynomials through rank four"
   },
   {
     "id": "inverse-z-projective",
@@ -64,7 +66,8 @@
     "summary": "Strict log-concavity in every rank when at least two projective points remain on every line.",
     "kind": "Partial theorem",
     "landing": "results/inverse-z-projective/README.md",
-    "proof": "proof.md"
+    "proof": "proof.md",
+    "problem": "Inverse Z-polynomials on projective restrictions"
   },
   {
     "id": "property-p-baseline",
@@ -80,7 +83,7 @@
       "https://www.erdosproblems.com/12",
       "https://hexagonmath.org/2611.00765v1"
     ],
-    "summary": "The set {1, 2} has reciprocal sum 3/2. This is a known witness, not an upper bound.",
+    "summary": "Its reciprocal sum is 3/2.",
     "kind": "Known baseline"
   },
   {
@@ -101,7 +104,8 @@
     "summary": "Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five.",
     "kind": "Answer to a problem",
     "landing": "results/spectral-rank-problem-21/README.md",
-    "proof": "proof.md"
+    "proof": "proof.md",
+    "problem": "Spectral proximity (Problem 21)"
   },
   {
     "id": "van-cott-zhang-521",
@@ -122,8 +126,9 @@
     ],
     "landing": "results/van-cott-zhang-521/README.md",
     "featured": 5,
-    "summary": "The pattern exists at every length at least 11, and the proposed two-family classification is not exhaustive.",
+    "summary": "The conjectured prefix pattern occurs at every length ≥ 11. The two proposed families omit valid coin systems.",
     "kind": "Counterexample",
-    "proof": "FAMILY-PROOF.md"
+    "proof": "FAMILY-PROOF.md",
+    "problem": "Van Cott–Zhang’s coin systems"
   }
 ]

@@ -78,23 +78,21 @@ def research_order(rows):
     )
 
 
-def result_line(row, from_root, field):
-    path = landing_path(row)
-    if not from_root:
-        path = path.removeprefix("results/")
-    return f"- [{row['title']}]({path}): {row[field]}"
+def table_cell(text):
+    return " ".join(text.splitlines()).replace("|", r"\|")
 
 
 def result_block(rows):
-    research = [r for r in research_order(rows) if "featured" in r]
-    baselines = [r for r in rows if r["disposition"] == "known-baseline"]
-    return "\n".join((
-        BEGIN, "", "## Featured results", "",
-        *(result_line(r, True, "summary") for r in research),
-        "", "## Checked baselines", "",
-        *(result_line(r, True, "summary") for r in baselines),
-        "", END,
-    ))
+    lines = [BEGIN, "", "## Featured results", "",
+             "| Problem | What we proved |", "| --- | --- |"]
+    for row in research_order(rows):
+        if "featured" in row:
+            problem = table_cell(row.get("problem", row["title"]))
+            lines.append(f"| [{problem}]({landing_path(row)}) | {table_cell(row['summary'])} |")
+    for row in rows:
+        if row["disposition"] == "known-baseline":
+            lines.extend(("", f"**Checked baseline** · [{row['title']}]({landing_path(row)}). {row['summary']}"))
+    return "\n".join([*lines, "", END])
 
 
 def render_front_page(text, rows):
@@ -111,8 +109,8 @@ def catalogue(rows):
              "", "| Result | Kind | What the proof establishes |", "| --- | --- | --- |"]
     baselines = [r for r in rows if r["disposition"] == "known-baseline"]
     for row in research_order(rows) + baselines:
-        title = row["title"].replace("|", r"\|")
-        scope = " ".join(row["scope"].splitlines()).replace("|", r"\|")
+        title = table_cell(row["title"])
+        scope = table_cell(row["scope"])
         page = landing_path(row).removeprefix("results/")
         lines.append(f"| [{title}]({page}) | {row['kind']} | {scope} |")
     return "\n".join(lines) + "\n"
