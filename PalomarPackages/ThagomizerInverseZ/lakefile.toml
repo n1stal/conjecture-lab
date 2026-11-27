@@ -1,0 +1,11 @@
+name = "ThagomizerInverseZPalomar"
+version = "1.0.0"
+defaultTargets = ["ThagomizerInverseZSolution"]
+
+[[lean_lib]]
+name = "ThagomizerInverseZChallenge"
+roots = ["Palomar.ThagomizerInverseZ.Challenge"]
+
+[[lean_lib]]
+name = "ThagomizerInverseZSolution"
+roots = ["Palomar.ThagomizerInverseZ.Solution"]

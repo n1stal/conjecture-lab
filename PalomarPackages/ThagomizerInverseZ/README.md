@@ -1,0 +1,7 @@
+# Strict log-concavity for thagomizer inverse Z
+
+Every graph `T_n=K_{1,1,n}`, with n≥0, has a graphic-matroid inverse Z polynomial whose coefficients are positive in degrees 0 through n+1 and strictly log-concave at every interior degree. The assertion is for all n, not a bounded check. See [PROOF.md](PROOF.md) for the exact coefficient formula and the adjacent-minor identity.
+
+The Lean interface defines `InverseZ.ThagomizerLiteral.inverseZCoeff` by summing over actual encoded graphic flats with explicit rank/corank, signed Möbius weights, and the appropriate restriction Q term. The theorem is `InverseZ.ThagomizerLiteral.inverseZCoeff_strict_and_positive`. See the definition in `Palomar/ThagomizerInverseZ/Challenge.lean` and proof in `Palomar/ThagomizerInverseZ/Solution.lean`. Only Std is imported; the graph is encoded directly, not via the Mathlib Matroid API. The source connection is the degree and palindrome characterization in [Braden–Ferroni–Matherne–Nepal, Theorem 2.2](https://arxiv.org/html/2510.01086v2). Gao–Yun Li–Xie’s [Theorem 1.2](https://arxiv.org/html/2510.11322v1) concerns the ordinary inverse KL polynomial Q; this result concerns the ordinary inverse Z polynomial Y.
+
+Pinned Lean: `leanprover/lean4:v4.35.0-rc2`. Build `ThagomizerInverseZChallenge` and `ThagomizerInverseZSolution` separately. Challenge intentionally leaves the result for the solver; Solution compiles with warnings as errors and the theorem uses only `propext`, `Classical.choice`, and `Quot.sound`. Official Comparator replay was not performed in this private preflight.

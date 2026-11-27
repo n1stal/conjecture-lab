@@ -1,0 +1,7 @@
+{
+  "challenge_module": "Palomar.ThagomizerInverseZ.Challenge",
+  "solution_module": "Palomar.ThagomizerInverseZ.Solution",
+  "definition_names": ["InverseZ.ThagomizerLiteral.inverseZCoeff"],
+  "theorem_names": ["InverseZ.ThagomizerLiteral.inverseZCoeff_strict_and_positive"],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}
