@@ -62,3 +62,8 @@ fidelity:
     fewer than three colors would embed into Fin 3. A matching four-color
     witness is not needed for this refutation and is not included in the
     mechanically checked target.
+
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "The exact Solution passed a local Lean 4.35.0-rc2 check with warnings as errors. No human review or source-author endorsement is claimed."
