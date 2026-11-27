@@ -8,7 +8,7 @@ import sys
 
 REPO = "n1stal/conjecture-lab"
 FIELDS = {"id", "title", "commit", "project_path", "preflight_run", "status"}
-STATUSES = {"needs_preflight", "awaiting_intake", "needs_resubmission", "filed", "registered"}
+STATUSES = {"needs_preflight", "awaiting_intake", "needs_resubmission", "prior_work_hold", "filed", "registered"}
 
 
 def validate(queue):
@@ -55,6 +55,8 @@ def main():
     if cid not in rows:
         raise ValueError("Unknown candidate ID")
     row = rows[cid]
+    if row["status"] == "prior_work_hold":
+        raise ValueError("Candidate is on prior-work hold")
     path = row["project_path"]
     run = os.environ["GITHUB_RUN_ID"]
     attempt = os.environ["GITHUB_RUN_ATTEMPT"]
