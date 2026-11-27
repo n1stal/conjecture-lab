@@ -7,3 +7,25 @@ roots = ["Palomar.WeightedTerminalPacking.Challenge"]
 [[lean_lib]]
 name = "WeightedTerminalPackingSolution"
 roots = ["Palomar.WeightedTerminalPacking.Solution"]
+
+[[lean_lib]]
+name = "WeightedTerminalPackingSupport"
+roots = [
+  "Palomar.WeightedTerminalPacking.Core",
+  "Palomar.WeightedTerminalPacking.Data.Initial",
+  "Palomar.WeightedTerminalPacking.Data.Step00",
+  "Palomar.WeightedTerminalPacking.Data.Step01",
+  "Palomar.WeightedTerminalPacking.Data.Step02",
+  "Palomar.WeightedTerminalPacking.Data.Step03",
+  "Palomar.WeightedTerminalPacking.Data.Step04",
+  "Palomar.WeightedTerminalPacking.Data.Step05",
+  "Palomar.WeightedTerminalPacking.Data.Step06",
+  "Palomar.WeightedTerminalPacking.Data.Step07",
+  "Palomar.WeightedTerminalPacking.Data.Step08",
+  "Palomar.WeightedTerminalPacking.Data.Step09",
+  "Palomar.WeightedTerminalPacking.Data.Step10",
+  "Palomar.WeightedTerminalPacking.Data.Step11",
+  "Palomar.WeightedTerminalPacking.Data.Step12",
+  "Palomar.WeightedTerminalPacking.Data.Step13",
+  "Palomar.WeightedTerminalPacking.Data.Step14"
+]
