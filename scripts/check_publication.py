@@ -51,6 +51,8 @@ def registry():
             assert {"audit.md", "../../docs/verification.md"}.issubset(links), f"{ident}: link audit and verification"
             assert any(Path(link).suffix == ".lean" and not urlsplit(link).scheme for link in links), f"{ident}: link Lean source"
             assert all(re.search(rf"(?<![\w.]){re.escape(d)}(?!\w)", page) for d in decls), f"{ident}: name the registered declarations"
+        if "problem" in row:
+            assert isinstance(row["problem"], str) and row["problem"].strip(), f"{ident}: empty or invalid problem label"
         summary = row.get("summary", "")
         assert isinstance(summary, str) and summary.strip() and "\n" not in summary, ident
         order = row.get("featured")

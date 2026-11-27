@@ -101,11 +101,11 @@
       "https://www.sciencedirect.com/science/article/pii/S0024379511007567"
     ],
     "featured": 2,
-    "summary": "Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five.",
+    "summary": "For a simple graph on 3n vertices (n ≥ 3), adjacency rank is at most five if its ordered adjacency spectrum lies at squared distance < 2/3 from the balanced tripartite profile.",
     "kind": "Answer to a problem",
     "landing": "results/spectral-rank-problem-21/README.md",
     "proof": "proof.md",
-    "problem": "Spectral proximity (Problem 21)"
+    "problem": "Ordered spectral proximity (Problem 21)"
   },
   {
     "id": "van-cott-zhang-521",
@@ -126,7 +126,7 @@
     ],
     "landing": "results/van-cott-zhang-521/README.md",
     "featured": 5,
-    "summary": "The conjectured prefix pattern occurs at every length ≥ 11. The two proposed families omit valid coin systems.",
+    "summary": "The target prefix pattern occurs at every length ≥ 11. At lengths 14, 17, 20, …, systems with that pattern exist outside both proposed families.",
     "kind": "Counterexample",
     "proof": "FAMILY-PROOF.md",
     "problem": "Van Cott–Zhang’s coin systems"
