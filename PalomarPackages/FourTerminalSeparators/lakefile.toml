@@ -1,0 +1,37 @@
+name = "FourTerminalSeparatorsPalomar"
+version = "1.0.0"
+defaultTargets = ["FourTerminalSeparatorsSolution"]
+
+[[lean_lib]]
+name = "FourTerminalSeparatorsChallenge"
+roots = ["Palomar.FourTerminalSeparators.Challenge"]
+
+[[lean_lib]]
+name = "FourTerminalSeparatorsSolution"
+roots = ["Palomar.FourTerminalSeparators.Solution"]
+moreLeanArgs = ["-DwarningAsError=true"]
+
+[[lean_lib]]
+name = "FourTerminalSeparatorsSupport"
+roots = [
+  "Palomar.FourTerminalSeparators.Support.BarbellCapGeometry",
+  "Palomar.FourTerminalSeparators.Support.BarbellCore",
+  "Palomar.FourTerminalSeparators.Support.BarbellSharp",
+  "Palomar.FourTerminalSeparators.Support.BarbellUpper",
+  "Palomar.FourTerminalSeparators.Support.EdgeResources",
+  "Palomar.FourTerminalSeparators.Support.EdgeSeparatorGraph",
+  "Palomar.FourTerminalSeparators.Support.EdgeSmallBounds",
+  "Palomar.FourTerminalSeparators.Support.EdgeSmallDenseWitnesses",
+  "Palomar.FourTerminalSeparators.Support.FourBallGroup",
+  "Palomar.FourTerminalSeparators.Support.FourCeilingArithmetic",
+  "Palomar.FourTerminalSeparators.Support.FourEdgeLower",
+  "Palomar.FourTerminalSeparators.Support.FourGraphCeiling",
+  "Palomar.FourTerminalSeparators.Support.FourSeparatorGraph",
+  "Palomar.FourTerminalSeparators.Support.FourSharpPath",
+  "Palomar.FourTerminalSeparators.Support.SeparatorGraphMetric",
+  "Palomar.FourTerminalSeparators.Support.SharpSmallModel",
+  "Palomar.FourTerminalSeparators.Support.ShortTerminalRoutes",
+  "Palomar.FourTerminalSeparators.Support.SmallSharpWitnesses",
+  "Palomar.FourTerminalSeparators.Support.TripleSeparator"
+]
+moreLeanArgs = ["-DwarningAsError=true"]

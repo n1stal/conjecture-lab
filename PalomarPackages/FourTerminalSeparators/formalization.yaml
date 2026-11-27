@@ -1,0 +1,52 @@
+version: "v0.4"
+project:
+  name: "Sharp vertex and edge separator bounds for four prescribed vertices"
+  description: >-
+    For four distinct prescribed vertices in a finite connected simple graph,
+    write S for the sum of their six distances. The exact universal minimum
+    for the maximum number of pairwise disjoint vertex separators is
+    max(0, ceil((S-10)/4)); the exact universal minimum for pairwise
+    edge-disjoint edge separators is ceil((S-2)/4). Each bound is attained
+    for every integer S at least six, with separate realizing graphs.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C12", "05C40"]
+sources:
+  - title: "Sharp vertex and edge separator bounds for four prescribed vertices"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "PROOF.md and Palomar.FourTerminalSeparators.Solution"
+    note: "Both universal lower counts and both separate attainments are checked for each integer S≥6."
+  - title: "Triameter, distance packings, and vertex connectivity"
+    authors: ["Artem Hak", "Sergiy Kozerenko"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2611.17259v1"
+    relationship: "background"
+    location: "Section 2.1, Lemma 6.1, Remark 6.2 and Section 7 Question 3"
+    note: "The source definitions and question are credited. Both motivating three-terminal separator results are reproved."
+    author_endorsement: "not-contacted"
+status:
+  scope: >-
+    Exactly four distinct terminals in a finite connected simple graph;
+    actual unit-edge shortest walks. A vertex separator avoids all marked
+    vertices; an edge separator is a symmetric subset of graph edges.
+    Each separator blocks at least one marked pair. Covers precisely both
+    separator types and all total distances S≥6. Separately attained
+    bounds; excludes distance packing and the case of more terminals.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: "Jaime Nistal directs and maintains the project; Codex is credited for AI-assisted mathematical reasoning, graph checking, and Lean formalization."
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Pinned Lean replay and explicit axiom inspection; no registry acceptance, author endorsement, or human review claimed."

@@ -1,0 +1,14 @@
+{
+  "challenge_module": "Palomar.FourTerminalSeparators.Challenge",
+  "solution_module": "Palomar.FourTerminalSeparators.Solution",
+  "theorem_names": [
+    "HakKozerenkoSeparatorGraph.sharp_four_vertex_separator_bound",
+    "HakKozerenkoEdgeSeparator.sharp_four_edge_separator_bound"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}
