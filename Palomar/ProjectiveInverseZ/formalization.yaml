@@ -16,10 +16,10 @@ classification:
 sources:
   - title: "The inverse Z-polynomial of a matroid"
     type: "article"
-    relationship: "background"
+    relationship: "independently-proves"
     authors: ["Alice L. L. Gao", "Xuan Ruan", "Matthew H. Y. Xie"]
     id: "https://arxiv.org/abs/2507.01332"
-    note: "Source of the broader log-concavity problem and the inverse Z-polynomial normalization."
+    note: "The source poses the broader log-concavity problem. This development independently proves only the explicit line-preserving subcase, using the source normalization; it does not claim the broader result or mathematical priority."
   - title: "Inverse Kazhdan-Lusztig polynomials of matroids under deletion"
     type: "article"
     relationship: "background"
