@@ -1,27 +1,23 @@
-# Conjecture Lab
+# Conjecture Lab · Lean-checked proofs in discrete mathematics
 
-**Jaime Nistal**, author · **Codex (OpenAI)**, AI co-author
+Four sources flood a 24-vertex graph in three rounds. Turau’s conjecture predicts that the number of sources times the flooding time is at least 13 for this graph, but **4 × 3 = 12 < 13**.
 
-A catalogue of [Lean-checked mathematics](results/README.md). Lean checks the formal statements and proofs; this is separate from expert or journal review.
-
-[Full catalogue](results/README.md) · [Palomar registrations](docs/palomar-registrations.md)
+[Full catalogue](results/README.md) · [Palomar registrations](docs/palomar-registrations.md) · [Verification](docs/verification.md)
 
 <!-- BEGIN GENERATED RESULTS -->
 
 ## Featured results
 
-- [A counterexample to Turau’s amnesiac flooding conjecture](results/amnesiac-flooding/README.md): A 24-vertex counterexample gives 12 < 13. The same construction works for every number of sources k ≥ 4.
-- [Ordered spectral proximity forces adjacency rank at most five](results/spectral-rank-problem-21/README.md): Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five.
-- [Inverse Z-polynomials through rank four](results/inverse-z-rank-four/README.md): Positivity and log-concavity for every finite matroid of rank at most four.
-- [Strict inverse Z log-concavity for line-preserving projective restrictions](results/inverse-z-projective/README.md): Strict log-concavity in every rank when at least two projective points remain on every line.
-- [Counterexamples to Van Cott–Zhang Conjecture 5.2(1) and (3)](results/van-cott-zhang-521/README.md): The pattern exists at every length at least 11, and the proposed two-family classification is not exhaustive.
+| Problem | What we proved |
+| --- | --- |
+| [Turau’s amnesiac flooding conjecture](results/amnesiac-flooding/README.md) | The construction gives a counterexample for every number of sources k ≥ 4. |
+| [Ordered spectral proximity (Problem 21)](results/spectral-rank-problem-21/README.md) | For a simple graph on 3n vertices (n ≥ 3), adjacency rank is at most five if its ordered adjacency spectrum lies at squared distance < 2/3 from the balanced tripartite profile. |
+| [Inverse Z-polynomials through rank four](results/inverse-z-rank-four/README.md) | Positivity and log-concavity for every finite matroid of rank at most four. |
+| [Inverse Z-polynomials on projective restrictions](results/inverse-z-projective/README.md) | Strict log-concavity in every rank when at least two projective points remain on every line. |
+| [Van Cott–Zhang’s coin systems](results/van-cott-zhang-521/README.md) | The target prefix pattern occurs at every length ≥ 11. At lengths 14, 17, 20, …, systems with that pattern exist outside both proposed families. |
 
-## Checked baselines
-
-- [Property P: the finite witness {1, 2}](results/property-p-baseline/audit.md): The set {1, 2} has reciprocal sum 3/2. This is a known witness, not an upper bound.
+**Checked baseline** · [Property P: the finite witness {1, 2}](results/property-p-baseline/audit.md). Its reciprocal sum is 3/2.
 
 <!-- END GENERATED RESULTS -->
 
-[Verification](docs/verification.md) · [Prior-work policy](docs/research-process.md) · [Attribution](docs/provenance.md) · [Apache 2.0](LICENSE)
-
-Canonical repository: [n1stal/conjecture-lab](https://github.com/n1stal/conjecture-lab).
+**Jaime Nistal**, author · **Codex (OpenAI)**, AI co-author. [Attribution and citation](docs/provenance.md) · [Prior-work policy](docs/research-process.md) · [Apache 2.0](LICENSE)
