@@ -1,0 +1,86 @@
+version: "v0.4"
+
+project:
+  name: "Counterexample to Cazenave's second spectral graph conjecture"
+  description: >-
+    Two diamonds joined at tips by a path with three new vertices disprove
+    the proposed universal inequality between the second-largest adjacency
+    eigenvalue and the largest Laplacian eigenvalue minus two.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C50", "03B35"]
+
+sources:
+  - title: "An 11-vertex counterexample to Cazenave Conjecture 2 (#20829)"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "PROOF.md and Palomar.CazenaveC2.Solution"
+    note: >-
+      The artifact proves the counterexample rather than formalizing a
+      resolution in the cited background. This label identifies the source
+      of the proof, without asserting priority over unindexed work.
+  - title: "Lemmas and Conjectures in Spectral Graph Theory"
+    authors: ["Tristan Cazenave"]
+    type: "preprint"
+    id: "https://arxiv.org/abs/2611.03879v1"
+    location: "Section 7, Conjecture 2 (#20829); definitions and domain in Section 1"
+    relationship: "background"
+    note: >-
+      The printed claim concerns finite connected simple graphs on at least
+      two vertices, with eigenvalues in decreasing order and multiplicity.
+      The Laplacian is the ordinary matrix D minus A. The source labels this
+      conjecture unrefuted and gives a weaker known bound.
+    license: "CC BY 4.0"
+    author_endorsement: "not-contacted"
+
+status:
+  scope: >-
+    The comparator target is the full negation of Conjecture 2 (#20829);
+    a connected simple 11-vertex witness suffices. No assertion of order
+    minimality is made. The separate paper construction for every order at
+    least 11 is not in the comparison target or certified by this artifact.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+      tool_setup: "Exact algebraic and rational certificates; strict Lean replay with pinned Mathlib."
+  notes: "Jaime Nistal is the human author; Codex is credited for AI-assisted proof development and checking."
+
+fidelity:
+  divergences: >-
+    Fin n ranges over all finite orders and standard labelings. The
+    graph's explicit DecidableRel parameter supplies adjacency decidability;
+    classical logic supplies it for each graph. Mathlib uses zero-based
+    indices so the adjacency and Laplacian ordinals are respectively 1
+    and 0. The counterexample uses Mathlib's actual adjacency and ordinary
+    combinatorial Laplacian matrices, with no surrogate spectra or
+    unverified numerical eigenvalues.
+
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    The statement was independently aligned with the pinned paper and the
+    proof replayed in Lean. No assertion of peer review, source author
+    endorsement, registry acceptance, or mathematical priority is made.
+
+alignment:
+  namespace: "CazenaveRegistry"
+  statements:
+    - source: "Tristan Cazenave, arXiv:2611.03879v1, Section 7, Conjecture 2 (#20829)"
+      lean: "CazenaveRegistry.cazenave_conjecture_2_false"
+      module: "Palomar.CazenaveC2.Solution"
+      status: "proved"
+      note: "The comparable declaration proves the negation of the exact published conjecture."
+
+acknowledgements: "Tristan Cazenave for posing the conjecture; Elie Duhamel and Tristan Cazenave for the conjecture corpus; Lean and Mathlib contributors."

@@ -1,0 +1,18 @@
+name: Official Palomar preflight (Cazenave C2)
+on:
+  push:
+    branches: [palomar/preflight-cazenave-c2]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  palomar-preflight:
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@046554302064b2c83c2b924bea6db87fc5900c68
+    with:
+      repository: n1stal/conjecture-lab
+      commit: ${{ github.sha }}
+      pipeline_commit: 046554302064b2c83c2b924bea6db87fc5900c68
+      request_id: preflight011
+      mode: full
+      execution_profile: palomar-standard-v1
+      options: '{"project_path":"PalomarPackages/CazenaveC2","comparator_config_path":"PalomarPackages/CazenaveC2/comparator.json","formalization_metadata_path":"PalomarPackages/CazenaveC2/formalization.yaml","authorization_relationship":"I am a responsible author or maintainer"}'

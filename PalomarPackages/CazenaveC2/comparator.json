@@ -1,0 +1,6 @@
+{
+  "challenge_module": "Palomar.CazenaveC2.Challenge",
+  "solution_module": "Palomar.CazenaveC2.Solution",
+  "theorem_names": ["CazenaveRegistry.cazenave_conjecture_2_false"],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}
