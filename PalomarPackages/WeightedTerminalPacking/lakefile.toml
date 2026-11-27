@@ -1,0 +1,9 @@
+name = "WeightedTerminalPackingPalomar"
+version = "1.0.0"
+defaultTargets = ["WeightedTerminalPackingSolution"]
+[[lean_lib]]
+name = "WeightedTerminalPackingChallenge"
+roots = ["Palomar.WeightedTerminalPacking.Challenge"]
+[[lean_lib]]
+name = "WeightedTerminalPackingSolution"
+roots = ["Palomar.WeightedTerminalPacking.Solution"]

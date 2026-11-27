@@ -1,0 +1,14 @@
+{
+  "challenge_module": "Palomar.WeightedTerminalPacking.Challenge",
+  "solution_module": "Palomar.WeightedTerminalPacking.Solution",
+  "theorem_names": [
+    "TriameterQ3Public.weighted_extremum_up_to_five",
+    "TriameterQ3Public.weighted_extremum_four_terminals_all_p"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

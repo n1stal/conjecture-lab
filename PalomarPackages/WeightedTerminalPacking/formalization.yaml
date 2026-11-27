@@ -1,0 +1,67 @@
+version: "v0.4"
+project:
+  name: "Exact weighted terminal distances for up to five packed vertices or four terminals"
+  description: >-
+    For arbitrary finite terminal count and nonnegative integer terminal weights,
+    in finite simple connected graphs with positive exact distance-k packing number p,
+    with p at most five or exactly four prescribed terminals, the maximum
+    product-weighted sum of shortest
+    distances on unordered terminal pairs is k times the total pair weight
+    plus (k+1)(p−1) times the maximum terminal cut product. Here k is any
+    positive integer, and distinct packing vertices have distance strictly
+    greater than k. The result proves the upper bound and exact attainment.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C12", "05C69"]
+sources:
+  - title: "Exact weighted terminal distances for up to five packed vertices or four terminals"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "EXACT-PROOF.md and Palomar.WeightedTerminalPacking.Solution"
+    note: "Complementary exact scopes: arbitrary terminal count when p≤5, or four prescribed terminals for arbitrary positive p. No global priority claim."
+  - title: "Triameter, distance packings, and vertex connectivity"
+    authors: ["Artem Hak", "Sergiy Kozerenko"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2611.17259v1"
+    relationship: "background"
+    location: "Theorem 1.1 and §7 Question 3"
+    note: "The source supplies the question setting and an auxiliary three-terminal cap, credited and derived within the Lean proof."
+    author_endorsement: "not-contacted"
+  - title: "Small bipartite subgraph polytopes"
+    authors: ["Laura Galli", "Adam N. Letchford"]
+    type: "paper"
+    id: "https://doi.org/10.1016/j.orl.2010.05.004"
+    relationship: "background"
+    location: "Sections 2–3, Table 1"
+    note: "The preexisting five-point hull description is credited. A standalone exact elimination certificate re-establishes it inside Lean; it is not asserted as an axiom."
+  - title: "The average distance and the independence number"
+    authors: ["F. R. K. Chung"]
+    type: "paper"
+    id: "https://doi.org/10.1002/jgt.3190120213"
+    relationship: "background"
+    location: "Journal of Graph Theory 12 (1988), 229–235"
+    note: "Gives the unweighted k=1 upper bound for even terminal counts and, when p≤2, also odd terminal counts by cloning and rounding."
+status:
+  scope: >-
+    Two complementary regimes: arbitrary finite terminal count when p≤5,
+    and exactly four terminals for arbitrary p. Both assume positive k
+    and p and nonnegative integer terminal weights. Does not assert an
+    upper bound for unrestricted r and p simultaneously or the separate
+    vertex-separator branch of Question 3.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: "Jaime Nistal directs and maintains the project. Codex is credited for AI-assisted proof discovery, exact certificate preparation and formalization."
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Pinned Lean replay and explicit axiom inspection; no Palomar registration or human peer review claimed."

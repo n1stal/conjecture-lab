@@ -1,0 +1,32 @@
+Lean (version 4.35.0-rc2, x86_64-unknown-linux-gnu, commit 11acb17ec6b07a8f9e9173e6845197929540936b, Release)
+Combined isolated Challenge: two deliberate holes expected.
+Palomar/WeightedTerminalPacking/Challenge.lean:120:8: warning: declaration uses `sorry`
+Palomar/WeightedTerminalPacking/Challenge.lean:133:8: warning: declaration uses `sorry`
+Strict combined cold replay: Core
+Strict combined cold replay: Data/Initial
+Strict combined cold replay: Data/Step00
+Strict combined cold replay: Data/Step01
+Strict combined cold replay: Data/Step02
+Strict combined cold replay: Data/Step03
+Strict combined cold replay: Data/Step04
+Strict combined cold replay: Data/Step05
+Strict combined cold replay: Data/Step06
+Strict combined cold replay: Data/Step07
+Strict combined cold replay: Data/Step08
+Strict combined cold replay: Data/Step09
+Strict combined cold replay: Data/Step10
+Resuming exact persistent prefix after Step10 process resource kill; no source changes.
+Strict combined resume: Data/Step10
+Strict combined resume: Data/Step11
+Strict combined resume: Data/Step12
+Strict combined resume: Data/Step13
+Strict combined resume: Data/Step14
+Strict combined resume: Solution
+'Q3K5Hull.fiveCutHull_verified' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TriameterQ3Public.weighted_extremum_up_to_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TriameterQ3Public.weighted_extremum_four_terminals_all_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+Strict combined cold replay complete; all unchanged source modules checked.
+./lakefile.toml: OK
+./lean-toolchain: OK
+./replay.sh: OK
+929bcc769300d48793e6032da58f530a7836f8b8a6a0208007a10dd47e293d93  SOURCE-SHA256SUMS
