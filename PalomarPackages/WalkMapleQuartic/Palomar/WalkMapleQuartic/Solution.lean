@@ -4089,46 +4089,139 @@ end WalkQuarticFinish
 
 
 namespace PalomarWalkQuartic
-open WalkQuarticSeries WalkQuarticArithmetic WalkQuarticPopulation
+open WalkQuarticWord WalkQuarticSeries WalkQuarticArithmetic
+open Letter
 
-/-- Ordinary rational formal power series whose nth coefficient is the
-number of distinct length-n excursion words, not their realizations. -/
+/-- Reachability for the most recent letter first, by explicit recursors. -/
+def literalReach (w : List Letter) : Int → Prop :=
+  List.rec (motive := fun _ => Int → Prop) (fun x => x = 0)
+    (fun k _ previous x =>
+      Letter.rec (motive := fun _ => Prop)
+        (0 ≤ x ∧ previous (x+1))
+        (0 ≤ x ∧ (previous (x-1) ∨ previous (x+1)))
+        (0 ≤ x ∧ (previous (x-1) ∨ previous (x+2))) k) w
+
+def literalAlphabet : List Letter := [A,B,C]
+
+/-- Lists each source word of exactly the stated length. -/
+def literalWords (n : Nat) : List (List Letter) :=
+  Nat.rec (motive := fun _ => List (List Letter)) [[]]
+    (fun _ previous =>
+      literalAlphabet.flatMap (fun k => previous.map (fun w => k::w))) n
+
+noncomputable def literalExcursions (n : Nat) : List (List Letter) := by
+  classical
+  exact (literalWords n).filter (fun w => decide (literalReach w.reverse 0))
+
+/-- Full rational series of distinct source excursions, not realizing paths. -/
 noncomputable def countSeries : Series :=
-  ⟨fun n => ((sourceExcursions n).length : Rat)⟩
+  ⟨fun n => ((literalExcursions n).length : Rat)⟩
 
-/-- Evaluate a low-to-high list of integer coefficients at the series T. -/
-def evalPolynomial : Poly → Series
-  | [] => delta 0
-  | a::p => add (delta (a : Rat)) (mul T (evalPolynomial p))
+def literalAdd (f g : Series) : Series := ⟨fun n => f.coeff n + g.coeff n⟩
 
-/-- The author companion's exact quartic in Y, evaluated at a series. -/
+def literalDelta (a : Rat) : Series :=
+  ⟨Nat.rec (motive := fun _ => Rat) a (fun _ _ => 0)⟩
+
+def literalTail (f : Series) : Series := ⟨fun n => f.coeff (n+1)⟩
+
+def literalShift (f : Series) : Series :=
+  ⟨Nat.rec (motive := fun _ => Rat) 0 (fun k _ => f.coeff k)⟩
+
+/-- Coefficient n of the Cauchy product, without equation compiler helpers. -/
+def literalCauchy (n : Nat) : Series → Series → Rat :=
+  Nat.rec (motive := fun _ => Series → Series → Rat)
+    (fun f g => f.coeff 0 * g.coeff 0)
+    (fun k previous f g =>
+      f.coeff 0 * g.coeff (k+1) + previous (literalTail f) g) n
+
+def literalMul (f g : Series) : Series := ⟨fun n => literalCauchy n f g⟩
+def literalT : Series := literalShift (literalDelta 1)
+
+/-- Integer coefficient lists are low-degree first; use only List.foldr. -/
+def evalPolynomial (p : Poly) : Series :=
+  p.foldr (fun (a : Int) q => literalAdd (literalDelta (a : Rat)) (literalMul literalT q))
+    (literalDelta 0)
+
+/-- The exact author quartic in Y, with full rational-series operations. -/
 def mapleQuarticAt (Y : Series) : Series :=
-  let a := add (mul (evalPolynomial c4) Y) (evalPolynomial c3)
-  let b := add (mul a Y) (evalPolynomial c2)
-  let c := add (mul b Y) (evalPolynomial c1)
-  add (mul c Y) (evalPolynomial c0)
+  let a := literalAdd (literalMul (evalPolynomial c4) Y) (evalPolynomial c3)
+  let b := literalAdd (literalMul a Y) (evalPolynomial c2)
+  let c := literalAdd (literalMul b Y) (evalPolynomial c1)
+  literalAdd (literalMul c Y) (evalPolynomial c0)
 
 
-open WalkQuarticAlgebra WalkQuarticFinish
+open WalkQuarticCounting WalkQuarticPopulation WalkQuarticAlgebra WalkQuarticFinish
+
+theorem literalReach_matches (w : List Letter) : literalReach w=reaches w := by
+  induction w with
+  | nil => rfl
+  | cons k w ih =>
+    funext x
+    cases k with
+    | A => change (0 ≤ x ∧ literalReach w (x+1)) = _
+           rw [ih] <;> rfl
+    | B => change (0 ≤ x ∧ (literalReach w (x-1) ∨ literalReach w (x+1))) = _
+           rw [ih] <;> rfl
+    | C => change (0 ≤ x ∧ (literalReach w (x-1) ∨ literalReach w (x+2))) = _
+           rw [ih] <;> rfl
+
+theorem literalWords_matches (n : Nat) : literalWords n=words n := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    change (literalAlphabet.flatMap fun k => (literalWords n).map (fun w => k::w)) = _
+    rw [ih] <;> rfl
+
+theorem literalExcursions_matches (n : Nat) : literalExcursions n=sourceExcursions n := by
+  classical
+  simp only [literalExcursions,sourceExcursions,literalWords_matches,literalReach_matches]
+
+theorem literalDelta_matches (a : Rat) : literalDelta a=delta a := by
+  apply Series.ext
+  intro n
+  cases n <;> rfl
+
+theorem literalShift_matches (f : Series) : literalShift f=shift f := by
+  apply Series.ext
+  intro n
+  cases n <;> rfl
+
+theorem literalCauchy_matches (n : Nat) (f g : Series) :
+    literalCauchy n f g=cpoint n f g := by
+  induction n generalizing f g with
+  | zero => rfl
+  | succ n ih =>
+    change f.coeff 0 * g.coeff (n+1) + literalCauchy n (literalTail f) g =
+      f.coeff 0 * g.coeff (n+1) + cpoint n (tail f) g
+    rw [ih] <;> rfl
+
+theorem literalMul_matches (f g : Series) : literalMul f g=mul f g := by
+  apply Series.ext
+  intro n
+  exact literalCauchy_matches n f g
+
+theorem literalT_matches : literalT=T := by
+  simp only [literalT,literalShift_matches,literalDelta_matches,T]
 
 theorem evalPolynomial_matches (p : Poly) : evalPolynomial p=evalP T p := by
   induction p with
-  | nil => rfl
+  | nil => rw [evalPolynomial,List.foldr_nil,literalDelta_matches] <;> rfl
   | cons a p ih =>
-    change add (delta (a : Rat)) (mul T (evalPolynomial p)) = _
-    rw [ih]
-    rfl
+    change literalAdd (literalDelta (a : Rat)) (literalMul literalT (evalPolynomial p)) = _
+    rw [ih,literalMul_matches,literalT_matches,literalDelta_matches] <;> rfl
 
 theorem countSeries_matches : countSeries=sourceSeries := by
   apply Series.ext
   intro n
+  change ((literalExcursions n).length : Rat)=sourceSeries.coeff n
+  rw [literalExcursions_matches]
   exact (sourceSeries_counts_words n).symm
 
-/-- The literal source word-count series satisfies the companion quartic. -/
-theorem exact_quartic : mapleQuarticAt countSeries = delta 0 := by
+/-- The literal full source word-count series satisfies the companion quartic. -/
+theorem exact_quartic : mapleQuarticAt countSeries = literalDelta 0 := by
   unfold mapleQuarticAt
-  rw [countSeries_matches]
-  simp only [evalPolynomial_matches]
+  rw [countSeries_matches,literalDelta_matches]
+  simp only [evalPolynomial_matches,literalMul_matches]
   exact maple_source_quartic
 
 #print axioms exact_quartic

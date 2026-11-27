@@ -24,59 +24,16 @@ not a claim about the minimal algebraic degree, weighted extensions,
 or the paper's separate general Conjecture 6.7.
 -/
 
-namespace WalkQuarticWord
 
+namespace WalkQuarticWord
 inductive Letter where | A | B | C
   deriving DecidableEq
 
-open Letter
-
-def reaches : List Letter → Int → Prop
-  | [], x => x = 0
-  | A::w, x => 0 ≤ x ∧ reaches w (x+1)
-  | B::w, x => 0 ≤ x ∧ (reaches w (x-1) ∨ reaches w (x+1))
-  | C::w, x => 0 ≤ x ∧ (reaches w (x-1) ∨ reaches w (x+2))
-
 end WalkQuarticWord
 
-namespace WalkQuarticCounting
-open WalkQuarticWord Letter
-
-def alphabet : List Letter := [A, B, C]
-
-def words : Nat → List (List Letter)
-  | 0 => [[]]
-  | n+1 => alphabet.flatMap fun k => (words n).map (fun w => k :: w)
-
-end WalkQuarticCounting
-
-namespace WalkQuarticPopulation
-open WalkQuarticWord WalkQuarticCounting
-
-noncomputable def sourceExcursions (n : Nat) : List (List Letter) := by
-  classical exact (words n).filter (fun w => decide (reaches w.reverse 0))
-
-end WalkQuarticPopulation
-
 namespace WalkQuarticSeries
-
-/-- Full rational coefficient sequences, with Cauchy multiplication. -/
 structure Series where
   coeff : Nat → Rat
-
-def add (f g : Series) : Series := ⟨fun n => f.coeff n + g.coeff n⟩
-def delta (a : Rat) : Series := ⟨fun n => match n with | 0=>a | _+1=>0⟩
-def tail (f : Series) : Series := ⟨fun n => f.coeff (n+1)⟩
-def shift (f : Series) : Series := ⟨fun n => match n with | 0=>0 | k+1=>f.coeff k⟩
-
-/-- Coefficient n of a Cauchy product, peeling off the left head term. -/
-def cpoint : Nat → Series → Series → Rat
-  | 0, f, g => f.coeff 0 * g.coeff 0
-  | n+1, f, g => f.coeff 0 * g.coeff (n+1) + cpoint n (tail f) g
-
-def mul (f g : Series) : Series := ⟨fun n => cpoint n f g⟩
-def T : Series := shift (delta 1)
-
 end WalkQuarticSeries
 
 namespace WalkQuarticArithmetic
@@ -91,28 +48,68 @@ def c0 : Poly := [-1, 2, 28, -74, -271, 1157, 564, -10264, 8649, 59127, -74013, 
 end WalkQuarticArithmetic
 
 namespace PalomarWalkQuartic
-open WalkQuarticSeries WalkQuarticArithmetic WalkQuarticPopulation
+open WalkQuarticWord WalkQuarticSeries WalkQuarticArithmetic
+open Letter
 
-/-- Ordinary rational formal power series whose nth coefficient is the
-number of distinct length-n excursion words, not their realizations. -/
+/-- Reachability for the most recent letter first, by explicit recursors. -/
+def literalReach (w : List Letter) : Int → Prop :=
+  List.rec (motive := fun _ => Int → Prop) (fun x => x = 0)
+    (fun k _ previous x =>
+      Letter.rec (motive := fun _ => Prop)
+        (0 ≤ x ∧ previous (x+1))
+        (0 ≤ x ∧ (previous (x-1) ∨ previous (x+1)))
+        (0 ≤ x ∧ (previous (x-1) ∨ previous (x+2))) k) w
+
+def literalAlphabet : List Letter := [A,B,C]
+
+/-- Lists each source word of exactly the stated length. -/
+def literalWords (n : Nat) : List (List Letter) :=
+  Nat.rec (motive := fun _ => List (List Letter)) [[]]
+    (fun _ previous =>
+      literalAlphabet.flatMap (fun k => previous.map (fun w => k::w))) n
+
+noncomputable def literalExcursions (n : Nat) : List (List Letter) := by
+  classical
+  exact (literalWords n).filter (fun w => decide (literalReach w.reverse 0))
+
+/-- Full rational series of distinct source excursions, not realizing paths. -/
 noncomputable def countSeries : Series :=
-  ⟨fun n => ((sourceExcursions n).length : Rat)⟩
+  ⟨fun n => ((literalExcursions n).length : Rat)⟩
 
-/-- Evaluate a low-to-high list of integer coefficients at the series T. -/
-def evalPolynomial : Poly → Series
-  | [] => delta 0
-  | a::p => add (delta (a : Rat)) (mul T (evalPolynomial p))
+def literalAdd (f g : Series) : Series := ⟨fun n => f.coeff n + g.coeff n⟩
 
-/-- The author companion's exact quartic in Y, evaluated at a series. -/
+def literalDelta (a : Rat) : Series :=
+  ⟨Nat.rec (motive := fun _ => Rat) a (fun _ _ => 0)⟩
+
+def literalTail (f : Series) : Series := ⟨fun n => f.coeff (n+1)⟩
+
+def literalShift (f : Series) : Series :=
+  ⟨Nat.rec (motive := fun _ => Rat) 0 (fun k _ => f.coeff k)⟩
+
+/-- Coefficient n of the Cauchy product, without equation compiler helpers. -/
+def literalCauchy (n : Nat) : Series → Series → Rat :=
+  Nat.rec (motive := fun _ => Series → Series → Rat)
+    (fun f g => f.coeff 0 * g.coeff 0)
+    (fun k previous f g =>
+      f.coeff 0 * g.coeff (k+1) + previous (literalTail f) g) n
+
+def literalMul (f g : Series) : Series := ⟨fun n => literalCauchy n f g⟩
+def literalT : Series := literalShift (literalDelta 1)
+
+/-- Integer coefficient lists are low-degree first; use only List.foldr. -/
+def evalPolynomial (p : Poly) : Series :=
+  p.foldr (fun (a : Int) q => literalAdd (literalDelta (a : Rat)) (literalMul literalT q))
+    (literalDelta 0)
+
+/-- The exact author quartic in Y, with full rational-series operations. -/
 def mapleQuarticAt (Y : Series) : Series :=
-  let a := add (mul (evalPolynomial c4) Y) (evalPolynomial c3)
-  let b := add (mul a Y) (evalPolynomial c2)
-  let c := add (mul b Y) (evalPolynomial c1)
-  add (mul c Y) (evalPolynomial c0)
+  let a := literalAdd (literalMul (evalPolynomial c4) Y) (evalPolynomial c3)
+  let b := literalAdd (literalMul a Y) (evalPolynomial c2)
+  let c := literalAdd (literalMul b Y) (evalPolynomial c1)
+  literalAdd (literalMul c Y) (evalPolynomial c0)
 
-
-/-- The literal source word-count series satisfies the companion quartic. -/
-theorem exact_quartic : mapleQuarticAt countSeries = delta 0 := by
+/-- The literal full source word-count series satisfies the companion quartic. -/
+theorem exact_quartic : mapleQuarticAt countSeries = literalDelta 0 := by
   sorry
 
 end PalomarWalkQuartic
