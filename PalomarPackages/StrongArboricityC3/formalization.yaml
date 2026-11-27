@@ -1,0 +1,64 @@
+version: "v0.4"
+
+project:
+  name: "An 11-vertex counterexample to the strong arboricity coloring-number conjecture"
+  description: >-
+    An explicit simple graph admits a vertex order with at most two
+    earlier neighbors at every vertex, but its edges cannot be colored
+    with three colors without a monochromatic broken cycle.
+    This refutes Conjecture 3 in Strong Arboricity of Graphs.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C15", "03B35"]
+
+sources:
+  - title: "Strong Arboricity of Graphs"
+    type: "preprint"
+    authors: ["Tomasz Bartnicki", "Sebastian Czerwiński", "Jarosław Grytczuk", "Zofia Miechowicz"]
+    id: "https://arxiv.org/abs/2303.08771v1"
+    location: "Conjecture 3; definition of strongly woody edge coloring and coloring number"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+    note: >-
+      The source authors posed the conjecture; the same statement is Conjecture 3
+      of the journal version (DOI 10.1007/s00373-025-02934-5). This development formalizes
+      one explicit counterexample, not a theorem already proved in the
+      source. It neither addresses its planar conjecture nor asserts the
+      ordinary-arboricity inequality is false in this example.
+
+status:
+  scope: >-
+    Exact counterexample to the unrestricted coloring-number bound.
+    The theorem checks a finite increasing simple edge table, every
+    vertex's back-degree at most two in that order, and nonexistence
+    of a strongly woody coloring by three colors.
+    No minimum counterexample size or classification is asserted.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex workers"
+      tool_setup: "Lean 4.35.0-rc2 and its bundled Std and tactic modules; no Mathlib."
+      prompting_notes: "Agents found and independently checked the construction and replayed the exact Lean Solution."
+  notes: >-
+    Jaime Nistal directed and maintains the project. Codex is credited as
+    AI co-author. No human endorsement by the source authors is claimed.
+
+fidelity:
+  divergences: >-
+    Fin 11 labels vertices and Fin 19 names the actual undirected edges,
+    each listed exactly once with increasing endpoints. A broken cycle
+    is represented as an edge-labeled simple path of length at least two
+    whose endpoints have an actual closing edge. The source vertex-order
+    definition is witnessed by the increasing labels. A coloring using
+    fewer than three colors would embed into Fin 3. A matching four-color
+    witness is not needed for this refutation and is not included in the
+    mechanically checked target.

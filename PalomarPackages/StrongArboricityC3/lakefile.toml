@@ -1,0 +1,10 @@
+name = "strongArboricityC3"
+version = "0.1.0"
+defaultTargets = ["StrongArboricityC3Solution"]
+[[lean_lib]]
+name = "StrongArboricityC3Challenge"
+roots = ["Palomar.StrongArboricityC3.Challenge"]
+
+[[lean_lib]]
+name = "StrongArboricityC3Solution"
+roots = ["Palomar.StrongArboricityC3.Solution"]
