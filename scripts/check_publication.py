@@ -43,7 +43,7 @@ def registry():
         assert (kind == "Known baseline") == baseline, ident
         if not baseline:
             assert landing == f"results/{ident}/README.md", f"{ident}: missing result README"
-            page = (ROOT / landing).read_text()
+            page = re.sub(r"<!--.*?(?:-->|\Z)", " ", (ROOT / landing).read_text(), flags=re.S)
             links = LINK.findall(page)
             proof = row["proof"]
             assert Path(proof).name == proof and proof.endswith(".md") and proof not in {"README.md", "audit.md"}, ident
