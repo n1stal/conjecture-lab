@@ -1,0 +1,20 @@
+{
+  "challenge_module": "Palomar.Erdos617PairStar.Challenge",
+  "solution_module": "Palomar.Erdos617PairStar.Solution",
+  "theorem_names": [
+    "ParallelMantel.Pentagon.NormalizedPair.high_parallel_multiplicity_bound",
+    "ParallelMantel.Pentagon.NormalizedStar.refined_star_impossible",
+    "ParallelMantel.Pentagon.NormalizedStar.unit_margin_star_impossible"
+  ],
+  "definition_names": [
+    "ParallelMantel.mantelBound",
+    "ParallelMantel.Pentagon.pairSlots",
+    "ParallelMantel.Pentagon.NormalizedPair.residual",
+    "ParallelMantel.Pentagon.NormalizedPair.exteriorBudget"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

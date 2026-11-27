@@ -1,0 +1,31 @@
+name = "Erdos617PairStarPalomar"
+version = "1.0.0"
+defaultTargets = ["Erdos617PairStarSolution"]
+
+[[lean_lib]]
+name = "Erdos617PairStarChallenge"
+roots = ["Palomar.Erdos617PairStar.Challenge"]
+
+[[lean_lib]]
+name = "Erdos617PairStarSolution"
+roots = ["Palomar.Erdos617PairStar.Solution"]
+
+[[lean_lib]]
+name = "Erdos617PairStarSupport"
+roots = [
+  "Palomar.Erdos617PairStar.Support.AnchorGeometry",
+  "Palomar.Erdos617PairStar.Support.AnchorTransfer",
+  "Palomar.Erdos617PairStar.Support.ColoredCaps",
+  "Palomar.Erdos617PairStar.Support.EvenBoundary",
+  "Palomar.Erdos617PairStar.Support.FromColoring",
+  "Palomar.Erdos617PairStar.Support.OddExistence",
+  "Palomar.Erdos617PairStar.Support.ParallelBoundary",
+  "Palomar.Erdos617PairStar.Support.ParallelMantel",
+  "Palomar.Erdos617PairStar.Support.PentagonLedger",
+  "Palomar.Erdos617PairStar.Support.PentagonTypes",
+  "Palomar.Erdos617PairStar.Support.ShortestOdd",
+  "Palomar.Erdos617PairStar.Support.PairColoring",
+  "Palomar.Erdos617PairStar.Support.NonbipartiteMantel",
+  "Palomar.Erdos617PairStar.Support.CanonicalPair",
+  "Palomar.Erdos617PairStar.Support.GlobalPalette"
+]

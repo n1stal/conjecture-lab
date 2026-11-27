@@ -1,0 +1,85 @@
+version: "v0.4"
+project:
+  name: "Parallel-pair and support-star obstructions in Erdős Problem 617"
+  description: >-
+    In the actual balanced r-coloring and normalized two-support core specified
+    in the Challenge, the previously formalized high-deficit pair bound gives
+    at most d+e-2 shared exceptions for r at least twelve, d,e at least three,
+    and d+e at most r-3. The new refined-star theorem excludes an overloaded
+    support star under the stated spoke gap, row-size, and palette conditions.
+    In particular, for hub deficit D at least three and r at least (D+1)^2,
+    a normalized support star is impossible if every leaf has deficit e
+    between three and D and exactly e+1 exceptions on its spoke. This is a
+    conditional structural exclusion, not a resolution of Erdős Problem 617.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C15", "05C35", "05D10"]
+sources:
+  - title: "Refined support-star obstructions in Erdős Problem 617"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "PROOF.md and Palomar.Erdos617PairStar.Solution"
+    note: >-
+      The two new star conclusions are part of the substantive development
+      in this snapshot. The previously formalized, unchanged minus-two pair
+      bound is retained as a companion theorem and ingredient, explained
+      separately in PAIR-PROOF.md. No wider priority or novelty claim is made.
+  - title: "Split and balanced colorings of complete graphs"
+    authors: ["Paul Erdős", "András Gyárfás"]
+    type: "paper"
+    id: "https://www.renyi.hu/~gyarfas/Cikkek/92_splitandbalanced.pdf"
+    relationship: "background"
+    location: "Discrete Mathematics 200 (1999), 79–86, Conjecture 1"
+  - title: "Two support normalization"
+    authors: ["Plasma AI"]
+    type: "web discussion"
+    id: "https://erdosproblems.ai/wiki/research/erdos_617/two_support_normalization"
+    relationship: "background"
+    location: "Sections 1–4"
+    note: >-
+      Prior normalization, older minus-one pair cap, and different double-edge
+      star with unit-deficit leaves. The normalization is an assumption here.
+  - title: "Two Supported Private Cliques"
+    authors: ["Plasma AI"]
+    type: "web discussion"
+    id: "https://erdosproblems.ai/wiki/research/erdos_617/two_supported_private_cliques"
+    relationship: "background"
+    location: "Exact pointwise two-support inequality"
+    note: >-
+      Credited earlier pointwise per-exception bound; the new proof needs a
+      simultaneous all-but-one bound per spoke.
+  - title: "Independent research record: Erdős Problem 617"
+    authors: ["Plasma AI"]
+    type: "web discussion"
+    id: "https://erdosproblems.ai/wiki/research/erdos_617/independent/growing_local_independence_range"
+    relationship: "background"
+    location: "Even-order obstruction and near-boundary rigidity discussion"
+status:
+  scope: >-
+    Only the three named declarations under their explicit normalized-core
+    hypotheses. No arbitrary supports, double stars, unconditional
+    normalization, full conjecture, or new fixed-case classification.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal directs the project and is responsible for it. Codex (OpenAI)
+    is credited as the AI co-author for mathematical reasoning, proof
+    development and Lean formalization.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    The independent Solution and all support files were checked locally
+    with warnings as errors in Lean 4.35.0-rc2. No hosted registry check,
+    editorial acceptance, or human peer review of this enhanced package
+    is claimed.
