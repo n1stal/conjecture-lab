@@ -1,4 +1,4 @@
-# Van Cott–Zhang Conjecture 5.2(1) is false
+# Counterexamples to Van Cott–Zhang Conjecture 5.2(1) and (3)
 
 **Jaime Nistal**, author · **Codex (OpenAI)**, AI co-author
 
@@ -15,6 +15,8 @@ Greedy change is optimal for every amount using the first one, two, three, or al
 
 ## Stronger follow-up
 
-[Full family proof](FAMILY-PROOF.md): the pattern exists at every length at least 11. The general ban in part (1) fails at every length 13, 16, 19, …; the two-family classification in part (3) fails at every length 14, 17, 20, … . The 7- and 10-denomination cases and the length-9 classification in part (2) are not settled here.
+[Full family proof](FAMILY-PROOF.md): the pattern exists at every length at least 11. The general ban in part (1) fails at every length 13, 16, 19, …; the two-family classification in part (3) fails at every length 14, 17, 20, … . A separate [registered proof for seven denominations](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000034&version=1) establishes the prohibition at length 7. Length 10 and the length-9 classification in part (2) lie outside both results.
 
 [Lean statement](../../Palomar/CoinFamily/Challenge.lean) · [Lean solution](../../Palomar/CoinFamily/Solution.lean) · [Length-14 audit](LENGTH14-AUDIT.md)
+
+Lean checks `CoinOrder.vanCottZhangConjecture521_false` for the witness and `CoinOrder.Family.every_length_ge_eleven`, `CoinOrder.Family.general_prohibition_fails`, `CoinOrder.Family.classification_fails`, and `CoinOrder.Family.conjecture523_false` for the family. [Reproduce the check](../../docs/verification.md) · [Palomar family registration](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000001&version=1)

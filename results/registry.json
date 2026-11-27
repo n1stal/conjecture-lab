@@ -18,7 +18,9 @@
     ],
     "landing": "results/amnesiac-flooding/README.md",
     "featured": 1,
-    "summary": "A 24-vertex counterexample gives 12 < 13. The same construction works for every number of sources k ≥ 4."
+    "summary": "A 24-vertex counterexample gives 12 < 13. The same construction works for every number of sources k ≥ 4.",
+    "kind": "Counterexample",
+    "proof": "PROOF.md"
   },
   {
     "id": "inverse-z-rank-four",
@@ -37,7 +39,10 @@
       "https://github.com/PerAlexandersson/RealRooted/issues/1405"
     ],
     "featured": 3,
-    "summary": "Positivity and log-concavity for every finite matroid of rank at most four."
+    "summary": "Positivity and log-concavity for every finite matroid of rank at most four.",
+    "kind": "Partial theorem",
+    "landing": "results/inverse-z-rank-four/README.md",
+    "proof": "PROOF.md"
   },
   {
     "id": "inverse-z-projective",
@@ -56,7 +61,10 @@
       "https://arxiv.org/abs/2609.13417v1"
     ],
     "featured": 4,
-    "summary": "Strict log-concavity in every rank when at least two projective points remain on every line."
+    "summary": "Strict log-concavity in every rank when at least two projective points remain on every line.",
+    "kind": "Partial theorem",
+    "landing": "results/inverse-z-projective/README.md",
+    "proof": "proof.md"
   },
   {
     "id": "property-p-baseline",
@@ -72,7 +80,8 @@
       "https://www.erdosproblems.com/12",
       "https://hexagonmath.org/2611.00765v1"
     ],
-    "summary": "The set {1, 2} has reciprocal sum 3/2. This is a known witness, not an upper bound."
+    "summary": "The set {1, 2} has reciprocal sum 3/2. This is a known witness, not an upper bound.",
+    "kind": "Known baseline"
   },
   {
     "id": "spectral-rank-problem-21",
@@ -89,12 +98,15 @@
       "https://www.sciencedirect.com/science/article/pii/S0024379511007567"
     ],
     "featured": 2,
-    "summary": "Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five."
+    "summary": "Squared spectral distance below 2/3 from the balanced tripartite profile forces adjacency rank at most five.",
+    "kind": "Answer to a problem",
+    "landing": "results/spectral-rank-problem-21/README.md",
+    "proof": "proof.md"
   },
   {
     "id": "van-cott-zhang-521",
     "title": "Counterexamples to Van Cott–Zhang Conjecture 5.2(1) and (3)",
-    "scope": "The prefix pattern exists at every length at least 11. Counterexamples to the general prohibition occur at every length 13, 16, 19, …, and to the D/G classification at every length 14, 17, 20, …. Lengths 7 and 10 and part (2) remain unsettled.",
+    "scope": "The prefix pattern exists at every length at least 11. Counterexamples to the general prohibition occur at every length 13, 16, 19, …, and to the D/G classification at every length 14, 17, 20, …. The family theorem covers lengths 11 and above.",
     "declarations": [
       "CoinOrder.vanCottZhangConjecture521_false",
       "CoinOrder.Family.every_length_ge_eleven",
@@ -110,6 +122,8 @@
     ],
     "landing": "results/van-cott-zhang-521/README.md",
     "featured": 5,
-    "summary": "The pattern exists at every length at least 11, and the proposed two-family classification is not exhaustive."
+    "summary": "The pattern exists at every length at least 11, and the proposed two-family classification is not exhaustive.",
+    "kind": "Counterexample",
+    "proof": "FAMILY-PROOF.md"
   }
 ]
