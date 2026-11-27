@@ -10,7 +10,7 @@ This answers Problem 21 of Jovanović, Sedlar and Škrekovski, and does not requ
 
 - [Exact Lean statement](../../SpectralRank/SpectralTop.lean): SpectralRank.problem_21.
 - [Mathematical proof and finite certificates](proof.md).
-- [Verification](../../docs/verification.md): this theorem is part of the default strict kernel build and catalogue axiom audit. It is not a Palomar Challenge/Solution comparison entry.
+- The default build checks `SpectralRank.problem_21` and the publication gate audits its axioms. Palomar separately compared the Challenge and Solution at commit `7846ef8`. [Local verification](../../docs/verification.md) · [Registered comparison](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000004&version=1).
 
 The Lean theorem represents the graph by a symmetric zero-diagonal Boolean adjacency function on \(\mathrm{Fin}(3n)\), casts it to a real adjacency matrix, and derives the Hermitian condition from symmetry. Mathlib's ordered eigenvalue sequence supplies the order and multiplicities. Lean checks all finite cases with exact integers, using the ordinary kernel rather than floating point, native certificates, or an assumed graph catalogue.
 

@@ -20,3 +20,5 @@ The result refutes the stated conjecture for the original synchronous protocol. 
 Lean verification is not external mathematical or journal review. The prior-work search is bounded; no priority claim or endorsement by the original author is made.
 
 [Standalone Palomar statement package](../../Palomar/Turau/README.md) and local verification instructions.
+
+[Written proof](PROOF.md) · [Palomar registration](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000065&version=1)

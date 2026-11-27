@@ -37,6 +37,20 @@ def registry():
         landing = landing_path(row)
         assert landing in {audit, f"results/{ident}/README.md"}, landing
         assert (ROOT / landing).is_file(), landing
+        kind = row["kind"]
+        assert kind in {"Counterexample", "Answer to a problem", "Partial theorem", "Theorem", "Known baseline"}, ident
+        baseline = row["disposition"] == "known-baseline"
+        assert (kind == "Known baseline") == baseline, ident
+        if not baseline:
+            assert landing == f"results/{ident}/README.md", f"{ident}: missing result README"
+            page = re.sub(r"<!--.*?(?:-->|\Z)", " ", (ROOT / landing).read_text(), flags=re.S)
+            links = LINK.findall(page)
+            proof = row["proof"]
+            assert Path(proof).name == proof and proof.endswith(".md") and proof not in {"README.md", "audit.md"}, ident
+            assert proof in links, f"{ident}: link the written proof {proof}"
+            assert {"audit.md", "../../docs/verification.md"}.issubset(links), f"{ident}: link audit and verification"
+            assert any(Path(link).suffix == ".lean" and not urlsplit(link).scheme for link in links), f"{ident}: link Lean source"
+            assert all(re.search(rf"(?<![\w.]){re.escape(d)}(?!\w)", page) for d in decls), f"{ident}: name the registered declarations"
         summary = row.get("summary", "")
         assert isinstance(summary, str) and summary.strip() and "\n" not in summary, ident
         order = row.get("featured")
@@ -93,11 +107,14 @@ def render_front_page(text, rows):
 
 def catalogue(rows):
     lines = ["# Lean-checked results", "",
-             "Generated from the publication registry. Each entry links its result page and audit.",
-             "", "## Research results", ""]
-    lines.extend(result_line(r, False, "scope") for r in research_order(rows))
-    lines.extend(("", "## Checked baselines", ""))
-    lines.extend(result_line(r, False, "scope") for r in rows if r["disposition"] == "known-baseline")
+             "The default build checks the claims below. [Palomar registrations](../docs/palomar-registrations.md) link to the source commits checked by the external registry.",
+             "", "| Result | Kind | What the proof establishes |", "| --- | --- | --- |"]
+    baselines = [r for r in rows if r["disposition"] == "known-baseline"]
+    for row in research_order(rows) + baselines:
+        title = row["title"].replace("|", r"\|")
+        scope = " ".join(row["scope"].splitlines()).replace("|", r"\|")
+        page = landing_path(row).removeprefix("results/")
+        lines.append(f"| [{title}]({page}) | {row['kind']} | {scope} |")
     return "\n".join(lines) + "\n"
 
 
@@ -139,7 +156,7 @@ def main():
     if args.write_catalogue:
         front_page.write_text(updated_front)
     assert front_page.read_text() == updated_front, "Regenerate README.md from the registry"
-    documents = {front_page, index}
+    documents = {front_page, index, ROOT / "CONTENTS.md", ROOT / "docs/research-process.md"}
     documents.update(ROOT / landing_path(r) for r in rows)
     documents.update(ROOT / r["priority_audit"] for r in rows)
     check_local_markdown_links(documents)
