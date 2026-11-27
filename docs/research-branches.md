@@ -32,3 +32,6 @@ These source snapshots include experiments, preflights and earlier versions of p
 | <code>results/spectral-conjecture-20</code> | [c634850](https://github.com/n1stal/conjecture-lab/tree/c63485076f9cc5d5026151184a2f3ec81a6aa781) |
 | <code>results/spectral-conjecture-20-squared</code> | [505a52b](https://github.com/n1stal/conjecture-lab/tree/505a52b9fa98f8ea66bf26406e12a009a6f604de) |
 | <code>results/van-cott-zhang-seven</code> | [184d450](https://github.com/n1stal/conjecture-lab/tree/184d450db881cada3875b05cc4774e6424b58876) |
+| <code>verification/amnesiac-flooding</code> | [a282890](https://github.com/n1stal/conjecture-lab/tree/a282890470a9900a0eb3822227b7c49d31a42d45) |
+| <code>verification/inverse-z-rank-four</code> | [fba1c28](https://github.com/n1stal/conjecture-lab/tree/fba1c28396deea5482f5f38f077c6117c49dbf8e) |
+| <code>verification/palomar-preflight</code> | [b3f8427](https://github.com/n1stal/conjecture-lab/tree/b3f84276ee45b7820ada843aa81b13543bd99211) |
