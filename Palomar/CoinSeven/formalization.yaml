@@ -15,10 +15,10 @@ sources:
   - title: "The change-making problem for six coin values and beyond"
     authors: ["Cornelia A. Van Cott", "Qiyu Zhang"]
     type: "article"
-    relationship: "independently-proves"
+    relationship: "formalizes"
     id: "https://doi.org/10.1016/j.disc.2025.114669"
     location: "Conjecture 5.2(1), specifically seven denominations; Theorems 2.7 and 2.15."
-    note: "Only the explicit seven-denomination assertion is proved, not the ten-denomination case or the general prohibition."
+    note: "This development formalizes and proves the seven-denomination assertion posed in Conjecture 5.2(1). It does not address the ten-denomination case or the general prohibition."
     author_endorsement: "not-contacted"
   - title: "Canonical Coin Systems for Change-Making Problems"
     authors: ["Xuan Cai"]
