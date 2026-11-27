@@ -26,7 +26,7 @@ sources:
     authors: ["Tom Braden", "Luis Ferroni", "Jacob P. Matherne", "Nutan Nepal"]
     type: "paper"
     id: "https://arxiv.org/abs/2510.01086v2"
-    relationship: "background"
+    relationship: "adapts"
     location: "Theorem 2.2"
     note: >-
       Supplies the mathematical correspondence of the positive signed-flat sum
