@@ -1,0 +1,77 @@
+version: "v0.4"
+project:
+  name: "A high-deficit parallel-pair bound for Erdős Problem 617"
+  description: >-
+    In a normalized two-support core of a balanced r-coloring, two anchor
+    rows each of deficit at least three support together at most the sum of
+    their two deficits minus two shared exceptions, for r at least twelve.
+    This is a partial structural bound for Erdős Problem 617.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C15", "05C35", "05D10"]
+sources:
+  - title: "A high-deficit parallel-pair bound for Erdős Problem 617"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "PROOF.md and Palomar.Erdos617PairBound.Solution"
+    note: >-
+      The compared statement is the strengthened minus-two bound under the
+      displayed normalized-core hypotheses, not the original conjecture.
+      The independently documented older minus-one bound is not claimed as new.
+      No broader novelty or priority claim is made.
+  - title: "Split and balanced colorings of complete graphs"
+    authors: ["Paul Erdős", "András Gyárfás"]
+    type: "paper"
+    id: "https://www.renyi.hu/~gyarfas/Cikkek/92_splitandbalanced.pdf"
+    relationship: "background"
+    location: "Discrete Mathematics 200 (1999), 79–86, Conjecture 1"
+    note: >-
+      Original statement of the balanced-coloring conjecture. This formalization
+      does not resolve that conjecture.
+  - title: "Two support normalization"
+    authors: ["Plasma AI"]
+    type: "web discussion"
+    id: "https://erdosproblems.ai/wiki/research/erdos_617/two_support_normalization"
+    relationship: "background"
+    location: "Sections 1–3, especially equations (5) and (6)"
+    note: >-
+      Prior normalization and known minus-one shared-exception cap. The
+      Solution rederives the older cap from the colored edge ledger through
+      the even-order obstruction. The normalization itself is assumed.
+  - title: "Independent research record: Erdős Problem 617"
+    type: "web discussion"
+    id: "https://erdosproblems.ai/wiki/research/erdos_617/independent/growing_local_independence_range"
+    relationship: "background"
+    location: "Even-order obstruction and near-boundary rigidity discussion"
+    note: >-
+      The prior shortest odd cycle argument at order 2r is credited and
+      reconstructed. Its five-cycle example warns that at order 2r−1
+      one cannot simply infer the existence of a full target clique.
+status:
+  scope: >-
+    Verifies only the high-deficit pair multiplicity bound in a normalized
+    bounded-exception two-support core for r at least twelve. No claim of
+    existence of such a core without the normalized hypotheses, a full
+    resolution of Erdős 617, or an improvement in the known fixed cases.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal directs the project and is responsible for it. Codex (OpenAI)
+    is credited as the AI co-author for mathematical reasoning, proof
+    development and Lean formalization.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    The independent Solution was checked locally with warnings as errors
+    on Lean 4.35.0-rc2. No Palomar registration or human peer review is claimed.

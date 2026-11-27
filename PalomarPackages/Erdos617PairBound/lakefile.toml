@@ -1,0 +1,27 @@
+name = "Erdos617PairBoundPalomar"
+version = "1.0.0"
+defaultTargets = ["Erdos617PairBoundSolution"]
+
+[[lean_lib]]
+name = "Erdos617PairBoundChallenge"
+roots = ["Palomar.Erdos617PairBound.Challenge"]
+
+[[lean_lib]]
+name = "Erdos617PairBoundSolution"
+roots = ["Palomar.Erdos617PairBound.Solution"]
+
+[[lean_lib]]
+name = "Erdos617PairBoundSupport"
+roots = [
+  "Palomar.Erdos617PairBound.Support.AnchorGeometry",
+  "Palomar.Erdos617PairBound.Support.ColoredCaps",
+  "Palomar.Erdos617PairBound.Support.FromColoring",
+  "Palomar.Erdos617PairBound.Support.ParallelMantel",
+  "Palomar.Erdos617PairBound.Support.ShortestOdd",
+  "Palomar.Erdos617PairBound.Support.PentagonTypes",
+  "Palomar.Erdos617PairBound.Support.PentagonLedger",
+  "Palomar.Erdos617PairBound.Support.AnchorTransfer",
+  "Palomar.Erdos617PairBound.Support.OddExistence",
+  "Palomar.Erdos617PairBound.Support.ParallelBoundary",
+  "Palomar.Erdos617PairBound.Support.EvenBoundary"
+]

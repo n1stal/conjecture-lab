@@ -1,0 +1,7 @@
+{
+  "challenge_module": "Palomar.Erdos617PairBound.Challenge",
+  "solution_module": "Palomar.Erdos617PairBound.Solution",
+  "theorem_names": ["ParallelMantel.Pentagon.NormalizedPair.high_parallel_multiplicity_bound"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}
