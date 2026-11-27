@@ -1,0 +1,69 @@
+version: "v0.4"
+project:
+  name: "Strict log-concavity of inverse Z-polynomials for line-preserving projective representations"
+  description: >-
+    For a line-preserving set of vectors in a finite-dimensional space over a
+    finite field, the inverse Z-polynomial of its represented matroid has
+    positive coefficients through its rank and is strictly log-concave at
+    all interior indices. This is a scoped positive theorem, not the
+    unrestricted inverse Z-polynomial conjecture.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05B35", "05A30", "03B35"]
+sources:
+  - title: "The inverse Z-polynomial of a matroid"
+    type: "article"
+    relationship: "background"
+    authors: ["Alice L. L. Gao", "Xuan Ruan", "Matthew H. Y. Xie"]
+    id: "https://arxiv.org/abs/2507.01332"
+    note: "Source of the broader log-concavity problem and the inverse Z-polynomial normalization."
+  - title: "Inverse Kazhdan-Lusztig polynomials of matroids under deletion"
+    type: "article"
+    relationship: "background"
+    authors: ["Tom Braden", "Luis Ferroni", "Jacob P. Matherne", "Nutan Nepal"]
+    id: "https://arxiv.org/abs/2510.01086"
+    note: "Prior closed formulas, recurrences, and projective-geometry work; no priority claim is made."
+  - title: "Equivariant inverse Z-polynomials of matroids"
+    type: "article"
+    relationship: "background"
+    authors: ["Alice L. L. Gao", "Yun Li", "Matthew H. Y. Xie"]
+    id: "https://arxiv.org/abs/2601.17314"
+    note: "Related prior work on inverse Z-polynomials and uniform-matroid formulas."
+status:
+  scope: >-
+    Finite fields, finite-dimensional vector spaces with finite underlying
+    type, and line-preserving subsets, with no bound on the dimension or
+    size of the field. No claim for arbitrary restrictions or matroids.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+      tool_setup: "Lean 4.35.0-rc2, pinned Mathlib and direct kernel replay."
+  notes: "Jaime Nistal maintains the development. OpenAI Codex provided AI assistance with proof development and checking."
+fidelity:
+  divergences: >-
+    The formal theorem is deliberately restricted to line-preserving
+    representations; it does not encode the general conjecture as a solved
+    theorem. The rank is the represented matroid's natural-number rank.
+    Strict log-concavity is stated only on consecutive triples within that
+    rank. The solution proves equality of the copied polynomial recursion
+    to the underlying proof library's definition before applying its theorem.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Lean replay succeeded; no human peer review, original-author endorsement, or priority claim."
+alignment:
+  namespace: "ConjectureLab.ProjectiveSubmission"
+  statements:
+    - source: "Scoped strict log-concavity and positivity for line-preserving representations"
+      lean: "ConjectureLab.ProjectiveSubmission.projective_inverse_z"
+      module: "Palomar.ProjectiveInverseZ.Solution"
+      status: "proved"
+      note: "Restricts the broader inverse Z-polynomial conjecture to the class described in the statement."

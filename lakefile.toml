@@ -42,3 +42,11 @@ roots = ["Palomar.CoinFamily.Challenge"]
 [[lean_lib]]
 name = "CoinFamilySolution"
 roots = ["Palomar.CoinFamily.Solution"]
+
+[[lean_lib]]
+name = "ProjectiveInverseZChallenge"
+roots = ["Palomar.ProjectiveInverseZ.Challenge"]
+
+[[lean_lib]]
+name = "ProjectiveInverseZSolution"
+roots = ["Palomar.ProjectiveInverseZ.Solution"]

@@ -1,0 +1,6 @@
+{
+  "challenge_module": "Palomar.ProjectiveInverseZ.Challenge",
+  "solution_module": "Palomar.ProjectiveInverseZ.Solution",
+  "theorem_names": ["ConjectureLab.ProjectiveSubmission.projective_inverse_z"],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}
