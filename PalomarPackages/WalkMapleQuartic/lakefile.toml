@@ -1,0 +1,11 @@
+name = "WalkMapleQuarticPalomar"
+version = "1.0.0"
+defaultTargets = ["WalkMapleQuarticSolution"]
+
+[[lean_lib]]
+name = "WalkMapleQuarticChallenge"
+roots = ["Palomar.WalkMapleQuartic.Challenge"]
+
+[[lean_lib]]
+name = "WalkMapleQuarticSolution"
+roots = ["Palomar.WalkMapleQuartic.Solution"]

@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Palomar.WalkMapleQuartic.Challenge",
+  "solution_module": "Palomar.WalkMapleQuartic.Solution",
+  "theorem_names": [
+    "PalomarWalkQuartic.exact_quartic"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

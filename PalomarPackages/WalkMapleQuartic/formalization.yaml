@@ -1,0 +1,72 @@
+version: "v0.4"
+project:
+  name: "The Maple quartic for three nondeterministic steps"
+  description: >-
+    A word over A={−1}, B={−1,+1}, C={−2,+1} counts once if some selection
+    of its signed steps gives a walk whose partial sums are nonnegative and
+    whose final sum is zero. The ordinary length-generating series of those
+    words satisfies exactly the degree-four polynomial in de Panafieu and
+    Wallner's Maple companion, whose correctness they leave open in
+    Section 6.2. The proof gives an all-length formal-series identity; it
+    does not infer it from an initial sequence of coefficients.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05A15"]
+sources:
+  - title: "The Maple quartic for three nondeterministic steps"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "PROOF.md and Palomar.WalkMapleQuartic.Solution"
+    note: >-
+      This presentation gives the proof via exact reachable-deficit states,
+      first-return and first-exit decompositions, and the canonical formal
+      power-series solution. We make no broader priority claim.
+  - title: "Combinatorics of nondeterministic walks"
+    authors: ["Élie de Panafieu", "Michael Wallner"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2311.03234v2"
+    relationship: "background"
+    location: "Section 6.2, after the finite list of reachable-set types"
+    note: >-
+      This version asks explicitly for a proof of the guessed equation for
+      this alphabet and describes a finite coefficient check. It is the
+      source of the question, not of the proof given in this submission.
+    author_endorsement: "not-contacted"
+  - title: "PythonExample_m1_m1p1_m2p1.mw (Maple companion)"
+    authors: ["Élie de Panafieu", "Michael Wallner"]
+    type: "other"
+    id: "https://gitlab.com/api/v4/projects/53488626/repository/blobs/62f9f05364094361e768ace519a10aec3772d345/raw"
+    relationship: "background"
+    location: "GitLab blob 62f9f05364094361e768ace519a10aec3772d345; Maple assignment algEE"
+    note: >-
+      The exact polynomial coefficient lists in the compared target are
+      the coefficients of algEE. Only the author equation is taken from
+      this worksheet; the series solution and proof are constructed here.
+status:
+  scope: >-
+    The exact unweighted quartic identity for the original Section 6.2
+    alphabet, for the full rational formal power series. The compared
+    assertion does not claim minimal algebraic degree, a weighted extension,
+    or a proof of separate general Conjecture 6.7.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal is the human author and responsible maintainer. Codex
+    (OpenAI) is credited for material AI-assisted mathematical reasoning,
+    proof development, formalization, and verification.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    Formal proof checked on the stated Lean toolchain; no Palomar
+    registration, editorial acceptance, or human peer review is claimed.
