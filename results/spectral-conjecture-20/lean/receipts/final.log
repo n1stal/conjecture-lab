@@ -1,0 +1,3 @@
+Lean (version 4.35.0-rc2, x86_64-unknown-linux-gnu, commit 11acb17ec6b07a8f9e9173e6845197929540936b, Release)
+'Conjecture20.actual_hub_l1_rate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Conjecture20.conjecture20' depends on axioms: [propext, Classical.choice, Quot.sound]
