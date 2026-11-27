@@ -1,0 +1,11 @@
+name = "GluedCyclesInverseZPalomar"
+version = "1.0.0"
+defaultTargets = ["GluedCyclesInverseZSolution"]
+
+[[lean_lib]]
+name = "GluedCyclesInverseZChallenge"
+roots = ["Palomar.GluedCyclesInverseZ.Challenge"]
+
+[[lean_lib]]
+name = "GluedCyclesInverseZSolution"
+roots = ["Palomar.GluedCyclesInverseZ.Solution"]

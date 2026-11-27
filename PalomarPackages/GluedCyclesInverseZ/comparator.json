@@ -1,0 +1,15 @@
+{
+  "challenge_module": "Palomar.GluedCyclesInverseZ.Challenge",
+  "solution_module": "Palomar.GluedCyclesInverseZ.Solution",
+  "definition_names": [
+    "InverseZ.GluedCycleBounds.sourceCoeff"
+  ],
+  "theorem_names": [
+    "InverseZ.GluedCycleBounds.sourceCoeff_strict_and_positive"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

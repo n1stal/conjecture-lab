@@ -1,0 +1,62 @@
+version: "v0.4"
+project:
+  name: "Strict inverse Z log-concavity for edge-glued cycle matroids"
+  description: >-
+    For any two simple cycles of lengths at least three glued along an edge,
+    the cycle matroid's ordinary inverse Z-polynomial has positive coefficients
+    and is strictly log-concave. Lean checks the published coefficient formula.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05B35", "05A20"]
+sources:
+  - title: "Inverse Kazhdan–Lusztig polynomials of matroids under deletion"
+    authors: ["Tom Braden", "Luis Ferroni", "Jacob P. Matherne", "Nutan Nepal"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2510.01086v2"
+    relationship: "adapts"
+    location: "Propositions 4.1–4.2 and Theorem 1.4"
+    note: >-
+      Provides the ordinary inverse Z deletion formula, its exact edge-glued
+      cycle specialization, and the uniform tau values. Lean formalizes
+      strict log-concavity from this coefficient expression, not the generic
+      incidence-algebra theorem. The deleted graph is C_(a+b−2), as stated
+      in the proof of Prop. 4.2.
+    author_endorsement: "not-contacted"
+  - title: "The inverse Z-polynomial of a matroid"
+    authors: ["Alice L. L. Gao", "Xuan Ruan", "Matthew H. Y. Xie"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2507.01332v1"
+    relationship: "adapts"
+    location: "Theorem 1.1 and Conjecture 1.5"
+    note: >-
+      Provides the ordinary uniform inverse Z coefficients and states the
+      general log-concavity conjecture. Here only the edge-glued pair of
+      cycle matroids is handled, allowing arbitrary lengths.
+    author_endorsement: "not-contacted"
+status:
+  scope: >-
+    Positivity and strict ordinary inverse Z log-concavity, for the graphic
+    matroid of two length-at-least-three cycles sharing one edge. Both
+    lengths are unbounded. The compared definition is the published exact
+    coefficient formula; native generic matroid API correspondence is cited
+    mathematics. Not a solution to the arbitrary matroid conjecture.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal directs and is responsible for this project. Codex (OpenAI)
+    is credited for AI-assisted mathematical reasoning and Lean development.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    Exact separate cold local stdin replays on pinned Lean, including the
+    Challenge and strict Solution. No official Comparator or peer review claimed.
