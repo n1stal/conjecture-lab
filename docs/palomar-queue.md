@@ -6,8 +6,8 @@ This is the durable queue for verified research. It records only public GitHub s
 
 | Candidate | Mechanical preflight | Next filing step |
 | --- | --- | --- |
-| BEKA Conjecture 5.11 | [Passed](https://github.com/n1stal/conjecture-lab/actions/runs/45991319706) | Awaiting Palomar intake after a rate limit |
-| Cazenave Conjecture 2 | [Passed](https://github.com/n1stal/conjecture-lab/actions/runs/45991715671) | Awaiting Palomar intake after a rate limit |
+| BEKA Conjecture 5.11 | [Passed](https://github.com/n1stal/conjecture-lab/actions/runs/45991319706) | Filed by maintainer; mechanical verification passed, editorial review queued |
+| Cazenave Conjecture 2 | [Passed](https://github.com/n1stal/conjecture-lab/actions/runs/45991715671) | Wait for BEKA to clear the repository’s active filing slot; do not withdraw BEKA |
 | Strong Arboricity Conjecture 3 | [Passed](https://github.com/n1stal/conjecture-lab/actions/runs/45990004344) | On hold: reframe as a distinct explicit Lean witness and credit [Axenovich et al., Theorem 7](https://arxiv.org/abs/1803.02152) |
 
 The JSON is the operational source of truth. A successful preflight checks an exact commit but does not file anything, start editorial review, or register a result. A separate production run can still fail.
