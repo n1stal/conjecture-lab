@@ -7,3 +7,4 @@ public import Proofs.AmnesiacFamily
 public import InverseZProjective
 public import SpectralRank
 public import Palomar.CoinFamily.Solution
+public import Proofs.CoinSeven.NoSeven
