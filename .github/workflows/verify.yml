@@ -25,7 +25,7 @@ jobs:
       - name: Check proofs with warnings treated as errors
         run: lake build --wfail
       - name: Check catalogue and theorem axioms
-        run: python3 scripts/check_publication.py
+        run: python3 scripts/check_publication.py --write-catalogue
       - name: Install bubblewrap
         run: |
           sudo apt-get update -qq

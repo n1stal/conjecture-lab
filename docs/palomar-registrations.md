@@ -1,9 +1,10 @@
 # Palomar registrations
 
-Palomar records Jaime Nistal’s Lean-verified results at pinned source commits. Each entry links the compared statement, the verification report, and the source used for that registration.
+Each registration links the exact statement, source commit and verification report.
 
 | Registered | Result |
 | --- | --- |
+| 2026-11-27 | [Sharp distance packing for four prescribed terminals](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000051&version=1) |
 | 2026-11-27 | [Counterexample to Cazenave's second spectral graph conjecture](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000045&version=1) |
 | 2026-11-27 | [Reflection of exceptional breakpoints for k-wise independent bits](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000041&version=1) |
 | 2026-11-27 | [Seven-denomination case of Van Cott–Zhang Conjecture 5.2(1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000034&version=1) |
