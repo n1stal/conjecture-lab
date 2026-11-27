@@ -1,0 +1,34 @@
+version: "v0.4"
+project:
+  name: "Reflection of exceptional breakpoints for k-wise independent bits"
+  description: >-
+    In the binomial-moment linear program for the largest probability that all
+    k-wise independent Bernoulli bits are 1, every interior exceptional basis
+    transition at bias p has a reflected exceptional transition at bias 1-p.
+    This establishes Conjecture 5.11 of Berend, Ernst, Kontorovich and Kumar
+    over its full stated range of n and even k; it does not address the
+    rationality of breakpoints.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.PR", "math.CO", "math.OC"]
+sources:
+  - title: "Exact Expressions for the Maximal Probability that all k-wise Independent Bits are 1"
+    authors: ["Daniel Berend", "Philip A. Ernst", "Aryeh Kontorovich", "Rishi Kumar"]
+    type: "article"
+    relationship: "formalizes"
+    id: "https://doi.org/10.1007/s10959-026-01487-4"
+    location: "Section 5.4, Conjecture 5.11; Section 3.2 for the dual-feasible bases"
+    note: "This development formalizes and proves the exceptional-point symmetry posed as a conjecture in the cited article."
+    author_endorsement: "not-contacted"
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: "Jaime Nistal directs and maintains the project. OpenAI Codex assisted with exploration, proof development and verification."
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "The component source was checked with Lean 4.35.0-rc2 with warnings as errors. No human peer review, source-author endorsement, or Palomar review is claimed."

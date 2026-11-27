@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Palomar.BerendBinomial.Challenge",
+  "solution_module": "Palomar.BerendBinomial.Solution",
+  "theorem_names": [
+    "BerendBinomial.source_exceptional_reflect"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "enable_nanoda": true
+}
