@@ -108,7 +108,7 @@ theorem linear_augment {I J : Set V}
     intro hJI
     have hd := Submodule.finrank_mono (span_le.mpr hJI)
     rw [span_finrank_of_indep hI, span_finrank_of_indep hJ] at hd
-    omega
+    exact (Nat.not_le_of_lt h) hd
   obtain ⟨e, heJ, heI⟩ := Set.not_subset.mp hn
   have he : e ∉ I := fun h => heI (subset_span h)
   exact ⟨e, heJ, he, (linearIndepOn_id_insert he).2 ⟨hI, heI⟩⟩
