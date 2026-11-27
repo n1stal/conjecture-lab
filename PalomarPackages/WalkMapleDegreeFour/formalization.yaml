@@ -1,0 +1,70 @@
+version: "v0.4"
+project:
+  name: "Minimum degree of the Section 6.2 nondeterministic-excursion series"
+  description: >-
+    The ordinary length-generating series counts each word over A={−1},
+    B={−1,+1}, C={−2,+1} once if it admits a realization with nonnegative
+    partial sums ending at zero. The exact degree-four relation from the
+    authors' Maple companion annihilates the series, and no nonzero
+    relation of smaller degree over the rational function field Q(t) does.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05A15"]
+sources:
+  - title: "Minimum degree of the Section 6.2 nondeterministic-excursion series"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "PROOF.md and Palomar.WalkMapleDegreeFour.Solution"
+    note: >-
+      The upper bound is the exact quartic, sharing the recognized-word
+      and algebraic solution proof with the companion quartic-identity
+      package. The independent lower bound excludes every rational-function
+      cubic via four sign conjugates and explicit denominator clearing.
+  - title: "Combinatorics of nondeterministic walks"
+    authors: ["Élie de Panafieu", "Michael Wallner"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2311.03234v2"
+    relationship: "background"
+    location: "Section 6.2, original unweighted three-letter model"
+    note: >-
+      States the model and asks for proof of the companion equation.
+      The minimum-degree assertion here additionally rules out smaller
+      annihilating polynomials; it is neither a finite coefficient check
+      nor the paper's general Conjecture 6.7.
+    author_endorsement: "not-contacted"
+  - title: "PythonExample_m1_m1p1_m2p1.mw (Maple companion)"
+    authors: ["Élie de Panafieu", "Michael Wallner"]
+    type: "other"
+    id: "https://gitlab.com/api/v4/projects/53488626/repository/blobs/62f9f05364094361e768ace519a10aec3772d345/raw"
+    relationship: "background"
+    location: "GitLab blob 62f9f05364094361e768ace519a10aec3772d345; Maple assignment algEE"
+    note: >-
+      Source of the exact upper-bound polynomial, not of the all-length
+      proof or the lower-degree exclusion.
+status:
+  scope: >-
+    Minimum algebraic degree exactly four for the unweighted Section 6.2
+    source series over Q(t), interpreted by an exact denominator-clearing
+    formula. No weighted or generic Conjecture 6.7 assertion is made.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal is the human author and responsible maintainer.
+    Codex (OpenAI) is credited for material AI-assisted mathematical
+    reasoning, proof development, formalization and verification.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    No Palomar registration, editorial acceptance, or human peer review
+    is claimed. This package is distinct from the quartic-identity-only package.

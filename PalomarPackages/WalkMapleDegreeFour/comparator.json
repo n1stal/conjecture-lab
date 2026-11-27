@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Palomar.WalkMapleDegreeFour.Challenge",
+  "solution_module": "Palomar.WalkMapleDegreeFour.Solution",
+  "theorem_names": [
+    "PalomarWalkQuarticDegree.minimum_degree_four"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

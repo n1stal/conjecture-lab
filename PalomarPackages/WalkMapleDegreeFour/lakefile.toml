@@ -1,0 +1,11 @@
+name = "WalkMapleDegreeFourPalomar"
+version = "1.0.0"
+defaultTargets = ["WalkMapleDegreeFourSolution"]
+
+[[lean_lib]]
+name = "WalkMapleDegreeFourChallenge"
+roots = ["Palomar.WalkMapleDegreeFour.Challenge"]
+
+[[lean_lib]]
+name = "WalkMapleDegreeFourSolution"
+roots = ["Palomar.WalkMapleDegreeFour.Solution"]
