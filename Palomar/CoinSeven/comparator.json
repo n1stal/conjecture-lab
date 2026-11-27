@@ -1,0 +1,12 @@
+{
+  "challenge_module": "Palomar.CoinSeven.Challenge",
+  "solution_module": "Palomar.CoinSeven.Solution",
+  "theorem_names": [
+    "CoinOrder.SevenRegistry.seven_denominations_no_pattern"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

@@ -1,0 +1,58 @@
+version: "v0.4"
+project:
+  name: "Seven-denomination case of Van Cott–Zhang Conjecture 5.2(1)"
+  description: >-
+    No strictly increasing natural list beginning at 1 with seven
+    denominations has orderly first three prefixes, nonorderly
+    prefixes of lengths four through six, and an orderly full system.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO", "cs.DM"]
+  msc2020: ["05A17", "68W25", "03B35"]
+sources:
+  - title: "The change-making problem for six coin values and beyond"
+    authors: ["Cornelia A. Van Cott", "Qiyu Zhang"]
+    type: "article"
+    relationship: "independently-proves"
+    id: "https://doi.org/10.1016/j.disc.2025.114669"
+    location: "Conjecture 5.2(1), specifically seven denominations; Theorems 2.7 and 2.15."
+    note: "Only the explicit seven-denomination assertion is proved, not the ten-denomination case or the general prohibition."
+    author_endorsement: "not-contacted"
+  - title: "Canonical Coin Systems for Change-Making Problems"
+    authors: ["Xuan Cai"]
+    type: "article"
+    relationship: "adapts"
+    id: "https://arxiv.org/abs/0809.0400"
+    location: "Theorem 11"
+    note: "A self-contained checked specialization derives the necessary two-coin witness for tight prefixes of lengths five and six."
+status:
+  scope: "Every increasing natural coin list of length seven with first coin 1; arbitrary values with no finite bound."
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+      tool_setup: "SMT-assisted case selection and independent proof checks in Lean 4.35.0-rc2. No external solver is used by Lean at replay."
+  notes: "Jaime Nistal directed and maintains the project. OpenAI Codex assisted in proof development and verification."
+fidelity:
+  divergences: >-
+    Increasing denomination lists are reversed internally before greedy
+    evaluation. Orderliness includes amount zero, which is automatic
+    for these systems. Competing representations are lists; their
+    membership and sum constraints encode unrestricted multiplicities.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Strict replay from source and scope audit completed; no human peer review or original author endorsement claimed."
+alignment:
+  namespace: "CoinOrder.SevenRegistry"
+  statements:
+    - source: "Van Cott–Zhang Conjecture 5.2(1), seven-denomination assertion"
+      lean: "CoinOrder.SevenRegistry.seven_denominations_no_pattern"
+      module: "Palomar.CoinSeven.Solution"
+      status: "proved"

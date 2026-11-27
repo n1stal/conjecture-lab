@@ -42,3 +42,11 @@ roots = ["Palomar.CoinFamily.Challenge"]
 [[lean_lib]]
 name = "CoinFamilySolution"
 roots = ["Palomar.CoinFamily.Solution"]
+
+[[lean_lib]]
+name = "CoinSevenChallenge"
+roots = ["Palomar.CoinSeven.Challenge"]
+
+[[lean_lib]]
+name = "CoinSevenSolution"
+roots = ["Palomar.CoinSeven.Solution"]
