@@ -92,14 +92,14 @@ def LinePreserving (S : Set V) : Prop :=
   ∀ U : Submodule K V, finrank K U = 2 →
     ∃ x ∈ S, ∃ y ∈ S, x ∈ U ∧ y ∈ U ∧ x ≠ 0 ∧ y ∉ span K ({x} : Set V)
 omit [FiniteDimensional K V] in
-private theorem span_finrank_of_indep {I : Set V} (hI : LinearIndepOn K id I) :
+theorem span_finrank_of_indep {I : Set V} (hI : LinearIndepOn K id I) :
     finrank K (span K I) = I.ncard := by
   classical
   let : Fintype I := Fintype.ofFinite I
   have he : Set.range (fun x : I => (x : V)) = I := Subtype.range_coe
   have hli : LinearIndependent K (fun x : I => (x : V)) := hI
   rw [← he, finrank_span_eq_card hli, ← Nat.card_eq_fintype_card, Nat.card_coe_set_eq, he]
-private theorem linear_augment {I J : Set V}
+theorem linear_augment {I J : Set V}
     (hI : LinearIndepOn K id I) (hJ : LinearIndepOn K id J) (h : I.ncard < J.ncard) :
     ∃ e ∈ J, e ∉ I ∧ LinearIndepOn K id (insert e I) := by
   have hn : ¬ J ⊆ (span K I : Set V) := by
@@ -110,16 +110,36 @@ private theorem linear_augment {I J : Set V}
   obtain ⟨e, heJ, heI⟩ := Set.not_subset.mp hn
   have he : e ∉ I := fun h => heI (subset_span h)
   exact ⟨e, heJ, he, (linearIndepOn_id_insert he).2 ⟨hI, heI⟩⟩
+omit [FiniteDimensional K V] [Finite V] in
+theorem represented_empty (S : Set V) :
+    (∅ : Set V) ⊆ S ∧ LinearIndepOn K id (∅ : Set V) :=
+  ⟨Set.empty_subset _, linearIndepOn_empty K id⟩
+
+omit [FiniteDimensional K V] [Finite V] in
+theorem represented_subset (S : Set V) ⦃I J : Set V⦄ :
+    (J ⊆ S ∧ LinearIndepOn K id J) → I ⊆ J →
+    (I ⊆ S ∧ LinearIndepOn K id I) :=
+  fun h hIJ => ⟨hIJ.trans h.1, h.2.mono hIJ⟩
+
+theorem represented_augment (S : Set V) ⦃I J : Set V⦄
+    (hI : I ⊆ S ∧ LinearIndepOn K id I)
+    (hJ : J ⊆ S ∧ LinearIndepOn K id J) (hIJ : I.ncard < J.ncard) :
+    ∃ e ∈ J, e ∉ I ∧ insert e I ⊆ S ∧ LinearIndepOn K id (insert e I) := by
+  obtain ⟨e, heJ, heI, h⟩ := linear_augment hI.2 hJ.2 hIJ
+  exact ⟨e, heJ, heI, Set.insert_subset (hJ.1 heJ) hI.1, h⟩
+
+omit [FiniteDimensional K V] [Finite V] in
+theorem represented_ground (S : Set V) ⦃I : Set V⦄ :
+    (I ⊆ S ∧ LinearIndepOn K id I) → I ⊆ S :=
+  And.left
+
 def representedMatroid (S : Set V) : Matroid V :=
   (IndepMatroid.ofFinite (Set.toFinite S)
     (fun I => I ⊆ S ∧ LinearIndepOn K id I)
-    ⟨Set.empty_subset _, linearIndepOn_empty K id⟩
-    (by intro I J h hIJ; exact ⟨hIJ.trans h.1, h.2.mono hIJ⟩)
-    (by
-      intro I J hI hJ hIJ
-      obtain ⟨e, heJ, heI, h⟩ := linear_augment hI.2 hJ.2 hIJ
-      exact ⟨e, heJ, heI, Set.insert_subset (hJ.1 heJ) hI.1, h⟩)
-    (by intro I h; exact h.1)).matroid
+    (represented_empty (K := K) S)
+    (represented_subset (K := K) S)
+    (represented_augment (K := K) S)
+    (represented_ground (K := K) S)).matroid
 end ProjectiveModel
 
 section Main
