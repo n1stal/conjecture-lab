@@ -85,15 +85,19 @@ def table_cell(text):
 
 
 def result_block(rows):
-    lines = [BEGIN, "", "## Featured results", "",
+    lines = [BEGIN, "", "## Results checked on main", "",
              "| Problem | What we proved |", "| --- | --- |"]
     for row in research_order(rows):
-        if "featured" in row:
-            problem = table_cell(row.get("problem", row["title"]))
-            lines.append(f"| [{problem}]({landing_path(row)}) | {table_cell(row['summary'])} |")
+        problem = table_cell(row.get("problem", row["title"]))
+        lines.append(f"| [{problem}]({landing_path(row)}) | {table_cell(row['summary'])} |")
     for row in rows:
         if row["disposition"] == "known-baseline":
             lines.extend(("", f"**Checked baseline** · [{row['title']}]({landing_path(row)}). {row['summary']}"))
+    registrations = (ROOT / "docs/palomar-registrations.md").read_text()
+    lines.extend(("", "## Palomar registrations", "", *registrations.splitlines()[2:]))
+    branches = (ROOT / "docs/research-branches.md").read_text()
+    lines.extend(("", "<details>", "<summary>Research branches and preflight packages</summary>", "",
+                  *branches.splitlines()[2:], "", "</details>"))
     return "\n".join([*lines, "", END])
 
 

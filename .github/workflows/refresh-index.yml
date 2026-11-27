@@ -1,0 +1,48 @@
+name: Refresh result index
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'results/**'
+      - README.md
+      - docs/palomar-registrations.md
+      - scripts/check_publication.py
+      - scripts/sync_index_sources.py
+      - .github/workflows/refresh-index.yml
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-result-index
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+      - name: Refresh and publish the index
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            base=$(git rev-parse HEAD)
+            python3 scripts/sync_index_sources.py
+            python3 scripts/check_publication.py --write-catalogue --metadata-only
+            git add -- README.md results/README.md docs/palomar-registrations.md docs/research-branches.md
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Refresh the public result index'
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if [ "$(git rev-parse FETCH_HEAD)" = "$base" ]; then exit 1; fi
+            git checkout --detach FETCH_HEAD
+          done
+          exit 1
