@@ -1,0 +1,73 @@
+version: "v0.4"
+project:
+  name: "Sharp distance packing for four prescribed terminals"
+  description: >-
+    For positive integers k and p, among finite simple connected graphs with
+    distance-k packing number p, the maximum sum of the six pairwise shortest
+    distances on four distinct vertices is 6k + 4(k+1)(p−1). A distance-k packing
+    requires all its pairwise distances to exceed k. More generally, for
+    nonnegative integer terminal weights the maximum product-weighted sum is
+    k times the total weight of the six pairs plus (k+1)(p−1) times the maximum
+    weighted cut on the four terminals. Both endpoints prove the universal bound
+    and construct an attaining connected graph with exact packing number p.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C12", "05C69"]
+sources:
+  - title: "Sharp distance packing for four prescribed terminals"
+    authors: ["Jaime Nistal"]
+    type: "original-proof"
+    relationship: "other"
+    location: "EXACT-FOUR-PROOF.md and Palomar.FourTerminalPacking.Solution"
+    note: >-
+      The exact four-terminal result in its general packing and integer-weighted
+      scope is presented here. The documented prior special case is excluded
+      from any novelty claim; no broader priority claim is made.
+  - title: "Triameter, distance packings, and vertex connectivity"
+    authors: ["Artem Hak", "Sergiy Kozerenko"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2611.17259v1"
+    relationship: "background"
+    location: "Theorem 1.1 and Section 7, Question 3"
+    note: >-
+      Question 3 supplies the setting. The numerical three-terminal bound in
+      Theorem 1.1 is credited and proved within the Solution as an auxiliary
+      ingredient, with no imported theorem assumed by the compared endpoints.
+    author_endorsement: "not-contacted"
+  - title: "The average distance and the independence number"
+    authors: ["F. R. K. Chung"]
+    type: "paper"
+    id: "https://doi.org/10.1002/jgt.3190120213"
+    relationship: "background"
+    location: "Journal of Graph Theory 12 (1988), 229–235"
+    note: >-
+      Chung's average-distance theorem implies the unweighted k=1 upper
+      bound for an even number of terminals by true-clique cloning; this
+      includes the four-terminal unweighted special case.
+status:
+  scope: >-
+    Exact four-terminal packing extremum for all positive k and p, with
+    unweighted and nonnegative integer-weighted objectives. Does not claim
+    the finite extremum for five or more terminals or the disjoint-separator
+    branch of Question 3. Real weights are not a compared Lean target.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal directs the project and is responsible for it. Codex (OpenAI)
+    is credited for material AI-assisted mathematical reasoning, proof
+    development, and Lean formalization.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    The Solution was checked locally with warnings as errors on the pinned
+    Lean toolchain. No Palomar registration or human peer review is claimed.

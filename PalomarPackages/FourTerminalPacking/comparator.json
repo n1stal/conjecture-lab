@@ -1,0 +1,10 @@
+{
+  "challenge_module": "Palomar.FourTerminalPacking.Challenge",
+  "solution_module": "Palomar.FourTerminalPacking.Solution",
+  "theorem_names": [
+    "TriameterQ3Attainment.four_terminal_unweighted_exact",
+    "TriameterQ3Attainment.weighted_four_terminal_exact"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}

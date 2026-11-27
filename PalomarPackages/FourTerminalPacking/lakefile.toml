@@ -1,0 +1,11 @@
+name = "FourTerminalPackingPalomar"
+version = "1.0.0"
+defaultTargets = ["FourTerminalPackingSolution"]
+
+[[lean_lib]]
+name = "FourTerminalPackingChallenge"
+roots = ["Palomar.FourTerminalPacking.Challenge"]
+
+[[lean_lib]]
+name = "FourTerminalPackingSolution"
+roots = ["Palomar.FourTerminalPacking.Solution"]
