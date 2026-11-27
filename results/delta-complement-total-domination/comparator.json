@@ -1,0 +1,12 @@
+{
+  "challenge_module": "Palomar.ChenTotalDomination.Challenge",
+  "solution_module": "Palomar.ChenTotalDomination.Solution",
+  "theorem_names": [
+    "DeltaNordhaus.conjecture4"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

@@ -1,0 +1,94 @@
+version: "v0.4"
+
+project:
+  name: "Chen's total-domination conjecture for the delta complement"
+  description: >-
+    For every finite simple graph whose graph and delta complement have no
+    isolated vertices, the sum of their total-domination numbers is at most
+    the number of vertices plus twice the number of distinct vertex degrees
+    of the original graph. This is Conjecture 4 of Pinhe Chen.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C69", "03B35"]
+
+sources:
+  - title: "Refined Nordhaus–Gaddum-Type Bounds for Roman and Total Domination on δ-Complement Graphs"
+    authors: ["Pinhe Chen"]
+    type: "article"
+    id: "https://doi.org/10.3390/math14111797"
+    location: "Mathematics 14(11), 1797 (2026), Section 6.2, Conjecture 4"
+    relationship: "independently-proves"
+    note: >-
+      The source poses the exact statement proved here. Its Theorem 6
+      proves the bound when each induced degree-class pair is isolate-free,
+      and Example 3 shows sharpness of the conjectured bound. The formal
+      proof removes the extra per-class condition; no claim of mathematical
+      priority or a new sharpness example is made.
+    author_endorsement: "not-contacted"
+  - title: "Total domination in graphs"
+    authors: ["E. J. Cockayne", "R. M. Dawes", "S. T. Hedetniemi"]
+    type: "article"
+    id: "https://doi.org/10.1002/net.3230100304"
+    location: "Networks 10(3), 211–219 (1980), ordinary-complement sum bound; see also Chen's Theorem 5"
+    relationship: "background"
+    note: >-
+      The proof library establishes this classical upper bound internally
+      for isolate-free graph/complement pairs. It does not claim the
+      classical equality classification.
+
+status:
+  scope: >-
+    Full Chen Conjecture 4 for finite undirected loopless graphs, assuming
+    no isolated vertices in either graph. No per-class nonisolation,
+    connectedness, regularity or order cutoff is assumed. The formal
+    library's stronger arbitrary-partition statement is an internal
+    ingredient, not an additional Comparator target or registry claim.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+      tool_setup: "Independent source alignment and strict Lean replay against pinned Lean and Mathlib."
+  notes: >-
+    Jaime Nistal directs and maintains the work. Codex is credited for
+    AI-assisted proof development and checking, separately from the human
+    author list.
+
+fidelity:
+  divergences: >-
+    A graph is represented by a symmetric loopless relation on an arbitrary
+    finite vertex type. The delta complement toggles only pairs of
+    distinct vertices of equal original degree. The integer k is the
+    cardinality of the original degree image. Total domination is the
+    minimum cardinality of an open-neighborhood cover of every vertex,
+    including vertices in the cover; the implementation uses Nat.find
+    with an existence proof supplied by the input no-isolates assumption.
+    The statement also includes the harmless empty-vertex case.
+
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    The public mathematical proof at commit
+    4c7e0efd1d7c34c99a9fb4e1a7845cbc9cc6ad76 was strictly replayed with
+    the standard axioms only. No claim of human peer review or source
+    author endorsement.
+
+alignment:
+  namespace: "DeltaNordhaus"
+  statements:
+    - source: "Pinhe Chen, Mathematics 14(11), 1797 (2026), Section 6.2, Conjecture 4"
+      lean: "DeltaNordhaus.conjecture4"
+      module: "DeltaConjecture4"
+      status: "proved"
+      note: "The Solution exports this unchanged theorem from its proof module."
+
+acknowledgements: "Pinhe Chen for Conjecture 4 and its partial cases; Cockayne, Dawes, and Hedetniemi for the classical bound; Lean and Mathlib contributors."

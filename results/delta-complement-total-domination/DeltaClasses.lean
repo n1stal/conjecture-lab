@@ -1,5 +1,8 @@
-import DeltaNordhaus
+module
 
+public import DeltaNordhaus
+
+@[expose] public section
 namespace DeltaNordhaus
 open Finset
 open scoped BigOperators

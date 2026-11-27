@@ -1,5 +1,8 @@
-import DeltaClasses
+module
 
+public import DeltaClasses
+
+@[expose] public section
 namespace DeltaNordhaus
 open Finset
 
@@ -22,7 +25,7 @@ private theorem deltaSymm {V : Type*} [Fintype V] (A : V → V → Prop) (hs : I
   · exact (delta_adj_spec A j i).mpr (Or.inl ⟨h.1.symm,h.2.1.symm,fun e => h.2.2 (hs e)⟩)
   · exact (delta_adj_spec A j i).mpr (Or.inr ⟨h.1.symm,hs h.2⟩)
 
-private theorem coveringSizeExists {V : Type*} [Fintype V] (A : V → V → Prop)
+theorem coveringSizeExists {V : Type*} [Fintype V] (A : V → V → Prop)
     (h : NoIsolates A) :
     ∃ s : ℕ, ∃ D : Finset V, OpenCovers A Finset.univ D ∧ D.card=s := by
   refine ⟨Fintype.card V,Finset.univ,?_,Finset.card_univ⟩

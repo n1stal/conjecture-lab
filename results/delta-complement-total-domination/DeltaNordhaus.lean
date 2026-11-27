@@ -1,6 +1,9 @@
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
-import Mathlib.Tactic.Linarith
+module
 
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 namespace DeltaNordhaus
 open Finset
 open scoped BigOperators
