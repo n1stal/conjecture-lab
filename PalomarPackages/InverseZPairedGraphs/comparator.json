@@ -1,0 +1,16 @@
+{
+  "challenge_module": "Palomar.InverseZPairedGraphs.Challenge",
+  "solution_module": "Palomar.InverseZPairedGraphs.Solution",
+  "definition_names": [
+    "InverseZ.ThagomizerLiteral.inverseZCoeff",
+    "InverseZ.CompleteBipartiteLiteral.literalCoeff"
+  ],
+  "theorem_names": [
+    "InverseZ.BothFamilies.strict_and_positive"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

@@ -1,0 +1,74 @@
+version: "v0.4"
+project:
+  name: "Strict inverse Z log-concavity for thagomizers and their spine deletions"
+  description: >-
+    The ordinary inverse Z coefficients are positive and strictly log-concave
+    for both graphic matroid families of all ranks: the thagomizer
+    K_{1,1,n} and its spine deletion K_{2,n}, in exact finite graph-flat models.
+  authors: ["Jaime Nistal"]
+  responsible_maintainers: ["Jaime Nistal"]
+  license: "Apache-2.0"
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05B35", "05A20"]
+sources:
+  - title: "The inverse Z-polynomial of a matroid"
+    authors: ["Alice L. L. Gao", "Xuan Ruan", "Matthew H. Y. Xie"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2507.01332v1"
+    relationship: "background"
+    location: "Conjecture 1.5"
+    note: >-
+      The all-matroid scalar conjecture is not settled here; the theorem is
+      confined to two complementary graphic families of unbounded rank.
+    author_endorsement: "not-contacted"
+  - title: "Inverse Kazhdan–Lusztig polynomials of matroids under deletion"
+    authors: ["Tom Braden", "Luis Ferroni", "Jacob P. Matherne", "Nutan Nepal"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2510.01086v2"
+    relationship: "adapts"
+    location: "Theorem 2.2"
+    note: >-
+      Supplies the mathematical correspondence of the positive signed-flat sum
+      and the degree-cut/row-palindrome characterization used by the checked
+      thagomizer model. This generic theorem is not imported into Lean. The
+      Lean arithmetic identity and existence/uniqueness of the chosen coefficient
+      model are proved within the Solution.
+    author_endorsement: "not-contacted"
+  - title: "Equivariant inverse Kazhdan–Lusztig polynomials of thagomizer matroids"
+    authors: ["Alice L. L. Gao", "Yun Li", "Matthew H. Y. Xie"]
+    type: "paper"
+    id: "https://arxiv.org/abs/2510.11322v1"
+    relationship: "adapts"
+    location: "Theorem 1.2, Eq. (20), Corollary 4.3 Eq. (40), and Corollary 5.4"
+    note: >-
+      Gives ordinary inverse Kazhdan–Lusztig Q coefficients, the exact
+      deletion relation for Q of K_{2,n}, and log-concavity for Q. This is a different polynomial from the ordinary
+      inverse Z considered here.
+    author_endorsement: "not-contacted"
+status:
+  scope: >-
+    Both finite graphic families K_{1,1,n} and K_{2,n}, with no bound on rank.
+    Compiled endpoints use literal finite graph-flat coefficient sums for
+    explicit graphs, not Mathlib's general Matroid API. Their correspondence
+    uses the cited characterization and Q deletion formula. No claim for
+    arbitrary matroids, arbitrary complete bipartite graphs or equivariant LC.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI Dot and Codex"
+  notes: >-
+    Jaime Nistal directs and is responsible for this project; Codex (OpenAI)
+    is credited for material AI-assisted reasoning and Lean proof development.
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    Exact module-format inputs passed a cold local stdin replay on the pinned
+    toolchain, with an intentional Challenge hole and a warning-free Solution.
+    No official Comparator, registry submission, or independent peer review
+    is claimed.

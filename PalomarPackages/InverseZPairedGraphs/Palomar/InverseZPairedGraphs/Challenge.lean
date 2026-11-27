@@ -1,0 +1,190 @@
+module
+
+public import Std
+
+@[expose] public section
+
+namespace InverseZ.ThagomizerRows
+
+
+def bitWords : Nat → List (List Bool) :=
+  Nat.rec [[]] (fun _ xs => xs.map (false::·) ++ xs.map (true::·))
+
+end InverseZ.ThagomizerRows
+
+namespace InverseZ.ThagomizerFlatCounts
+open InverseZ.ThagomizerRows
+
+def assignments : Nat → List (List (Option Bool)) :=
+  Nat.rec [[]] (fun _ xs =>
+    xs.map ((none : Option Bool)::·) ++
+    xs.map ((some false)::·) ++ xs.map ((some true)::·))
+
+end InverseZ.ThagomizerFlatCounts
+
+namespace InverseZ.ThagomizerMarker
+open InverseZ.ThagomizerRows
+
+abbrev Row := Nat → Int → Nat
+
+def A (f : Row) (h : Nat) (i : Int) : Nat :=
+  f h i + f (h+1) i + (if h=0 then 0 else f (h-1) (i-1))
+
+def unmarked : Nat → Row :=
+  Nat.rec (fun _ i => if i=0 then 1 else 0) (fun _ f => A f)
+
+def Qmodel (n i : Nat) : Nat := unmarked n 0 (i:Int)
+
+end InverseZ.ThagomizerMarker
+
+namespace InverseZ.ThagomizerMobius
+open InverseZ.ThagomizerRows
+
+def boolMu (k : Nat) : Int := (-1)^k
+
+def thagMu (k : Nat) : Int := -((-2)^k)
+
+end InverseZ.ThagomizerMobius
+
+namespace InverseZ.ThagomizerFlat
+
+inductive Edge (n : Nat)
+  | spine
+  | spoke (side : Bool) (i : Fin n)
+
+def ofJoined (S : Fin n → Bool) : Edge n → Bool :=
+  fun e => Edge.casesOn e true (fun _ i => S i)
+
+def ofSplit (S : Fin n → Option Bool) : Edge n → Bool :=
+  fun e => Edge.casesOn e false (fun side i => S i == some side)
+
+end InverseZ.ThagomizerFlat
+
+namespace InverseZ.ThagomizerRank
+open InverseZ.ThagomizerFlat
+
+def bit (b : Bool) : Nat := if b then 1 else 0
+
+def countOn (L : List α) (f : α → Nat) : Nat := (L.map f).sum
+
+def finSum (f : Fin n → Nat) : Nat := countOn (List.finRange n) f
+
+def active (f : Edge n → Bool) (i : Fin n) : Nat :=
+  bit (f (.spoke false i) || f (.spoke true i))
+
+def double (f : Edge n → Bool) (i : Fin n) : Nat :=
+  bit (f (.spoke false i) && f (.spoke true i))
+
+def S (f : Edge n → Bool) : Nat := finSum (active f)
+
+def E (f : Edge n → Bool) : Nat := bit (f .spine) + finSum (double f)
+
+def rank (f : Edge n → Bool) : Nat := S f + min 1 (E f)
+
+end InverseZ.ThagomizerRank
+
+namespace InverseZ.ThagomizerLiteral
+open InverseZ.ThagomizerRows
+open InverseZ.ThagomizerFlatCounts
+open InverseZ.ThagomizerMobius
+open InverseZ.ThagomizerMarker
+open InverseZ.ThagomizerFlat
+open InverseZ.ThagomizerRank
+
+abbrev FullList (α : Type) (n : Nat) := {l : List α // l.length=n}
+
+abbrev FlatCode (n : Nat) := FullList Bool n ⊕ FullList (Option Bool) n
+
+theorem readCodeBound (l : FullList α n) (i : Fin n) : i.val < l.val.length :=
+  Eq.mpr (congrArg (fun m => i.val < m) l.property) i.isLt
+
+def readCode (l : FullList α n) (i : Fin n) : α :=
+  l.val.get ⟨i.val, readCodeBound l i⟩
+
+def graphOfCode : FlatCode n → (Edge n → Bool) :=
+  Sum.elim (fun bs => ofJoined (readCode bs)) (fun bs => ofSplit (readCode bs))
+
+def rankedSummand (Q : Nat → Nat → Nat) (n i : Nat) (c : FlatCode n) : Nat :=
+  let r := rank (graphOfCode c)
+  let d := rank (fun _ : Edge n => true)-r
+  Sum.elim (fun _ => if d≤i then (boolMu d).natAbs*Q (r-1) (i-d) else 0)
+    (fun _ => if i=d then (thagMu (d-1)).natAbs else 0) c
+
+def graphicRankFlatCoeff (Q : Nat → Nat → Nat) (n i : Nat) : Nat :=
+  ((bitWords n).map (fun l=>if h : l.length=n then rankedSummand Q n i (.inl ⟨l,h⟩) else 0)).sum +
+  ((assignments n).map (fun l=>if h : l.length=n then rankedSummand Q n i (.inr ⟨l,h⟩) else 0)).sum
+
+def inverseZCoeff (n i : Nat) : Nat := graphicRankFlatCoeff Qmodel n i
+
+
+end InverseZ.ThagomizerLiteral
+
+namespace InverseZ.CompleteBipartiteGraph
+open ThagomizerFlat ThagomizerLiteral
+def mask (f : Bool → Fin n → Bool) : Edge n → Bool :=
+  fun e => Edge.casesOn e false f
+
+
+def graph (c : FlatCode n) (s : Bool) (i : Fin n) : Bool :=
+  graphOfCode c (.spoke s i)
+
+
+end InverseZ.CompleteBipartiteGraph
+
+namespace InverseZ.CompleteBipartiteMobius
+open ThagomizerMobius
+def bipMu (n : Nat) : Int := thagMu n + boolMu n
+
+
+end InverseZ.CompleteBipartiteMobius
+
+namespace InverseZ.CompleteBipartiteDeletion
+def delta (a b : Nat) : Int := if a=b then 1 else 0
+
+
+def Qdelete (Q : Nat → Nat → Int) (k i : Nat) : Int :=
+  Q k i+(k-1 : Int)*delta i 1-delta i 0
+
+
+end InverseZ.CompleteBipartiteDeletion
+
+namespace InverseZ.CompleteBipartiteLiteral
+open ThagomizerRows ThagomizerMobius ThagomizerMarker ThagomizerFlatCounts ThagomizerLiteral ThagomizerRank
+open CompleteBipartiteGraph CompleteBipartiteMobius CompleteBipartiteDeletion
+def topRank (n : Nat) : Nat :=
+  rank (mask (fun (_ : Bool) (_ : Fin n) => true))
+
+def splitWeight (n k : Nat) : Nat :=
+  if k=0 then (bipMu n).natAbs else (thagMu (n-k)).natAbs
+
+def rankedTerm (n i : Nat) (c : FlatCode n) : Int :=
+  let r := rank (mask (graph c))
+  let d := topRank n-r
+  Sum.elim (fun _ => if r=0 then 0 else if d≤i then
+      ((boolMu d).natAbs:Int)*Qdelete (fun k j=>(Qmodel k j:Int)) (r-1) (i-d) else 0)
+    (fun _ => if i=d then (splitWeight n r:Int) else 0) c
+
+/-- Individual finite flat sum; a joined word whose grade is zero is excluded
+(the two hubs cannot be connected with no leaf and no spine). -/
+def literalCoeff (n i : Nat) : Int :=
+  if n=0 then delta i 0 else
+    ((bitWords n).map (fun l => if h : l.length=n then
+       if true ∈ l then rankedTerm n i (.inl ⟨l,h⟩) else 0 else 0)).sum +
+    ((assignments n).map (fun l => if h : l.length=n then rankedTerm n i (.inr ⟨l,h⟩) else 0)).sum
+
+
+end InverseZ.CompleteBipartiteLiteral
+
+namespace InverseZ.BothFamilies
+open ThagomizerLiteral CompleteBipartiteLiteral
+theorem strict_and_positive :
+    ((∀ n i : Nat, i≤n+1 → 0<inverseZCoeff n i) ∧
+     (∀ n i : Nat, i+1≤n →
+       inverseZCoeff n i*inverseZCoeff n (i+2) <
+       inverseZCoeff n (i+1)*inverseZCoeff n (i+1))) ∧
+    ((∀ n i : Nat, i≤(if n=0 then 0 else n+1) → 0<literalCoeff n i) ∧
+     (∀ n i : Nat, i+1≤n →
+       literalCoeff n i*literalCoeff n (i+2) <
+       literalCoeff n (i+1)*literalCoeff n (i+1))) :=
+  by sorry
+end InverseZ.BothFamilies

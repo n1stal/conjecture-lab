@@ -1,0 +1,11 @@
+name = "InverseZPairedGraphsPalomar"
+version = "1.0.0"
+defaultTargets = ["InverseZPairedGraphsSolution"]
+
+[[lean_lib]]
+name = "InverseZPairedGraphsChallenge"
+roots = ["Palomar.InverseZPairedGraphs.Challenge"]
+
+[[lean_lib]]
+name = "InverseZPairedGraphsSolution"
+roots = ["Palomar.InverseZPairedGraphs.Solution"]
