@@ -2,9 +2,21 @@
   "challenge_module": "Palomar.Turau.Challenge",
   "solution_module": "Palomar.Turau.Solution",
   "theorem_names": [
-    "ConjectureLab.TurauSubmission.conjecture_false",
-    "ConjectureLab.TurauSubmission.concrete_counterexample",
-    "ConjectureLab.TurauSubmission.infinite_family"
+    "AmnesiacStretched.literal_trace",
+    "AmnesiacStretched.center_injective",
+    "AmnesiacStretched.seed_image",
+    "AmnesiacStretched.graph_symm",
+    "AmnesiacStretched.graph_loopless",
+    "AmnesiacStretched.graph_nonbip",
+    "AmnesiacStretched.graph_connected",
+    "AmnesiacStretched.exact_radius",
+    "AmnesiacStretched.all_vertices_receive",
+    "AmnesiacStretched.exact_displayed_time",
+    "AmnesiacStretched.stretched_disproof"
   ],
-  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
 }

@@ -5,158 +5,115 @@ public import Lean
 @[expose] public section
 
 /-!
-Standalone statement model, intentionally without imports from this
-repository. Definitions are kept verbatim from the checked development so
-the Solution can reuse the proof without recreating the mathematics.
-Round index 0 means the first physical round. Silence at index t
-means no messages in the (t+1)-st round, not that the empty round is counted.
+Independent statement of the stretched path-and-ear flooding family.
+The implementation uses zero-based send rounds (index 0 is physical round 1).
+The centers are the displayed sources. The optimality deduction from Turau's
+Theorem 4(3) is cited, not a declaration in this Challenge.
 -/
 
-namespace Flooding
+namespace AmnesiacStretched
 
-abbrev Arc (n : Nat) := Fin n × Fin n
+inductive Role (L : Nat)
+  | center
+  | ear
+  | arm (right : Bool) (depth : Fin L)
+  deriving DecidableEq
 
-abbrev Edges (n : Nat) := List (Arc n)
+abbrev Vertex (k L : Nat) := Fin k × Role L
 
-def symmetric {n : Nat} (E : Edges n) : Prop :=
-  ∀ u v, (u,v) ∈ E → (v,u) ∈ E
+abbrev Msg (k L : Nat) := Vertex k L → Vertex k L → Prop
 
-def loopless {n : Nat} (E : Edges n) : Prop :=
-  ∀ u, (u,u) ∉ E
+def localAdj {L : Nat} : Role L → Role L → Prop
+  | .center, .ear | .ear, .center => True
+  | .center, .arm _ j | .arm _ j, .center => j.val = 0
+  | .ear, .arm _ j | .arm _ j, .ear => j.val = 0
+  | .arm s i, .arm t j => s=t ∧ (i.val+1=j.val ∨ j.val+1=i.val)
+  | _, _ => False
 
-inductive Walk {n : Nat} (E : Edges n) : Fin n → Fin n → Nat → Prop
-  | nil (u : Fin n) : Walk E u u 0
-  | cons {u v w : Fin n} {l : Nat} :
-      (u,v) ∈ E → Walk E v w l → Walk E u w (l+1)
+def bridge {k L : Nat} (u v : Vertex k L) : Prop :=
+  match u.2,v.2 with
+  | .arm s i,.arm t j => i.val+1=L ∧ j.val+1=L ∧
+      ((s=true ∧ t=false ∧ u.1.val+1=v.1.val) ∨
+       (s=false ∧ t=true ∧ v.1.val+1=u.1.val))
+  | _, _ => False
 
-def connected {n : Nat} (E : Edges n) : Prop :=
-  ∀ u v, ∃ l, Walk E u v l
+def adj {k L : Nat} (u v : Vertex k L) : Prop :=
+  (u.1=v.1 ∧ localAdj u.2 v.2) ∨ bridge u v
 
-def bipartite {n : Nat} (E : Edges n) : Prop :=
-  ∃ colors : Fin n → Bool, ∀ u v, (u,v) ∈ E → colors u ≠ colors v
+def seed {k L : Nat} (u : Vertex k L) : Prop := u.2=.center
 
-def radiusAtMost {n : Nat} (E : Edges n) (bound : Nat) : Prop :=
-  ∃ u, ∀ v, ∃ l ≤ bound, Walk E u v l
-
-def first {n : Nat} (E : Edges n) (S : List (Fin n)) : Edges n :=
-  E.filter fun e => decide (e.1 ∈ S)
-
-def next {n : Nat} (E M : Edges n) : Edges n :=
-  E.filter fun e => (M.any fun j => decide (j.2 = e.1)) && !(M.contains (e.2,e.1))
-
-def messages {n : Nat} (E : Edges n) (S : List (Fin n)) : Nat → Edges n :=
-  Nat.rec (first E S) (fun _ M => next E M)
-
-def quietAfter {n : Nat} (E : Edges n) (S : List (Fin n)) (r : Nat) : Prop :=
-  messages E S r = []
-
-def isFloodNumber {n : Nat} (E : Edges n) (k t : Nat) : Prop :=
-  (∃ S : List (Fin n), (S.Nodup ∧ S.length = k) ∧ quietAfter E S t) ∧
-  ∀ (S : List (Fin n)) (r : Nat), S.Nodup ∧ S.length = k → quietAfter E S r → t ≤ r
-
-def isRadius {n : Nat} (E : Edges n) (r : Nat) : Prop :=
-  radiusAtMost E r ∧ ∀ s, radiusAtMost E s → r ≤ s
-
-def TurauConjecture : Prop :=
-  ∀ (n : Nat) (E : Edges n) (k t r : Nat),
-    symmetric E → loopless E → connected E → ¬ bipartite E →
-    1 ≤ k → k ≤ n → isFloodNumber E k t → isRadius E r →
-    r + k - 1 ≤ k*t
-
-abbrev V := Fin 24
-
-def core : Edges 24 :=
-  [(0,1),(1,2),(2,3),(3,4),(4,5),(5,6),(6,7),(7,8),(8,9),(9,10),
-   (10,11),(11,12),(12,13),(13,14),(14,15),(15,16),(16,17),(17,18),(18,19),
-   (20,1),(20,2),(20,3),(21,6),(21,7),(21,8),
-   (22,11),(22,12),(22,13),(23,16),(23,17),(23,18)]
-
-def graph : Edges 24 := core ++ core.map Prod.swap
-
-def seed : List V := [2,7,12,17]
-
-end Flooding
-
-namespace FloodFamily
-
-abbrev Role := Fin 6 -- a,b,c,d,e,x
-
-abbrev Vertex (k : Nat) := Fin k × Role
-
-abbrev Matrix := Role → Role → Bool
-
-def roleEdges : List (Role × Role) :=
-  [(0,1),(1,2),(2,3),(3,4),(1,5),(2,5),(3,5)]
-
-def localAdj : Matrix := fun u v =>
-  roleEdges.contains (u,v) || roleEdges.contains (v,u)
-
-def linked {k : Nat} (u v : Vertex k) : Prop :=
-  (u.2 = 4 ∧ v.2 = 0 ∧ u.1.val+1=v.1.val) ∨
-  (u.2 = 0 ∧ v.2 = 4 ∧ v.1.val+1=u.1.val)
-
-def adj {k : Nat} (u v : Vertex k) : Prop :=
-  (u.1=v.1 ∧ localAdj u.2 v.2 = true) ∨ linked u v
-
-abbrev Msg (k : Nat) := Vertex k → Vertex k → Prop
-
-def next {k : Nat} (M : Msg k) (u v : Vertex k) : Prop :=
+def next {k L : Nat} (M : Msg k L) (u v : Vertex k L) : Prop :=
   adj u v ∧ (∃ w, M w u) ∧ ¬ M v u
 
-inductive Walk {k : Nat} : Vertex k → Vertex k → Nat → Prop
+def rounds {k L : Nat} : Nat → Msg k L
+  | 0 => fun u v => seed u ∧ adj u v
+  | r+1 => next (rounds r)
+
+def localTrace {L : Nat} (r : Nat) : Role L → Role L → Prop
+  | .center, .ear => r=0
+  | .center, .arm _ j => j.val=0 ∧ r=0
+  | .ear, .center => r=2
+  | .ear, .arm _ j => j.val=0 ∧ r=1
+  | .arm _ j, .center => j.val=0 ∧ r=2
+  | .arm _ j, .ear => j.val=0 ∧ r=1
+  | .arm s i, .arm t j => s=t ∧ i.val+1=j.val ∧ (r=i.val+1 ∨ r=i.val+2)
+  | _,_ => False
+
+def trace {k L : Nat} (r : Nat) (u v : Vertex k L) : Prop :=
+  (u.1=v.1 ∧ localTrace r u.2 v.2) ∨ (bridge u v ∧ r=L)
+
+def width (L : Nat) : Nat := 2*L+1
+
+inductive Walk {k L : Nat} : Vertex k L → Vertex k L → Nat → Prop
   | nil (u) : Walk u u 0
-  | cons {u v w l} : adj u v → Walk v w l → Walk u w (l+1)
+  | cons {u v w n} : adj u v → Walk v w n → Walk u w (n+1)
 
-def radiusAtMost {k : Nat} (r : Nat) : Prop :=
-  ∃ u : Vertex k, ∀ v, ∃ l ≤ r, Walk u v l
+def radiusAtMost {k L : Nat} (r : Nat) : Prop :=
+  ∃ u : Vertex k L, ∀ v, ∃ n≤r, Walk u v n
 
-def roundsFrom {k : Nat} (S : Vertex k → Prop) : Nat → Msg k :=
-  Nat.rec (fun u v => S u ∧ adj u v) (fun _ M => next M)
+def centerOf {L : Nat} {k : Nat} (i : Fin k) : Vertex k L := (i,.center)
 
-def hasKSeeds {k : Nat} (S : Vertex k → Prop) : Prop :=
-  ∃ f : Fin k → Vertex k, (∀ i j, f i = f j → i = j) ∧ ∀ v, S v ↔ ∃ i, f i = v
+theorem literal_trace {k L : Nat} (hL : 0<L) (r : Nat) (u v : Vertex k L) :
+    rounds r u v ↔ trace r u v := by
+  sorry
 
-def quietAfter {k : Nat} (S : Vertex k → Prop) (t : Nat) : Prop :=
-  ∀ u v : Vertex k, ¬ roundsFrom S t u v
+theorem center_injective {k L : Nat} : Function.Injective (centerOf (k:=k) (L:=L)) := by
+  sorry
 
-def isFloodNumber {k : Nat} (t : Nat) : Prop :=
-  (∃ S : Vertex k → Prop, hasKSeeds S ∧ quietAfter S t) ∧
-  ∀ (S : Vertex k → Prop) r, hasKSeeds S → quietAfter S r → t ≤ r
+theorem seed_image {k L : Nat} (u : Vertex k L) :
+    seed u ↔ ∃ i : Fin k, centerOf i=u := by
+  sorry
 
-def isRadius {k : Nat} (r : Nat) : Prop :=
-  radiusAtMost (k:=k) r ∧ ∀ s, radiusAtMost (k:=k) s → r ≤ s
+theorem graph_symm {k L : Nat} {u v : Vertex k L} (h : adj u v) : adj v u := by
+  sorry
 
-end FloodFamily
+theorem graph_loopless {k L : Nat} (u : Vertex k L) : ¬ adj u u := by
+  sorry
 
-namespace ConjectureLab.TurauSubmission
+theorem graph_nonbip {k L : Nat} (hk : 0<k) (hL : 0<L) :
+    ¬ ∃ f : Vertex k L → Bool, ∀ u v, adj u v → f u ≠ f v := by
+  sorry
 
-/-- Exact negation of the inequality posed in Turau, arXiv:2002.10752v4, §8.
-This is not the weaker proved bound in Theorem 4. -/
-theorem conjecture_false : ¬ Flooding.TurauConjecture := by sorry
+theorem graph_connected {k L : Nat} (hk : 0<k) (hL : 0<L)
+    (u v : Vertex k L) : ∃ n, Walk u v n := by
+  sorry
 
-/-- Explicit 24-vertex certificate, with physical rounds 1, 2 and 3
-carrying 12, 24 and 26 messages and round 4 empty. -/
-theorem concrete_counterexample :
-    Flooding.symmetric Flooding.graph ∧ Flooding.loopless Flooding.graph ∧
-    Flooding.connected Flooding.graph ∧ ¬ Flooding.bipartite Flooding.graph ∧
-    Flooding.seed.Nodup ∧ Flooding.seed.length = 4 ∧
-    (Flooding.messages Flooding.graph Flooding.seed 0).length = 12 ∧
-    (Flooding.messages Flooding.graph Flooding.seed 1).length = 24 ∧
-    (Flooding.messages Flooding.graph Flooding.seed 2).length = 26 ∧
-    (Flooding.messages Flooding.graph Flooding.seed 3).length = 0 ∧
-    ∃ t, Flooding.isFloodNumber Flooding.graph 4 t ∧
-      Flooding.isRadius Flooding.graph 10 ∧ t ≤ 3 ∧ 4*t < 10+4-1 := by sorry
+theorem exact_radius {k L r : Nat} (hk : 0<k) (hL : 0<L) :
+    radiusAtMost (k:=k) (L:=L) r ↔ k*width L/2≤r := by
+  sorry
 
-/-- The chain of k six-vertex gadgets is a simple connected non-bipartite
-counterexample for each k ≥ 4. The literal optimal k-seed time t is at
-most 3; the exact radius is floor(5k/2). -/
-theorem infinite_family (k : Nat) (hk : 4 ≤ k) :
-    (∀ u v : FloodFamily.Vertex k, FloodFamily.adj u v → FloodFamily.adj v u) ∧
-    (∀ u : FloodFamily.Vertex k, ¬ FloodFamily.adj u u) ∧
-    (∀ u v : FloodFamily.Vertex k, ∃ l, FloodFamily.Walk u v l) ∧
-    (¬ ∃ color : FloodFamily.Vertex k → Bool,
-      ∀ u v, FloodFamily.adj u v → color u ≠ color v) ∧
-    ∃ t, FloodFamily.isFloodNumber (k:=k) t ∧ FloodFamily.isRadius (k:=k) (5*k/2) ∧
-      t ≤ 3 ∧ k*t < (5*k/2)+k-1 ∧ (5*k/2)+k-1-k*t ≥ k/2-1 := by sorry
+theorem all_vertices_receive {k L : Nat} (hL : 2≤L) (u : Vertex k L) :
+    ∃ r≤L, ∃ v, rounds r v u := by
+  sorry
 
-end ConjectureLab.TurauSubmission
+theorem exact_displayed_time {k t : Nat} (hk : 0<k) (ht : 3≤t) (n : Nat) :
+    (∃ u v : Vertex k (t-1), rounds n u v) ↔ n<t := by
+  sorry
+
+theorem stretched_disproof {k t : Nat} (hk : 4≤k) (ht : 3≤t) :
+    (∀ r, radiusAtMost (k:=k) (L:=t-1) r ↔ k*t-(k+1)/2≤r) ∧
+    (∀ n, (∃ u v : Vertex k (t-1), rounds n u v) ↔ n<t) ∧
+    k*t<(k*t-(k+1)/2)+k-1 := by
+  sorry
+
+end AmnesiacStretched
